@@ -91,7 +91,7 @@ async function callGrok(prompt: string, key: string): Promise<string | null> {
       prompt,
       image: {
         type: "image_url",
-        url: `data:image/png;base64,${arc_REFERENCE_PNG_BASE64}`,
+        url: `data:image/png;base64,${ARC_REFERENCE_PNG_BASE64}`,
       },
       response_format: "b64_json",
     }),
