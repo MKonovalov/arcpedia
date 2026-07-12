@@ -2,7 +2,7 @@ import type { ProviderInfo } from "./types";
 import { hasEmbeddingSupport } from "./embeddings";
 import { isEnoent } from "./errors";
 import { VALID_PROVIDERS, DEFAULT_MODELS } from "./providers";
-import type { EmbeddingProvider } from "./providers";
+import type { EmbeddingProvider, ProviderValue } from "./providers";
 import { logger } from "./logger";
 import { getDataDir } from "./paths";
 import { getStorage } from "./storage";
@@ -16,7 +16,7 @@ export type { ProviderValue } from "./providers";
 // ---------------------------------------------------------------------------
 
 export interface AppConfig {
-  provider?: "anthropic" | "openai" | "google" | "deepseek" | "ollama";
+  provider?: ProviderValue;
   model?: string;
   ollamaBaseUrl?: string;
   embeddingModel?: string;

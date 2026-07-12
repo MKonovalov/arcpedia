@@ -93,8 +93,8 @@ export async function PUT(request: Request) {
     if (body.provider !== undefined) {
       if (body.provider === null) {
         delete updated.provider;
-      } else {
-        updated.provider = body.provider as AppConfig["provider"];
+      } else if (isValidProvider(body.provider)) {
+        updated.provider = body.provider;
       }
     }
 
