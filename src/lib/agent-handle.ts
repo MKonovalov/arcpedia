@@ -5,13 +5,13 @@
  * the server. `agents.ts` re-exports these for existing server importers.
  */
 
-/** The default agent name every user gets (the canonical "yoyo"). */
-export const DEFAULT_AGENT_NAME = "yoyo";
+/** The default agent name every user gets (the canonical "arc"). */
+export const DEFAULT_AGENT_NAME = "arc";
 
 /**
  * True when an author/actor handle denotes an agent rather than a human.
- * Agents appear as the composite id `<owner>--<name>` (e.g. `yuanhao--yoyo`)
- * or, in some legacy attributions, as the bare agent name (`yoyo`). Used to
+ * Agents appear as the composite id `<owner>--<name>` (e.g. `yuanhao--arc`)
+ * or, in some legacy attributions, as the bare agent name (`arc`). Used to
  * mark agent contributions distinctly across the UI — never to fold agents
  * into the human contributor list (or to link them to a `/u/<handle>` profile).
  */
@@ -28,9 +28,9 @@ export function isAgentHandle(handle: string | null | undefined): boolean {
  * Non-human automation authors: the seed/system placeholder, the auto-linter,
  * and the platform seed identity. They aren't people and shouldn't appear as
  * their own contributors — their edits are part of the agent's autonomous
- * upkeep, so {@link normalizeActor} folds them into the agent ("yoyo").
+ * upkeep, so {@link normalizeActor} folds them into the agent ("arc").
  */
-const AUTOMATION_ACTORS = new Set(["system", "lint-fix", "yopedia"]);
+const AUTOMATION_ACTORS = new Set(["system", "lint-fix", "arcpedia"]);
 
 /** True when a handle is a non-human automation actor (seed/system/linter). */
 export function isAutomationActor(handle: string | null | undefined): boolean {
@@ -39,7 +39,7 @@ export function isAutomationActor(handle: string | null | undefined): boolean {
 
 /**
  * Normalize an author/actor for attribution: automation actors (system, the
- * linter, the platform seed) are credited to the agent ("yoyo") so the
+ * linter, the platform seed) are credited to the agent ("arc") so the
  * contributor list reads as the real people plus the agent, not a scatter of
  * one-off system handles. Real human/agent handles pass through unchanged.
  */

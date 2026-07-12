@@ -44,7 +44,7 @@ function deriveSourceType(url: string): "x-mention" | "url" | "text" {
  *   - the **agent's own token** — self-scoping; can only ingest into the agent
  *     whose id it carries (mismatch → 403). Used by e.g. openclaw.
  *   - the **system token** — yopedia's trusted automation (e.g. the
- *     @yoyoevolve X-mention loop). It can target any agent, but the agent must
+ *     @arcevolve X-mention loop). It can target any agent, but the agent must
  *     EXIST (404 otherwise), which is how "only ingest for a registered user"
  *     is enforced — a mention from a non-user hits a 404 and is skipped.
  * This route is exempt from the middleware write-gate because it uses a token.
@@ -62,7 +62,7 @@ function deriveSourceType(url: string): "x-mention" | "url" | "text" {
  *   - `asOwner: true` (system token OR per-agent token): the page is ingested
  *     as the agent's **human owner's own content** — a normal public page
  *     owned/authored by the owner, in their `/u/<handle>` + the commons, NOT
- *     agent knowledge. For the system token this is the @yoyoevolve "save this
+ *     agent knowledge. For the system token this is the @arcevolve "save this
  *     to my wiki" reply flow; for per-agent tokens this is the deliberate
  *     agent→commons publish path (the owner is resolved from the agent record).
  */
@@ -94,7 +94,7 @@ export async function POST(req: Request, { params }: RouteParams) {
       }
     } else if (getServicePrincipal(req)) {
       // System token: trusted to target any agent, but it must exist — this is
-      // the "registered user only" gate for the @yoyoevolve loop.
+      // the "registered user only" gate for the @arcevolve loop.
       try {
         agentRecord = await getAgent(id);
       } catch (err) {

@@ -9,7 +9,7 @@ import {
 } from "./wiki";
 import { slugify } from "./slugify";
 import { htmlToPlainText, stripHtmlFence } from "./html";
-import { bakeYoyoIllustrations } from "./illustration";
+import { bakearcIllustrations } from "./illustration";
 import { extractSummary } from "./ingest";
 import { loadPageConventions } from "./schema";
 import { serializeFrontmatter } from "./frontmatter";
@@ -92,7 +92,7 @@ VISUALS — make slides rich (all components are pre-styled — just use the cla
 - \`<div class="grid"> <div class="card">…</div> … </div>\` — card grid; \`<div class="stat"><span class="num">87%</span><span class="label">caption</span></div>\` — big-number stats; \`<div class="callout">…</div>\`, \`<span class="badge">tag</span>\`, \`<blockquote>\`, \`<table>\`.
 - CHARTS (data): a Chart.js chart in \`<figure><div class="chart"><canvas id="c1"></canvas></div></figure>\` + an inline \`<script>new Chart(...)</script>\` with \`responsive:true, maintainAspectRatio:false\`. Palette: \`#4d6bfe,#11a36b,#e8893a,#9b59d0,#d24d6b,#3aa6c4\`.
 - DIAGRAMS (structure — flow/architecture/sequence): a Mermaid diagram in \`<pre class="mermaid">graph TD; A--&gt;B</pre>\` (no fence, no script). Keep node labels short.
-- Include **exactly one** hand-drawn **yoyo illustration**, on the single slide where a metaphor/judgment/before-after lands better as a picture. Request it EXACTLY as on an HTML article page: an EMPTY figure carrying the scene — \`<figure class="yoyo-illustration" data-scene="A short scene: what the yoyo octopus is doing with its tentacles to express the idea, plus 2-4 short labels"></figure>\` — which is replaced by a generated image automatically. Leave it empty: NO \`<img>\`, and NEVER draw the illustration yourself with emoji, CSS gradients, or \`::before\`/\`::after\` art. One only; for feeling/metaphor, not data/structure.`;
+- Include **exactly one** hand-drawn **arc illustration**, on the single slide where a metaphor/judgment/before-after lands better as a picture. Request it EXACTLY as on an HTML article page: an EMPTY figure carrying the scene — \`<figure class="arc-illustration" data-scene="A short scene: what the arc octopus is doing with its tentacles to express the idea, plus 2-4 short labels"></figure>\` — which is replaced by a generated image automatically. Leave it empty: NO \`<img>\`, and NEVER draw the illustration yourself with emoji, CSS gradients, or \`::before\`/\`::after\` art. One only; for feeling/metaphor, not data/structure.`;
 
 /**
  * Extra system-prompt instruction appended when the caller requests an HTML
@@ -131,9 +131,9 @@ DIAGRAMS — use Mermaid for structure (Chart.js is for data)
   \`<pre class="mermaid">\nflowchart LR\n  A[Source] --> B[Ingest] --> C[Cited page]\n</pre>\`
 - Supports \`flowchart\`/\`graph\`, \`sequenceDiagram\`, \`classDiagram\`, \`stateDiagram\`, \`erDiagram\`, and more. Keep node labels short; it's themed automatically — do not set colors.
 
-ILLUSTRATIONS — a hand-drawn yoyo picture, sparingly (feeling, not data/structure)
+ILLUSTRATIONS — a hand-drawn arc picture, sparingly (feeling, not data/structure)
 - Include **at least one** hand-drawn brand illustration (and up to 3, for the places where a metaphor, a key judgment, a before/after, or a change-of-state lands better as a PICTURE than prose). Request each with an EMPTY figure that carries the scene:
-  \`<figure class="yoyo-illustration" data-scene="A short scene: what the yoyo octopus is doing with its tentacles to express the idea, plus 2-4 short labels"></figure>\`
+  \`<figure class="arc-illustration" data-scene="A short scene: what the arc octopus is doing with its tentacles to express the idea, plus 2-4 short labels"></figure>\`
 - It renders to a generated image automatically (leave the figure empty — no \`<img>\`). Use it for FEELING/METAPHOR; use Chart.js for data and Mermaid for structure. Never more than 3.
 
 INTERACTIVITY (optional, encouraged where it adds insight)
@@ -244,7 +244,7 @@ export async function buildQuerySystemPrompt(
  * `"slides"` asks for a Marp slide deck.
  *
  * The optional `scope` filters search to a subset of pages (e.g.
- * `"agent:yoyo"` limits to that agent's pages).
+ * `"agent:arc"` limits to that agent's pages).
  */
 export async function query(
   question: string,
@@ -313,7 +313,7 @@ export async function query(
       maxOutputTokens: QUERY_MAX_OUTPUT_TOKENS,
     });
 
-    // Bake yoyo illustrations into slides/HTML answers now, server-side: each
+    // Bake arc illustrations into slides/HTML answers now, server-side: each
     // scene is generated once, stored in R2, and the directive is replaced with
     // its `/api/assets/…` URL. This is the single generation point — every
     // viewer (including anonymous shares) then loads the finished image by URL
@@ -321,8 +321,8 @@ export async function query(
     const answer =
       format === "slides" || format === "html"
         ? // slides answers are HTML decks now, so bake via the HTML path too —
-          // else the live preview shows an un-baked empty <figure>.
-          await bakeYoyoIllustrations(raw, format === "html" || format === "slides")
+        // else the live preview shows an un-baked empty <figure>.
+        await bakearcIllustrations(raw, format === "html" || format === "slides")
         : raw;
 
     // All slugs in the wiki are valid citation targets
@@ -344,11 +344,11 @@ export async function query(
  * directly — it's already a well-formatted page with citations. The actual
  * write/index/cross-ref/log dance is delegated to
  * {@link writeWikiPageWithSideEffects} so this path can never drift from
- * `ingest()` again (see `.yoyo/learnings.md` — "Parallel write-paths drift").
+ * `ingest()` again (see `.arc/learnings.md` — "Parallel write-paths drift").
  *
  * The optional `sources` parameter accepts an array of wiki page slugs cited
  * in the answer. These are stored as `wiki-ref` provenance entries in the
- * page's frontmatter, fulfilling yopedia's provenance contract.
+ * page's frontmatter, fulfilling arcpedia's provenance contract.
  *
  * Returns the slug of the newly created wiki page.
  */
@@ -376,12 +376,12 @@ export async function saveAnswerToWiki(
   const isArtifact = contentType !== "markdown";
 
   // Bake illustrations as an idempotent safety net. Answers from `query()`
-  // already have their `yoyo-illustration` directives baked into `/api/assets/…`
+  // already have their `arc-illustration` directives baked into `/api/assets/…`
   // refs (a no-op here), but a directly-supplied/edited body might still carry
   // one — generate it server-side, store it in R2, embed the URL. A directive
   // that can't be generated is dropped. No-op when there are none. Mermaid stays
   // client-rendered (it's free). (Slides bake as markdown.)
-  const content = await bakeYoyoIllustrations(rawContent, isHtml);
+  const content = await bakearcIllustrations(rawContent, isHtml);
 
   // Body, by type:
   //  - HTML / slides: strip a wrapping ```html fence; store the HTML verbatim, no
@@ -401,9 +401,9 @@ export async function saveAnswerToWiki(
   const plainContent = isHtml
     ? htmlToPlainText(html)
     : content
-        .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
-        .replace(/^#.*$/gm, "")
-        .trim();
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+      .replace(/^#.*$/gm, "")
+      .trim();
   const summary = extractSummary(plainContent) || title;
 
   // Wrap in YAML frontmatter so saved answers have the same metadata as

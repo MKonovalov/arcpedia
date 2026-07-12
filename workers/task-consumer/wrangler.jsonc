@@ -1,44 +1,47 @@
 {
-  // Standalone consumer for the yopedia agent task queue. Separate from the main
-  // yopedia (OpenNext) Worker so we get a first-class Queues consumer without
-  // wrapping the OpenNext entry. It drains `yopedia-tasks` and POSTs each task to
-  // the deployed yopedia `/api/tasks/run` endpoint with the system token — a thin
+  // Standalone consumer for the arcpedia agent task queue. Separate from the main
+  // arcpedia (OpenNext) Worker so we get a first-class Queues consumer without
+  // wrapping the OpenNext entry. It drains `arcpedia-tasks` and POSTs each task to
+  // the deployed arcpedia `/api/tasks/run` endpoint with the system token — a thin
   // dispatcher; the actual work runs in the main app (full lib + OpenNext context).
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "yopedia-task-consumer",
+  "name": "arcpedia-task-consumer",
   "main": "index.ts",
   "compatibility_date": "2025-01-01",
-
-  // The /api/tasks/run call targets the main yopedia Worker on the same zone. A
+  // The /api/tasks/run call targets the main arcpedia Worker on the same zone. A
   // plain same-zone Worker→Worker fetch is blocked (error 1042); this flag makes
   // fetch() resolve as a normal public request.
-  "compatibility_flags": ["global_fetch_strictly_public"],
-
+  "compatibility_flags": [
+    "global_fetch_strictly_public"
+  ],
   // Autonomous-maintenance cron (Q2): daily, POSTs /api/tasks/scan. The scan
   // DRY-RUNS (logs only) until AUTONOMOUS_MAINTENANCE="on" is set on the main
   // worker — so this trigger is safe to ship before maintenance is enabled.
-  "triggers": { "crons": ["0 6 * * *"] },
-
+  "triggers": {
+    "crons": [
+      "0 6 * * *"
+    ]
+  },
   // Queue consumer. One-time provisioning of the queue + dead-letter queue:
-  //   npx wrangler queues create yopedia-tasks
-  //   npx wrangler queues create yopedia-tasks-dlq
+  //   npx wrangler queues create arcpedia-tasks
+  //   npx wrangler queues create arcpedia-tasks-dlq
   "queues": {
     "consumers": [
       {
-        "queue": "yopedia-tasks",
-        "dead_letter_queue": "yopedia-tasks-dlq",
+        "queue": "arcpedia-tasks",
+        "dead_letter_queue": "arcpedia-tasks-dlq",
         "max_retries": 3,
         "max_batch_size": 5,
         "max_batch_timeout": 10
       }
     ]
   },
-
   // Base URL the consumer POSTs maintenance/ingest tasks back to (server-to-server,
-  // authed with YOPEDIA_SERVICE_TOKEN). Uses the custom domain so it survives
+  // authed with arcpedia_SERVICE_TOKEN). Uses the custom domain so it survives
   // retiring the .workers.dev route.
-  "vars": { "YOPEDIA_URL": "https://yopedia.yolog.dev" }
-
+  "vars": {
+    "arcpedia_URL": "https://arcpedia.yolog.dev"
+  }
   // Secret (set with `wrangler secret put --config workers/task-consumer/wrangler.jsonc`):
-  //   YOPEDIA_SERVICE_TOKEN — the system write credential (same value as the main Worker's)
+  //   arcpedia_SERVICE_TOKEN — the system write credential (same value as the main Worker's)
 }

@@ -1,4 +1,4 @@
-# yopedia Product Context
+# arcpedia Product Context
 
 ## Register
 
@@ -6,7 +6,7 @@ Brand.
 
 ## Product Purpose
 
-yopedia is a wiki for the agent age: a **collective second brain** for humans and agents. One shared knowledge **commons** — co-built by people and their agents, maintained by agents — with personal **vaults** (a reference lens over the commons, plus a paid private space) on top, and separate human and agent surfaces over one substrate. It is not a RAG interface. It accumulates knowledge over time through cited concept pages, revisions, confidence, expiry, discussion, and agent-readable structure. See [`yopedia-concept.md`](yopedia-concept.md) for the full model.
+arcpedia is a wiki for the agent age: a **collective second brain** for humans and agents. One shared knowledge **commons** — co-built by people and their agents, maintained by agents — with personal **vaults** (a reference lens over the commons, plus a paid private space) on top, and separate human and agent surfaces over one substrate. It is not a RAG interface. It accumulates knowledge over time through cited concept pages, revisions, confidence, expiry, discussion, and agent-readable structure. See [`arcpedia-concept.md`](arcpedia-concept.md) for the full model.
 
 ## Audience
 
@@ -14,7 +14,7 @@ The public audience includes builders, researchers, and technically curious obse
 
 ## Brand Position
 
-yopedia should feel like a public research lab, not a generic SaaS dashboard and not terminal cosplay. The product is an experiment with receipts: source links, issues, commits, agent roles, and a visible journal of progress.
+arcpedia should feel like a public research lab, not a generic SaaS dashboard and not terminal cosplay. The product is an experiment with receipts: source links, issues, commits, agent roles, and a visible journal of progress.
 
 ## Tone
 

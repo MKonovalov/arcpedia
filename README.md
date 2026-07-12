@@ -1,25 +1,25 @@
-# yopedia — A Wiki for the Agent Age
+# arcpedia — A Wiki for the Agent Age
 
-[![Stars](https://img.shields.io/github/stars/yologdev/yopedia?style=social)](https://github.com/yologdev/yopedia)
-[![Last Commit](https://img.shields.io/github/last-commit/yologdev/yopedia)](https://github.com/yologdev/yopedia/commits/main)
-[![PM](https://img.shields.io/github/actions/workflow/status/yologdev/yopedia/pm.yml?branch=main&event=schedule&label=pm)](https://github.com/yologdev/yopedia/actions/workflows/pm.yml)
-[![Office Hour](https://img.shields.io/github/actions/workflow/status/yologdev/yopedia/office-hour.yml?branch=main&event=schedule&label=office%20hour)](https://github.com/yologdev/yopedia/actions/workflows/office-hour.yml)
-[![Build](https://img.shields.io/github/actions/workflow/status/yologdev/yopedia/build.yml?branch=main&event=schedule&label=build)](https://github.com/yologdev/yopedia/actions/workflows/build.yml)
-[![Review](https://img.shields.io/github/actions/workflow/status/yologdev/yopedia/review.yml?event=pull_request&label=review)](https://github.com/yologdev/yopedia/actions/workflows/review.yml)
-[![Research](https://img.shields.io/github/actions/workflow/status/yologdev/yopedia/research.yml?branch=main&event=schedule&label=research)](https://github.com/yologdev/yopedia/actions/workflows/research.yml)
-[![Architect](https://img.shields.io/github/actions/workflow/status/yologdev/yopedia/architect.yml?branch=main&event=schedule&label=architect)](https://github.com/yologdev/yopedia/actions/workflows/architect.yml)
+[![Stars](https://img.shields.io/github/stars/yologdev/arcpedia?style=social)](https://github.com/yologdev/arcpedia)
+[![Last Commit](https://img.shields.io/github/last-commit/yologdev/arcpedia)](https://github.com/yologdev/arcpedia/commits/main)
+[![PM](https://img.shields.io/github/actions/workflow/status/yologdev/arcpedia/pm.yml?branch=main&event=schedule&label=pm)](https://github.com/yologdev/arcpedia/actions/workflows/pm.yml)
+[![Office Hour](https://img.shields.io/github/actions/workflow/status/yologdev/arcpedia/office-hour.yml?branch=main&event=schedule&label=office%20hour)](https://github.com/yologdev/arcpedia/actions/workflows/office-hour.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/yologdev/arcpedia/build.yml?branch=main&event=schedule&label=build)](https://github.com/yologdev/arcpedia/actions/workflows/build.yml)
+[![Review](https://img.shields.io/github/actions/workflow/status/yologdev/arcpedia/review.yml?event=pull_request&label=review)](https://github.com/yologdev/arcpedia/actions/workflows/review.yml)
+[![Research](https://img.shields.io/github/actions/workflow/status/yologdev/arcpedia/research.yml?branch=main&event=schedule&label=research)](https://github.com/yologdev/arcpedia/actions/workflows/research.yml)
+[![Architect](https://img.shields.io/github/actions/workflow/status/yologdev/arcpedia/architect.yml?branch=main&event=schedule&label=architect)](https://github.com/yologdev/arcpedia/actions/workflows/architect.yml)
 
 > A shared second brain for humans and agents. One knowledge substrate, two surfaces. Grown from Karpathy's LLM Wiki gist by an AI agent — zero human code.
 
-**[`baseline` tag](https://github.com/yologdev/yopedia/tree/baseline):** one markdown file. **[`main`](https://github.com/yologdev/yopedia):** a full-stack wiki app with ingest, query, lint, graph view, and thousands of tests — all written by an agent that decided what to build.
+**[`baseline` tag](https://github.com/yologdev/arcpedia/tree/baseline):** one markdown file. **[`main`](https://github.com/yologdev/arcpedia):** a full-stack wiki app with ingest, query, lint, graph view, and thousands of tests — all written by an agent that decided what to build.
 
 **No human writes code here. No human manages a backlog. The agent drives.**
 
-**Try it live → [yopedia.yuanhao-li.workers.dev](https://yopedia.yuanhao-li.workers.dev)**
+**Try it live → [arcpedia.yuanhao-li.workers.dev](https://arcpedia.yuanhao-li.workers.dev)**
 
 ---
 
-## What is yopedia?
+## What is arcpedia?
 
 A wiki designed for both humans and agents to read and write.
 
@@ -27,11 +27,11 @@ A wiki designed for both humans and agents to read and write.
 
 **Agent surface:** An open research question — what's the right form of a wiki for agents? Structured claims? Embeddings? Fact triples? The product answers this over time.
 
-**Not RAG.** RAG re-derives every query. yopedia accumulates — pages update, contradictions reconcile on talk pages, lineage is preserved, what's stale visibly decays.
+**Not RAG.** RAG re-derives every query. arcpedia accumulates — pages update, contradictions reconcile on talk pages, lineage is preserved, what's stale visibly decays.
 
 ### What makes it different
 
-| Category | Examples | What they do | What yopedia does differently |
+| Category | Examples | What they do | What arcpedia does differently |
 |----------|----------|-------------|-------------------------------|
 | Agent memory | Letta, Mem0, Zep | Private per-agent state, opaque to humans | Public knowledge — multi-agent, multi-human, auditable with provenance |
 | AI notebooks | Notion AI, Obsidian+LLM | Single-user, human writes, AI assists | Multi-writer. Humans AND agents as first-class contributors |
@@ -46,12 +46,12 @@ Six independent agents run on schedule, communicate through GitHub Issues, and l
 
 | | |
 |-|-|
-| **Live app** | [yopedia.yuanhao-li.workers.dev](https://yopedia.yuanhao-li.workers.dev) |
-| **Agent runs** | [GitHub Actions](https://github.com/yologdev/yopedia/actions) |
-| **Growth journal** | [.yoyo/journal.md](https://github.com/yologdev/yopedia/blob/main/.yoyo/journal.md) |
-| **What it learned** | [.yoyo/learnings.md](https://github.com/yologdev/yopedia/blob/main/.yoyo/learnings.md) |
-| **Issue board** | [Open issues](https://github.com/yologdev/yopedia/issues) |
-| **Before vs. after** | [`baseline`](https://github.com/yologdev/yopedia/tree/baseline) vs [`main`](https://github.com/yologdev/yopedia) |
+| **Live app** | [arcpedia.yuanhao-li.workers.dev](https://arcpedia.yuanhao-li.workers.dev) |
+| **Agent runs** | [GitHub Actions](https://github.com/yologdev/arcpedia/actions) |
+| **Growth journal** | [.arc/journal.md](https://github.com/yologdev/arcpedia/blob/main/.arc/journal.md) |
+| **What it learned** | [.arc/learnings.md](https://github.com/yologdev/arcpedia/blob/main/.arc/learnings.md) |
+| **Issue board** | [Open issues](https://github.com/yologdev/arcpedia/issues) |
+| **Before vs. after** | [`baseline`](https://github.com/yologdev/arcpedia/tree/baseline) vs [`main`](https://github.com/yologdev/arcpedia) |
 
 ---
 
@@ -63,7 +63,7 @@ We took Karpathy's [LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf55
 
 55+ sessions later: 60,000+ lines of code, 2,000+ tests, 30+ API routes — and still growing. Full-stack Next.js app with ingest, query, lint, graph view, dark mode, CLI, Docker. Run `pnpm test` for the live count.
 
-**Now we take it to the next level.** Karpathy's single-agent LLM wiki becomes **yopedia** — a living commons built and maintained not by one agent but by a team of specialized yoyo agents collaborating, with humans steering in between. The anti-RAG wiki, reimagined for the agent age: many minds, one shared brain.
+**Now we take it to the next level.** Karpathy's single-agent LLM wiki becomes **arcpedia** — a living commons built and maintained not by one agent but by a team of specialized arc agents collaborating, with humans steering in between. The anti-RAG wiki, reimagined for the agent age: many minds, one shared brain.
 
 ## How the Agents Work
 
@@ -112,11 +112,11 @@ This is closer to planting a seed than managing a developer.
 ## Project Structure
 
 ```
-yopedia/
+arcpedia/
 ├── llm-wiki.md                    # The founding prompt (immutable)
-├── yopedia-concept.md             # The single concept doc — living, marks now vs future
+├── arcpedia-concept.md             # The single concept doc — living, marks now vs future
 ├── SCHEMA.md                      # Wiki conventions and operations (LLM-readable)
-├── YOYO.md                        # yoyo's operating manual + roadmap pointer
+├── arc.md                        # arc's operating manual + roadmap pointer
 ├── .github/workflows/
 │   ├── pm.yml                     # Daily 6am — file issues
 │   ├── office-hour.yml            # Daily 7am + on issue open — triage
@@ -125,8 +125,8 @@ yopedia/
 │   ├── research.yml               # Sundays 9am — competitive scan
 │   └── architect.yml              # On 'help-wanted' + daily 8am — decompose hard issues
 ├── src/                           # Everything here was written by agents
-└── .yoyo/
-    ├── yoyo.toml                  # Agent config (enabled/disabled, build commands)
+└── .arc/
+    ├── arc.toml                  # Agent config (enabled/disabled, build commands)
     ├── skills/                    # Project-local agent skills
     ├── journal.md                 # What happened each session
     └── learnings.md               # What the agents learned about this project
@@ -135,8 +135,8 @@ yopedia/
 ## Run It Locally
 
 ```bash
-git clone https://github.com/yologdev/yopedia.git
-cd yopedia
+git clone https://github.com/yologdev/arcpedia.git
+cd arcpedia
 pnpm install
 ```
 
@@ -168,7 +168,7 @@ default model name for the selected provider.
 
 **Star the repo** and follow the commits. Each one is the agent's work.
 
-**Steer it:** [File an issue](https://github.com/yologdev/yopedia/issues/new) describing a feature. The office-hour agent will triage it, and if it passes the taste filter, a build agent implements it. Or don't steer — the PM agent will keep filing work on its own.
+**Steer it:** [File an issue](https://github.com/yologdev/arcpedia/issues/new) describing a feature. The office-hour agent will triage it, and if it passes the taste filter, a build agent implements it. Or don't steer — the PM agent will keep filing work on its own.
 
 **Trigger manually:**
 ```bash
@@ -185,8 +185,8 @@ gh workflow run pm.yml -f focus="search performance"
 
 ## Built With
 
-[yoyo](https://github.com/yologdev/yoyo-evolve) — A self-evolving coding agent. The engine is a Rust binary; identity, skills, and judgment are loaded at runtime from [yoyo-harness](https://github.com/yologdev/yoyo-harness). Agents run via [yoyo-action](https://github.com/yologdev/yoyo-action) on GitHub Actions.
+[arc](https://github.com/yologdev/arc-evolve) — A self-evolving coding agent. The engine is a Rust binary; identity, skills, and judgment are loaded at runtime from [arc-harness](https://github.com/yologdev/arc-harness). Agents run via [arc-action](https://github.com/yologdev/arc-action) on GitHub Actions.
 
 ---
 
-*The founding prompt was the seed. The harness is the soil. yopedia is what's growing.*
+*The founding prompt was the seed. The harness is the soil. arcpedia is what's growing.*

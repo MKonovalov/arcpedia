@@ -9,7 +9,7 @@ import { Mermaid } from "@/components/Mermaid";
 /**
  * A fenced ` ```<lang> ` block arrives as a `<code class="language-<lang>">`
  * nested in a `<pre>`. Pull out its text when the language matches, so we can
- * render it specially (a Mermaid diagram, a yoyo illustration) instead of a
+ * render it specially (a Mermaid diagram, a arc illustration) instead of a
  * code block; return null otherwise.
  */
 function fencedCode(children: ReactNode, lang: string): string | null {
@@ -100,7 +100,7 @@ function stripFrontmatter(content: string): string {
  */
 /**
  * react-markdown's default `urlTransform` strips `data:` URIs (an XSS guard),
- * which would blank out our baked yoyo-illustration images (stored inline as
+ * which would blank out our baked arc-illustration images (stored inline as
  * `data:image/jpeg;base64,…`). Allow **raster** image data URIs through —
  * jpeg/png/gif/webp can't carry script — while still deferring everything else
  * (including the dangerous `data:image/svg+xml` and `data:text/html`) to the
@@ -148,9 +148,8 @@ export function MarkdownRenderer({
   };
   return (
     <div
-      className={`prose prose-neutral dark:prose-invert max-w-none${
-        className ? ` ${className}` : ""
-      }`}
+      className={`prose prose-neutral dark:prose-invert max-w-none${className ? ` ${className}` : ""
+        }`}
     >
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
@@ -172,7 +171,7 @@ export function MarkdownRenderer({
           pre: ({ children, ...props }) => {
             const chart = fencedCode(children, "mermaid");
             if (chart !== null) return <Mermaid chart={chart} />;
-            // `yoyo-illustration` fences are baked into image refs server-side
+            // `arc-illustration` fences are baked into image refs server-side
             // (at /query); a stray unbaked fence just renders as a code block.
             return <pre {...props}>{children}</pre>;
           },

@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
     // `triggeredBy` (the X handle) stays as source provenance; the page owner
     // and author are the authenticated principal (Phase 1: the caller is the
-    // logged-in user; the @yoyoevolve service loop is a later phase).
+    // logged-in user; the @arcevolve service loop is a later phase).
     const result = await ingestXMention(url.trim(), triggeredBy.trim(), {
       author: principal.handle,
       owner: principal.handle,

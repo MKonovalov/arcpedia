@@ -48,7 +48,7 @@ async function loadPages(
 /**
  * GET /api/agents/[id]/context
  *
- * The flagship context endpoint from YOYO.md Phase 4.
+ * The flagship context endpoint from arc.md Phase 4.
  *
  * Returns the agent's identity + learnings + social wisdom in one call,
  * so any project can bootstrap an agent by hitting one URL — no repo coupling.
@@ -88,7 +88,7 @@ export async function GET(_req: Request, { params }: RouteParams) {
     }
 
     // Resolve effective pages (own + inherited from the template chain), so a
-    // forked per-user yoyo returns the base content it inherits.
+    // forked per-user arc returns the base content it inherits.
     const pages = await resolveAgentPages(agent);
 
     // Load all context sections in parallel (read-gated per page)

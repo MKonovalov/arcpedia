@@ -46,7 +46,7 @@ jobs:
       - name: Check generated wrangler.toml
         run: |
           set -euo pipefail
-          if grep -q '<YOPEDIA_.*_NAMESPACE_ID>' wrangler.toml; then
+          if grep -q '<arcpedia_.*_NAMESPACE_ID>' wrangler.toml; then
             echo "::error::wrangler.toml still contains placeholder namespace IDs."
             exit 1
           fi

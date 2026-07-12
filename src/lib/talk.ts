@@ -194,7 +194,7 @@ export const RECONCILE_THREAD_TITLE = "Sources disagree — reconciliation neede
  * (a source contradicts it), UNLESS an open one already exists — idempotent
  * across re-ingests, keyed on {@link RECONCILE_THREAD_TITLE}. The first comment
  * is authored by a NON-agent: `author` if it's a human/system handle, else
- * coerced to "system" (an agent-handle actor — e.g. a `yoyo` staleness
+ * coerced to "system" (an agent-handle actor — e.g. a `arc` staleness
  * re-ingest — would otherwise make the thread invisible to the maintenance scan,
  * which only acts on threads whose latest comment is human-side). Fail-soft: a
  * thread-open failure never breaks the caller.
@@ -213,12 +213,12 @@ export async function ensureReconciliationThread(
     ) {
       return; // a reconciliation is already open — don't duplicate
     }
-    // Keep the latest comment human-side so the scan + "ask yoyo" can act on it.
+    // Keep the latest comment human-side so the scan + "ask arc" can act on it.
     const safeAuthor = !author || isAgentHandle(author) ? "system" : author;
     const body =
       `An ingested source contradicts this page${detail ? ` (${detail})` : ""}, ` +
       `so it's flagged **disputed** with both views kept. Please reconcile the ` +
-      `contradiction — edit the page, or ask yoyo to take a pass.`;
+      `contradiction — edit the page, or ask arc to take a pass.`;
     await createThread(pageSlug, RECONCILE_THREAD_TITLE, safeAuthor, body);
   } catch (err) {
     logger.warn(

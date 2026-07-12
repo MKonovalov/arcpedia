@@ -1,11 +1,11 @@
-name: yoyo Review
+name: arc Review
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 concurrency:
-  group: yoyo-review-${{ github.event.pull_request.number }}
+  group: arc-review-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 permissions:
@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
-    # Only review yoyo's own PRs from this repo (not forks)
+    # Only review arc's own PRs from this repo (not forks)
     if: >
-      startsWith(github.event.pull_request.head.ref, 'yoyo/') &&
+      startsWith(github.event.pull_request.head.ref, 'arc/') &&
       github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
@@ -56,8 +56,8 @@ jobs:
           git config user.name "${SLUG}[bot]"
           git config user.email "${SLUG}[bot]@users.noreply.github.com"
 
-      - name: Run yoyo Review
-        uses: yologdev/yoyo-action@v1
+      - name: Run arc Review
+        uses: mkonovalov/arc-action@v1
         with:
           agent: review
           args: ${{ github.event.pull_request.number }}

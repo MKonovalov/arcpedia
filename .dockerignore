@@ -3,7 +3,7 @@ node_modules/
 .git/
 raw/
 wiki/
-.yoyo/
+.arc/
 session_plan/
 .env
 .env.local

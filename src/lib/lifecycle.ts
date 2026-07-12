@@ -47,7 +47,7 @@ import { logger } from "./logger";
 // sequence when materialising a wiki page: write file → upsert index entry →
 // flush index → cross-reference related pages → append log line. Keeping that
 // pipeline in one place is the durable fix for the "parallel write-paths
-// drift" learning recorded in `.yoyo/learnings.md` — every future write path
+// drift" learning recorded in `.arc/learnings.md` — every future write path
 // (edit, delete, re-ingest, import) should go through this function.
 
 /** Options accepted by {@link writeWikiPageWithSideEffects}. */
@@ -103,7 +103,7 @@ export interface DeletePageResult {
 // Anything that touches `wiki/<slug>.md` + `index.md` + other pages + `log.md`
 // is the same shape of operation regardless of whether it creates, updates, or
 // deletes a page. Per the "Delete is a write-path too — lifecycle ops, not
-// just writes" learning in `.yoyo/learnings.md`, every such op flows through
+// just writes" learning in `.arc/learnings.md`, every such op flows through
 // this one function, which owns the 5-step side-effect orchestration:
 //
 //   1. Validate the slug.
@@ -118,27 +118,27 @@ export interface DeletePageResult {
 
 type PageLifecycleOp =
   | {
-      kind: "write";
-      title: string;
-      content: string;
-      summary: string;
-      /**
-       * Source text used for cross-ref discovery.
-       * - `undefined` → use the page content itself.
-       * - `null` → explicit skip (no cross-ref pass at all).
-       * - string → use that text (e.g. raw source in ingest).
-       */
-      crossRefSource?: string | null;
-      /** Who made this change — stored in the revision sidecar. */
-      author?: string;
-    }
+    kind: "write";
+    title: string;
+    content: string;
+    summary: string;
+    /**
+     * Source text used for cross-ref discovery.
+     * - `undefined` → use the page content itself.
+     * - `null` → explicit skip (no cross-ref pass at all).
+     * - string → use that text (e.g. raw source in ingest).
+     */
+    crossRefSource?: string | null;
+    /** Who made this change — stored in the revision sidecar. */
+    author?: string;
+  }
   | {
-      kind: "delete";
-      /** Title used in the log entry (captured before unlink). */
-      title: string;
-      /** Who performed the deletion — used for contributor-index cleanup. */
-      author?: string;
-    };
+    kind: "delete";
+    /** Title used in the log entry (captured before unlink). */
+    title: string;
+    /** Who performed the deletion — used for contributor-index cleanup. */
+    author?: string;
+  };
 
 /** Internal result of a lifecycle op — a superset of Write/Delete result shapes. */
 interface LifecycleOpResult {
@@ -246,8 +246,8 @@ async function runPageLifecycleOp(
           : undefined;
       deletedContributors = Array.isArray(pre?.frontmatter.contributors)
         ? (pre.frontmatter.contributors as unknown[]).filter(
-            (c): c is string => typeof c === "string",
-          )
+          (c): c is string => typeof c === "string",
+        )
         : [];
     } catch {
       // Owner/contributors unknown → falls back to the default tenant in step 3c.
@@ -337,8 +337,8 @@ async function runPageLifecycleOp(
       const parsed = parseFrontmatter(op.content);
       const aliases = Array.isArray(parsed.data.aliases)
         ? (parsed.data.aliases as string[]).filter(
-            (a) => typeof a === "string" && a.trim() !== "",
-          )
+          (a) => typeof a === "string" && a.trim() !== "",
+        )
         : [];
       updateAliasIndexForPage(slug, op.title, aliases);
     } catch {
@@ -495,10 +495,10 @@ async function runPageLifecycleOp(
         const sourceType =
           logOp === "ingest"
             ? newestSourceType(
-                parseSources(fm.sources as string | string[] | undefined),
-              )
+              parseSources(fm.sources as string | string[] | undefined),
+            )
             : undefined;
-        // Fold automation actors (system / lint-fix / yopedia) into the agent so
+        // Fold automation actors (system / lint-fix / arcpedia) into the agent so
         // the incrementally-pushed event matches the scan/index normalization.
         const actor = normalizeActor(op.author);
         const owner = typeof fm.owner === "string" ? fm.owner : undefined;

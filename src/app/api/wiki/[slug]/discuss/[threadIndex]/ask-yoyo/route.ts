@@ -11,12 +11,12 @@ import { logger } from "@/lib/logger";
 type RouteParams = { params: Promise<{ slug: string; threadIndex: string }> };
 
 /**
- * POST /api/wiki/[slug]/discuss/[threadIndex]/ask-yoyo
+ * POST /api/wiki/[slug]/discuss/[threadIndex]/ask-arc
  *
- * The "Ask yoyo to address this" producer: enqueue a `reconcile` task so an
+ * The "Ask arc to address this" producer: enqueue a `reconcile` task so an
  * agent reads the page + this thread and revises the page asynchronously (the
  * "agents maintain, humans discuss" loop). Signed-in only; read-gated (a private
- * page's discussions are cloaked as 404 for non-owners). Posts a "yoyo is on it"
+ * page's discussions are cloaked as 404 for non-owners). Posts a "arc is on it"
  * note so the thread shows pending state; the agent posts the result later.
  */
 export async function POST(_req: Request, { params }: RouteParams) {
@@ -61,7 +61,7 @@ export async function POST(_req: Request, { params }: RouteParams) {
       );
     }
 
-    // Best-effort pending note from the requester's yoyo, so the thread shows
+    // Best-effort pending note from the requester's arc, so the thread shows
     // it's being worked on. Non-fatal if it fails (e.g. a resolved thread).
     const agent = agentIdFor(principal.handle, DEFAULT_AGENT_NAME);
     try {
@@ -69,15 +69,15 @@ export async function POST(_req: Request, { params }: RouteParams) {
         slug,
         idx,
         agent,
-        "🛠 Queued — yoyo will review this thread and update the page shortly.",
+        "🛠 Queued — arc will review this thread and update the page shortly.",
       );
     } catch (err) {
-      logger.warn("ask-yoyo", "pending note failed (non-fatal):", err);
+      logger.warn("ask-arc", "pending note failed (non-fatal):", err);
     }
 
     return NextResponse.json({ queued: true });
   } catch (err) {
-    logger.error("ask-yoyo", "enqueue failed:", err);
+    logger.error("ask-arc", "enqueue failed:", err);
     return NextResponse.json({ error: getErrorMessage(err) }, { status: 500 });
   }
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * CLI entry point for yopedia.
+ * CLI entry point for arcpedia.
  *
  * Usage:
  *   pnpm cli ingest <url>         Ingest a URL into the wiki
@@ -177,7 +177,7 @@ export function parseArgs(argv: string[]): ParsedCommand {
 // ---------------------------------------------------------------------------
 
 const HELP = `
-yopedia CLI
+arcpedia CLI
 
 Usage: pnpm cli <command> [args]
 
@@ -223,7 +223,7 @@ Examples:
   pnpm cli query "What is attention in transformers?"
   pnpm cli search "attention mechanism"
   pnpm cli search "atention" --fuzzy
-  pnpm cli search "identity" --scope agent:yoyo --limit 5
+  pnpm cli search "identity" --scope agent:arc --limit 5
   pnpm cli read attention-mechanisms
   pnpm cli delete attention-mechanisms
   echo "Page body content" | pnpm cli create my-page --title "My Page"

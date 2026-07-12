@@ -1,4 +1,4 @@
-name: yoyo Build
+name: arc Build
 
 on:
   issues:
@@ -73,8 +73,8 @@ jobs:
             echo "number=" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Run yoyo Build
-        uses: yologdev/yoyo-action@v1
+      - name: Run arc Build
+        uses: yologdev/arc-action@v1
         with:
           agent: build
           args: ${{ steps.issue.outputs.number }}

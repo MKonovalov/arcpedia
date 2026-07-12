@@ -1,10 +1,13 @@
 {
-  "name": "yopedia",
+  "name": "arcpedia",
   "version": "1.0.0",
   "description": "A wiki for the agent age — read and write knowledge pages via MCP",
   "transport": "stdio",
   "command": "npx",
-  "args": ["tsx", "src/mcp.ts"],
+  "args": [
+    "tsx",
+    "src/mcp.ts"
+  ],
   "tools": [
     "search_wiki",
     "read_page",

@@ -37,7 +37,7 @@ export function isArtifactType(type: string | undefined): boolean {
  * Select the artifacts to feature on the homepage gallery: recent PUBLIC,
  * HUMAN-MADE `html`/`slides` pages, newest-updated first, capped at `limit`.
  *
- * "Personal" means human-made: agent-owned (`<owner>--yoyo`/`yoyo`) and
+ * "Personal" means human-made: agent-owned (`<owner>--arc`/`arc`) and
  * automation (system / linter / seed) artifacts are excluded, as are
  * unattributed ones — the gallery showcases what people build.
  *

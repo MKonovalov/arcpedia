@@ -4,7 +4,7 @@ test = "pnpm test"
 lint = "pnpm lint"
 
 [protected]
-paths = [".github/", ".yoyo/yoyo.toml"]
+paths = [".github/", ".arc/arc.toml"]
 
 # 6 agents available.
 [agents.pm]

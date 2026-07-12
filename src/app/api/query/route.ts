@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     // Validate `scope` if present — must be a string.
     if (scope !== undefined && typeof scope !== "string") {
       return NextResponse.json(
-        { error: "scope must be a string (e.g. 'agent:yoyo')" },
+        { error: "scope must be a string (e.g. 'agent:arc')" },
         { status: 400 },
       );
     }

@@ -1,20 +1,13 @@
-# yopedia — A Wiki for the Agent Age
+# arcpedia — A Wiki for the Agent Age
 
 ## What This Is
-
-yopedia is a shared second brain for humans and agents. One knowledge substrate,
+ARCpedia is a shared second brain for humans and agents. One knowledge substrate,
 two surfaces over it. Evolved from the [LLM Wiki pattern](llm-wiki.md) —
 Karpathy's idea for building persistent knowledge bases using LLMs.
 
-This project was bootstrapped from a single founding prompt and grown entirely by
-[yoyo](https://github.com/yologdev/yoyo), a self-evolving coding agent. Every
-commit after the baseline tag was made by yoyo. The experiment proved that an
-agent can grow a product from one prompt — 55 sessions, 33,600 lines, 1,242
-tests, all four founding pillars complete. Now yopedia is the destination.
-
 ## The Vision
 
-The full north star lives in **[`yopedia-concept.md`](yopedia-concept.md)** — read it
+The full north star lives in **[`ARCpedia-concept.md`](ARCpedia-concept.md)** — read it
 there; don't duplicate it here. In one line: a **collective second brain** for humans
 and agents — one **commons** co-built by people and their agents (**agents maintain,
 humans discuss**), personal **vaults** as a lens on top (public by reference, private
@@ -42,7 +35,7 @@ are built and deployed:
 
 ## What's next
 
-The full picture is the **Roadmap** in [`yopedia-concept.md`](yopedia-concept.md).
+The full picture is the **Roadmap** in [`arcpedia-concept.md`](arcpedia-concept.md).
 Near-term threads (commons-first):
 
 - **Flat retirement** — remove legacy flat-path writes and fallback reads (#869,
@@ -53,7 +46,7 @@ Near-term threads (commons-first):
 
 ## Autonomous Growth Loop
 
-yopedia is a long-running agent-grown system, not a fixed-scope app. A phase
+arcpedia is a long-running agent-grown system, not a fixed-scope app. A phase
 can finish, but the product should keep compounding: more sources become wiki
 knowledge, more questions become durable pages, more lint findings become
 maintenance work, and more agent usage teaches us what the agent-facing surface
@@ -63,12 +56,12 @@ The operating model comes from two ancestors:
 - Karpathy's LLM wiki pattern: persistent knowledge grows through repeated
   ingest, query, lint, indexing, and logging. The wiki is never "done"; it gets
   richer and more coherent as new material arrives.
-- yoyo-evolve: each cycle reads history, checks the real system, studies user
+- arc-evolve: each cycle reads history, checks the real system, studies user
   and community signal, compares against the frontier, picks a small next
   improvement, and records what happened. Empty hands are allowed, but only
   after looking seriously for the next leverage point.
 
-For yopedia, self-growth from observed gaps and research is higher priority than
+For arcpedia, self-growth from observed gaps and research is higher priority than
 waiting for reactive human feedback. Human issues matter, but the agent team
 should not need a human complaint before improving the wiki loop, the agent
 loop, or the product's ability to compound knowledge.
@@ -85,7 +78,7 @@ deciding to file 0 issues:
   contradictions, weak citations, or repeated failures that should become work?
 - **Interface:** Is the maintainer loop easier than last week for humans,
   agents, and automated runs?
-- **Frontier:** Did research, competitors, platform changes, or yoyo-evolve
+- **Frontier:** Did research, competitors, platform changes, or arc-evolve
   reveal a capability gap worth closing now?
 
 If the scan finds a concrete opportunity, PM files the smallest issue that makes
@@ -101,18 +94,18 @@ not enough reason to stop; the question is whether the wiki is still learning.
 
 ### Research Doctrine
 
-Research should keep yopedia ahead, not turn it into a clone of adjacent tools.
+Research should keep arcpedia ahead, not turn it into a clone of adjacent tools.
 The motto is simple but effective: use external signal to find the smallest
-reasonable move that improves yopedia's advantage.
+reasonable move that improves arcpedia's advantage.
 
 Competitors, launches, stars, and blog posts are evidence only. A good research
-entry explains the market movement, why it matters to yopedia, the recommended
+entry explains the market movement, why it matters to arcpedia, the recommended
 move, and whether to adopt now, watch, or ignore. Avoid long feature diffs. Do
 not file issues because another project has a feature; file only when the
 feature reveals a real workflow, demand signal, technical direction, failure
-mode, or gap in yopedia's compounding loop.
+mode, or gap in arcpedia's compounding loop.
 
-For yopedia, especially prize signals about:
+For arcpedia, especially prize signals about:
 - Agent-readable knowledge surfaces and MCP-style interoperability
 - Trust, provenance, contradiction handling, and claim lifecycle
 - Multi-writer workflows for humans and agents sharing one wiki
@@ -127,8 +120,8 @@ These are questions the product answers over time, not assumptions to fix now:
 - How does trust accrue across humans and agents using the same metrics fairly?
 - How do contradictions resolve when one side is human experience and the other
   is agent research?
-- How does yopedia stay coherent as it scales past one community?
-- What does federation across separate yopedia instances look like?
+- How does arcpedia stay coherent as it scales past one community?
+- What does federation across separate arcpedia instances look like?
 
 ## Tech Stack
 
@@ -158,8 +151,8 @@ pnpm test         # vitest
 
 ```
 llm-wiki.md          # founding prompt — spiritual ancestor (immutable)
-yopedia-concept.md   # the single concept / north star (living doc — keep current)
-YOYO.md              # this file — yoyo's operating manual
+arcpedia-concept.md   # the single concept / north star (living doc — keep current)
+arc.md              # this file — arc's operating manual
 SCHEMA.md            # wiki conventions and frontmatter operations
 src/
   middleware.ts      # Clerk auth gate (writes require a session)
@@ -171,14 +164,14 @@ wiki/                # LLM-maintained wiki output (gitignored; R2 on deploy)
 discuss/             # talk pages for conflict resolution
 ```
 
-## How yoyo Works Here
+## How arc Works Here
 
 Six independent agents communicate through GitHub Issues. Each has one job,
 runs on its own schedule, and leaves a visible trail. Multiple build agents
 can run in parallel on different issues.
 
 Agent personality, judgment, and runtime prompts live in
-[`yologdev/yoyo-harness`](https://github.com/yologdev/yoyo-harness). This repo
+[`mkonovalov/ARC-harness`](https://github.com/mkonovalov/ARC-harness). This repo
 defines the project-specific protocol: labels, lifecycle, blocker metadata, and
 local expectations. Do not duplicate full agent prompts here.
 
@@ -196,7 +189,7 @@ local expectations. Do not duplicate full agent prompts here.
 - May file 0 issues when nothing is strategy-changing or actionable
 - Joins decision discussions when Office Hour asks for market, competitive, or
   ecosystem signal
-- Appends a research entry to `.yoyo/journal.md`
+- Appends a research entry to `.ARC/journal.md`
 
 **2. PM Agent** (daily 6am UTC + decision discussion via `pm.yml`):
 - Judgment: product thinking — challenges premises, demand, sequencing, and
@@ -246,9 +239,9 @@ local expectations. Do not duplicate full agent prompts here.
 - Judgment: craft — makes the smallest correct change and stops when the issue
   is contradictory, too large, or unsafe
 - Claims one issue: swaps `ready` → `in-progress`
-- Creates branch `yoyo/issue-{N}`, implements, runs build/lint/test
+- Creates branch `ARC/issue-{N}`, implements, runs build/lint/test
 - If a previous PR review requested changes, consumes the latest structured
-  `yoyo-review-retry` issue comment as required correction context
+  `arc-review-retry` issue comment as required correction context
 - Build-fix loop: up to 5 attempts to fix failures
 - On success: opens or updates a PR with "Closes #N"
 - On failure: reverts, comments reason, re-queues as `ready`
@@ -261,7 +254,7 @@ local expectations. Do not duplicate full agent prompts here.
 - Reviews PR diff against linked issue's acceptance criteria
 - Checks: build passes, tests added, protected files untouched
 - Merges if passing and mergeable
-- If changes are needed, writes a structured `yoyo-review-retry` block on the
+- If changes are needed, writes a structured `arc-review-retry` block on the
   linked issue and re-queues it to `ready` for Build
 - Handles merge conflicts via rebase
 
@@ -403,9 +396,9 @@ Filed (PM / Research / Human) → [triage]
 
 ### Shared Infrastructure
 
-All agents source `.yoyo/scripts/setup-agent.sh` which provides:
-- Identity + skills download from yoyo-evolve
-- `run_agent()` helper (invokes yoyo with identity + skills)
+All agents source `.ARC/scripts/setup-agent.sh` which provides:
+- Identity + skills download from arc-evolve
+- `run_agent()` helper (invokes ARC with identity + skills)
 - `check_protected_files()` enforcement
 - `sanitize_issue_content()` for untrusted input
 - `commit_and_push_journal()` for journal updates

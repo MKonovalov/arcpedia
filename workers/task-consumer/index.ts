@@ -1,8 +1,8 @@
 /**
- * yopedia agent task-queue consumer.
+ * arcpedia agent task-queue consumer.
  *
- * A thin dispatcher: drains the `yopedia-tasks` Cloudflare Queue and POSTs each
- * message to the main yopedia app's `/api/tasks/run` endpoint with the system
+ * A thin dispatcher: drains the `arcpedia-tasks` Cloudflare Queue and POSTs each
+ * message to the main arcpedia app's `/api/tasks/run` endpoint with the system
  * token. The actual work (reconcile / ingest) runs in the main app, which has
  * the full `src/lib` + OpenNext request context. This worker imports NO `src/lib`
  * code — that would transitively pull Clerk/Next and the OpenNext context a
@@ -15,8 +15,8 @@
  */
 
 interface Env {
-  YOPEDIA_URL?: string;
-  YOPEDIA_SERVICE_TOKEN?: string;
+  arcpedia_URL?: string;
+  arcpedia_SERVICE_TOKEN?: string;
 }
 
 // Minimal Cloudflare Queues consumer types (avoid pulling @cloudflare/workers-types).
@@ -74,12 +74,12 @@ async function runTask(
 
 export default {
   async queue(batch: MessageBatch, env: Env): Promise<void> {
-    const base = (env.YOPEDIA_URL ?? "").replace(/\/+$/, "");
-    const token = env.YOPEDIA_SERVICE_TOKEN;
+    const base = (env.arcpedia_URL ?? "").replace(/\/+$/, "");
+    const token = env.arcpedia_SERVICE_TOKEN;
     if (!base || !token) {
       // Misconfiguration — retry the whole batch so nothing is lost.
       console.error(
-        "task-consumer: missing YOPEDIA_URL or YOPEDIA_SERVICE_TOKEN — retrying batch",
+        "task-consumer: missing arcpedia_URL or arcpedia_SERVICE_TOKEN — retrying batch",
       );
       for (const m of batch.messages) m.retry();
       return;
@@ -96,10 +96,10 @@ export default {
   // `maintain` tasks — or dry-runs (logs only) when AUTONOMOUS_MAINTENANCE isn't
   // "on" in the main app. So this is safe to run on schedule before it's enabled.
   async scheduled(_event: ScheduledEvent, env: Env): Promise<void> {
-    const base = (env.YOPEDIA_URL ?? "").replace(/\/+$/, "");
-    const token = env.YOPEDIA_SERVICE_TOKEN;
+    const base = (env.arcpedia_URL ?? "").replace(/\/+$/, "");
+    const token = env.arcpedia_SERVICE_TOKEN;
     if (!base || !token) {
-      console.error("task-consumer cron: missing YOPEDIA_URL or YOPEDIA_SERVICE_TOKEN");
+      console.error("task-consumer cron: missing arcpedia_URL or arcpedia_SERVICE_TOKEN");
       return;
     }
     try {
@@ -116,7 +116,7 @@ export default {
 
   // Health check (no task triggering — not an open relay).
   async fetch(): Promise<Response> {
-    return new Response("yopedia task-consumer ok\n", {
+    return new Response("arcpedia task-consumer ok\n", {
       headers: { "content-type": "text/plain" },
     });
   },

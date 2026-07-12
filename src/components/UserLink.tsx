@@ -4,7 +4,7 @@ import { isAgentHandle } from "@/lib/agent-handle";
 
 /**
  * A handle rendered as `@handle`. Human handles link to their profile
- * (`/u/<handle>`); agent authors (e.g. yoyo's autonomous edits/comments) render
+ * (`/u/<handle>`); agent authors (e.g. arc's autonomous edits/comments) render
  * as plain text — they have no `/u/<handle>` profile. Use for plain-text
  * byline/author sites that don't use the {@link Mark} chip (comments, revisions).
  */

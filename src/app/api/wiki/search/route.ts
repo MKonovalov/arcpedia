@@ -4,7 +4,7 @@ import { getPrincipal } from "@/lib/auth";
 import { getErrorMessage } from "@/lib/errors";
 
 /**
- * GET /api/wiki/search?q=search+terms&scope=agent:yoyo
+ * GET /api/wiki/search?q=search+terms&scope=agent:arc
  *
  * Full-text search across wiki page content.
  * Returns matching pages with snippets showing match context.

@@ -1,12 +1,12 @@
 /**
- * Server-side baking of `yoyo-illustration` directives. The slides/HTML LLM
- * emits a placeholder — a ` ```yoyo-illustration ` fence in markdown, or a
- * `<figure class="yoyo-illustration" data-scene="…">` in HTML — and here we
+ * Server-side baking of `arc-illustration` directives. The slides/HTML LLM
+ * emits a placeholder — a ` ```arc-illustration ` fence in markdown, or a
+ * `<figure class="arc-illustration" data-scene="…">` in HTML — and here we
  * replace each with a real image reference. The `fetcher` generates each scene
  * once, stores it in R2, and returns a servable image reference — an
- * `/api/assets/…` URL for slides/markdown (`generateYoyoIllustration`), or a
+ * `/api/assets/…` URL for slides/markdown (`generatearcIllustration`), or a
  * self-contained `data:` URI for the HTML artifact
- * (`generateYoyoIllustrationDataUri`, whose sandboxed iframe can't load a
+ * (`generatearcIllustrationDataUri`, whose sandboxed iframe can't load a
  * same-origin URL) — so the baked answer renders for every viewer (including
  * anonymous shares) with no per-view fetch. Generation is paid + cached
  * server-side, so only directives actually present are filled, bounded to a few
@@ -18,15 +18,15 @@ export const MAX_ILLUSTRATIONS = 3;
 
 /** Generate a scene's illustration, returning a servable image reference — an
  *  `/api/assets/…` URL or a self-contained `data:` URI — or null. Injectable for
- *  tests; in production it's `generateYoyoIllustration` (slides) or
- *  `generateYoyoIllustrationDataUri` (HTML). */
+ *  tests; in production it's `generatearcIllustration` (slides) or
+ *  `generatearcIllustrationDataUri` (HTML). */
 export type IllustrateFetcher = (
   scene: string,
   lang: string,
 ) => Promise<string | null>;
 
 const FIGURE_RE =
-  /<figure\b[^>]*\bclass=["'][^"']*\byoyo-illustration\b[^"']*["'][^>]*>[\s\S]*?<\/figure>/gi;
+  /<figure\b[^>]*\bclass=["'][^"']*\barc-illustration\b[^"']*["'][^>]*>[\s\S]*?<\/figure>/gi;
 
 function attr(tag: string, name: string): string | null {
   const m = tag.match(new RegExp(`\\b${name}=["']([^"']*)["']`, "i"));
@@ -61,13 +61,13 @@ export interface IllustrationRenderOptions {
 }
 
 /**
- * Replace up to {@link MAX_ILLUSTRATIONS} *unbaked* `yoyo-illustration` figures
+ * Replace up to {@link MAX_ILLUSTRATIONS} *unbaked* `arc-illustration` figures
  * (those carrying a `data-scene`) in an HTML string with the generated image
  * (parallel). An already-baked figure (an `<img>`, no `data-scene`) is left
  * untouched, so re-baking the same content is idempotent. A figure whose scene
  * can't be generated is dropped (default) or left in place (`onMissing: "keep"`).
  */
-export async function renderYoyoIllustrationsInHtml(
+export async function renderarcIllustrationsInHtml(
   html: string,
   fetcher: IllustrateFetcher,
   { onMissing = "drop" }: IllustrationRenderOptions = {},
@@ -94,9 +94,9 @@ export async function renderYoyoIllustrationsInHtml(
   let out = html;
   for (const { match, image, alt } of filled) {
     const replacement = image
-      ? `<figure class="yoyo-illustration"><img src="${image}" alt="${escapeHtml(
-          alt,
-        )}" style="max-width:100%;height:auto" /></figure>`
+      ? `<figure class="arc-illustration"><img src="${image}" alt="${escapeHtml(
+        alt,
+      )}" style="max-width:100%;height:auto" /></figure>`
       : onMissing === "keep"
         ? match // preserve the directive — a viewer can still fill it on demand
         : ""; // generation failed — drop the placeholder
@@ -106,17 +106,17 @@ export async function renderYoyoIllustrationsInHtml(
   return out;
 }
 
-/** A ` ```yoyo-illustration ` fenced block; the body is the scene. */
-const MD_FENCE_RE = /```yoyo-illustration\b[^\n]*\n([\s\S]*?)\n```/g;
+/** A ` ```arc-illustration ` fenced block; the body is the scene. */
+const MD_FENCE_RE = /```arc-illustration\b[^\n]*\n([\s\S]*?)\n```/g;
 
 /**
- * Replace up to {@link MAX_ILLUSTRATIONS} ` ```yoyo-illustration ` fences in a
+ * Replace up to {@link MAX_ILLUSTRATIONS} ` ```arc-illustration ` fences in a
  * markdown string (slides) with a baked `![scene](/api/assets/…)` image. A fence
  * whose scene can't be generated is dropped (the default `onMissing`). Labels
  * bake in English — a slide fence carries no lang hint (unlike the HTML
  * `data-lang`).
  */
-export async function renderYoyoIllustrationsInMarkdown(
+export async function renderarcIllustrationsInMarkdown(
   md: string,
   fetcher: IllustrateFetcher,
   { onMissing = "drop" }: IllustrationRenderOptions = {},

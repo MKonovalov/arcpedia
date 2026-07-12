@@ -1216,7 +1216,7 @@ export interface IngestOptions {
    */
   tags?: string[];
   /**
-   * The acting identity that performed this ingest (a user handle, or `yoyo`
+   * The acting identity that performed this ingest (a user handle, or `arc`
    * when mediated). Becomes `authors` on a new page and is appended to
    * `contributors` on re-ingest. Set from the authenticated session by the
    * route — never from client input. Falls back to `"system"`.
@@ -1892,7 +1892,7 @@ export async function ingest(
 
   // When this ingest left the page disputed (a source contradicts it), open a
   // reconciliation discussion thread so the dispute is actionable — by a human,
-  // by "ask yoyo", or by the maintenance scan. Idempotent (skips if one's open)
+  // by "ask arc", or by the maintenance scan. Idempotent (skips if one's open)
   // + fail-soft; `ensureReconciliationThread` keeps the thread's author non-agent
   // (coercing an agent actor to "system") so the scan can pick it up.
   if (frontmatter.disputed === true) {

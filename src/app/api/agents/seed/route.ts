@@ -17,7 +17,7 @@ const VALID_SECTION_TYPES = new Set(["identity", "learnings", "social"]);
  *
  * This route is exempt from the middleware write-gate and authenticates here,
  * accepting EITHER a Clerk session OR a service token (for the scheduled
- * seed-yoyo job). Both resolve to a principal whose handle becomes the owner.
+ * seed-arc job). Both resolve to a principal whose handle becomes the owner.
  *
  * Body: { id, name, description, sections: [{ slug, title, type, content }] }
  * Returns 201 with { agent: AgentProfile } on success.

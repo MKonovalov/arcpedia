@@ -212,7 +212,7 @@ h1 {
   text-decoration: none;
 }
 
-.hero-actions a + a {
+.hero-actions a+a {
   background: transparent;
   color: var(--ink);
 }
@@ -260,7 +260,7 @@ h1 {
   padding: 1rem clamp(1rem, 2.5vw, 2rem);
 }
 
-.lab-strip > div:first-child {
+.lab-strip>div:first-child {
   min-width: 0;
 }
 
@@ -287,7 +287,7 @@ h1 {
   align-items: baseline;
 }
 
-.agent-ledger > span:first-child {
+.agent-ledger>span:first-child {
   color: oklch(78% 0.025 92);
 }
 
@@ -300,14 +300,37 @@ h1 {
   color: inherit;
 }
 
-.agent-pm { --agent-color: var(--green); }
-.agent-build { --agent-color: var(--blue); }
-.agent-review { --agent-color: var(--orange); }
-.agent-office-hour { --agent-color: var(--violet); }
-.agent-research { --agent-color: var(--red); }
-.agent-architect { --agent-color: var(--cyan); }
-.agent-yoyo { --agent-color: var(--gold); }
-.agent-unknown { --agent-color: var(--muted); }
+.agent-pm {
+  --agent-color: var(--green);
+}
+
+.agent-build {
+  --agent-color: var(--blue);
+}
+
+.agent-review {
+  --agent-color: var(--orange);
+}
+
+.agent-office-hour {
+  --agent-color: var(--violet);
+}
+
+.agent-research {
+  --agent-color: var(--red);
+}
+
+.agent-architect {
+  --agent-color: var(--cyan);
+}
+
+.agent-arc {
+  --agent-color: var(--gold);
+}
+
+.agent-unknown {
+  --agent-color: var(--muted);
+}
 
 .controls {
   display: grid;
@@ -751,6 +774,7 @@ h1 {
 }
 
 @media (max-width: 1080px) {
+
   .journal-shell,
   .site-footer {
     width: min(100% - 2rem, 56rem);
@@ -877,6 +901,7 @@ h1 {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+
   .journal-shell,
   .journal-entry {
     animation: rise 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -891,6 +916,7 @@ h1 {
       opacity: 0;
       transform: translateY(14px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);

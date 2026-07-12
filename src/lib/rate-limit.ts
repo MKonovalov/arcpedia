@@ -1,6 +1,6 @@
 /**
  * Coarse per-key rate limiting for the abuse/cost-sensitive public surfaces
- * (remote MCP). Backed by the existing `YOPEDIA_CONFIG`
+ * (remote MCP). Backed by the existing `arcpedia_CONFIG`
  * KV — no new infra. It's a **fixed-window counter**, so it's eventually
  * consistent and approximate (a burst may let a few extra through); that's fine
  * for a cost guard, it is NOT a precise quota. **Fail-open**: when there's no KV
@@ -31,13 +31,13 @@ export const RATE_LIMITS = {
 
 /** The KV-backed store, or null outside an OpenNext Cloudflare request. */
 function getStore(): RateLimitStore | null {
-  let env: { YOPEDIA_CONFIG?: RateLimitStore } | undefined;
+  let env: { arcpedia_CONFIG?: RateLimitStore } | undefined;
   try {
-    env = getCloudflareContext().env as { YOPEDIA_CONFIG?: RateLimitStore };
+    env = getCloudflareContext().env as { arcpedia_CONFIG?: RateLimitStore };
   } catch {
     return null; // not in a Workers request context (local/test) — expected, silent
   }
-  const kv = env?.YOPEDIA_CONFIG;
+  const kv = env?.arcpedia_CONFIG;
   if (!kv) {
     // We ARE in a deployed Worker but the KV binding is absent — a config defect
     // that silently disables the cost guard. Make it LOUD (error tier → alerting)
@@ -45,7 +45,7 @@ function getStore(): RateLimitStore | null {
     // happens. (The no-context case above stays silent — that's just local/test.)
     logger.error(
       "rate-limit",
-      "YOPEDIA_CONFIG KV binding missing in a Worker request — rate limiting is DISABLED",
+      "arcpedia_CONFIG KV binding missing in a Worker request — rate limiting is DISABLED",
     );
     return null;
   }

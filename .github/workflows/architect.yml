@@ -1,4 +1,4 @@
-name: yoyo Architect
+name: arc Architect
 
 on:
   issues:
@@ -14,7 +14,7 @@ on:
         required: false
 
 concurrency:
-  group: yoyo-architect
+  group: arc-architect
   cancel-in-progress: false
 
 permissions:
@@ -56,11 +56,11 @@ jobs:
 
       - name: Configure git
         run: |
-          git config user.name "yoyo[bot]"
-          git config user.email "yoyo[bot]@users.noreply.github.com"
+          git config user.name "arc[bot]"
+          git config user.email "arc[bot]@users.noreply.github.com"
 
-      - name: Run yoyo Architect
-        uses: yologdev/yoyo-action@v1
+      - name: Run arc Architect
+        uses: yologdev/arc-action@v1
         with:
           agent: architect
           args: ${{ github.event_name == 'issue_comment' && format('decision-discussion issue {0}', github.event.issue.number) || github.event_name == 'workflow_dispatch' && github.event.inputs.issue || github.event.issue.number || '' }}

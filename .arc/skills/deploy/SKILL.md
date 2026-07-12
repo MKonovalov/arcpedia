@@ -1,22 +1,22 @@
 ---
 name: deploy
-description: Deploy yopedia to Cloudflare using wrangler CLI
+description: Deploy arcpedia to Cloudflare using wrangler CLI
 tools: [bash, read_file, write_file, edit_file]
 ---
 
 # Deploy
 
-You can provision and deploy yopedia infrastructure on Cloudflare using the
+You can provision and deploy arcpedia infrastructure on Cloudflare using the
 wrangler CLI. All commands run via `npx wrangler` (no global install needed).
 
 ## Cloudflare Services
 
 | Service | Purpose | Provisioning |
 |---------|---------|-------------|
-| **Pages** | Frontend + Workers (Nitro) | `wrangler pages project create yopedia` |
-| **R2** | Markdown file storage (source of truth) | `wrangler r2 bucket create yopedia-wiki` |
+| **Pages** | Frontend + Workers (Nitro) | `wrangler pages project create arcpedia` |
+| **R2** | Markdown file storage (source of truth) | `wrangler r2 bucket create arcpedia-wiki` |
 | **KV** | Derived indexes (search, metadata cache) | `wrangler kv namespace create SEARCH_INDEX` |
-| **Vectorize** | Semantic search embeddings | `wrangler vectorize create yopedia-embeddings --dimensions 1536 --metric cosine` |
+| **Vectorize** | Semantic search embeddings | `wrangler vectorize create arcpedia-embeddings --dimensions 1536 --metric cosine` |
 
 ## Key Principle
 
@@ -29,13 +29,13 @@ database as canonical — R2 IS the filesystem.
 The deployment config lives at the project root:
 
 ```toml
-name = "yopedia"
+name = "arcpedia"
 compatibility_date = "2025-01-01"
 pages_build_output_dir = ".output/public"
 
 [[r2_buckets]]
 binding = "R2"
-bucket_name = "yopedia-wiki"
+bucket_name = "arcpedia-wiki"
 
 [[kv_namespaces]]
 binding = "KV"
@@ -43,7 +43,7 @@ id = "<namespace-id>"
 
 [[vectorize]]
 binding = "VECTORIZE"
-index_name = "yopedia-embeddings"
+index_name = "arcpedia-embeddings"
 ```
 
 After creating KV namespace, `wrangler` prints the namespace ID. Update
@@ -53,11 +53,11 @@ After creating KV namespace, `wrangler` prints the namespace ID. Update
 
 ```bash
 # Create all resources (idempotent — safe to re-run)
-npx wrangler r2 bucket create yopedia-wiki 2>/dev/null || true
+npx wrangler r2 bucket create arcpedia-wiki 2>/dev/null || true
 npx wrangler kv namespace create SEARCH_INDEX
-npx wrangler vectorize create yopedia-embeddings \
+npx wrangler vectorize create arcpedia-embeddings \
     --dimensions 1536 --metric cosine 2>/dev/null || true
-npx wrangler pages project create yopedia \
+npx wrangler pages project create arcpedia \
     --production-branch main 2>/dev/null || true
 ```
 
@@ -65,13 +65,13 @@ npx wrangler pages project create yopedia \
 
 ```bash
 pnpm build
-npx wrangler pages deploy .output/public --project-name yopedia
+npx wrangler pages deploy .output/public --project-name arcpedia
 ```
 
 For preview deployments (PRs):
 ```bash
 npx wrangler pages deploy .output/public \
-    --project-name yopedia \
+    --project-name arcpedia \
     --branch "$BRANCH_NAME"
 ```
 
@@ -83,19 +83,19 @@ Upload existing wiki files to R2:
 # Upload all wiki pages
 for f in wiki/*.md; do
     slug=$(basename "$f")
-    npx wrangler r2 object put "yopedia-wiki/wiki/$slug" --file "$f"
+    npx wrangler r2 object put "arcpedia-wiki/wiki/$slug" --file "$f"
 done
 
 # Upload raw source files
 for f in raw/*.md; do
     slug=$(basename "$f")
-    npx wrangler r2 object put "yopedia-wiki/raw/$slug" --file "$f"
+    npx wrangler r2 object put "arcpedia-wiki/raw/$slug" --file "$f"
 done
 
 # Upload revision history
 find wiki/.revisions -name '*.md' | while read f; do
     key=$(echo "$f" | sed 's|wiki/.revisions/|revisions/|')
-    npx wrangler r2 object put "yopedia-wiki/$key" --file "$f"
+    npx wrangler r2 object put "arcpedia-wiki/$key" --file "$f"
 done
 ```
 
@@ -105,7 +105,7 @@ If KV search index is corrupted or stale, rebuild from R2:
 
 ```bash
 # List all wiki pages in R2
-npx wrangler r2 object list yopedia-wiki --prefix "wiki/" \
+npx wrangler r2 object list arcpedia-wiki --prefix "wiki/" \
     | jq -r '.[] | .key'
 ```
 

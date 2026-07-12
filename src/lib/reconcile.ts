@@ -1,7 +1,7 @@
 /**
  * Reconcile a commons page from a human-flagged discussion thread — the
  * "agents maintain, humans discuss" loop (B2b). A reader opens a talk thread
- * ("this claim is wrong", "these two pages are the same"), an agent (yoyo) reads
+ * ("this claim is wrong", "these two pages are the same"), an agent (arc) reads
  * the page + the thread and revises the page to address the valid points,
  * flagging `disputed` when it can't resolve a contradiction (and clearing it
  * when it does). Triggered async via
@@ -27,8 +27,8 @@ import { INGEST_MAX_OUTPUT_TOKENS } from "./constants";
 import { getThread, addComment, resolveThread } from "./talk";
 import { logger } from "./logger";
 
-/** Default acting agent when no per-user yoyo handle is supplied. */
-const DEFAULT_AGENT_AUTHOR = "yoyo";
+/** Default acting agent when no per-user arc handle is supplied. */
+const DEFAULT_AGENT_AUTHOR = "arc";
 
 const RECONCILE_FROM_TALK_SYSTEM_PROMPT = `You are a wiki editor maintaining a single canonical page. You are given the page's CURRENT content and a DISCUSSION thread in which readers have flagged issues (a wrong claim, a missing nuance, a request to merge/split, a question). Revise the page to address the VALID points raised.
 
@@ -78,7 +78,7 @@ function parseDisputedVerdict(raw: string): {
  * the page to address the readers' valid points, write via the unified pipeline
  * (setting `disputed` to the page-wide verdict — flag when a contradiction
  * remains, CLEAR when resolved, leave unchanged when the LLM gives no verdict),
- * then post a yoyo reply summarizing what changed and resolve the thread (left
+ * then post a arc reply summarizing what changed and resolve the thread (left
  * open + `disputed` when a contradiction remains).
  *
  * Idempotent and fail-soft: a missing page/thread or an empty LLM response makes
@@ -148,8 +148,7 @@ export async function reconcileFromTalk(
       crossRefSource: null, // a reconcile isn't a new source for cross-ref
       author,
       logDetails: () =>
-        `reconciled from discussion thread ${threadIndex}${
-          disputed ? " (disputed)" : wasDisputed ? " (dispute resolved)" : ""
+        `reconciled from discussion thread ${threadIndex}${disputed ? " (disputed)" : wasDisputed ? " (dispute resolved)" : ""
         }`,
     });
 

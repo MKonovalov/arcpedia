@@ -4,12 +4,12 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
-const journalPath = path.join(repoRoot, ".yoyo", "journal.md");
+const journalPath = path.join(repoRoot, ".arc", "journal.md");
 const distDir = path.join(__dirname, "dist");
 const assetsDir = path.join(__dirname, "assets");
 
-const issueBaseUrl = "https://github.com/yologdev/yopedia/issues/";
-const repoUrl = "https://github.com/yologdev/yopedia";
+const issueBaseUrl = "https://github.com/mkonovalov/arcpedia/issues/";
+const repoUrl = "https://github.com/mkonovalov/arcpedia";
 const journalMinDate = "2026-04-01";
 const journalMaxDate = new Date().toISOString().slice(0, 10);
 
@@ -50,9 +50,9 @@ const agentMeta = {
     status: "planned",
     description: "Breaks hard changes into buildable plans.",
   },
-  yoyo: {
-    label: "yoyo",
-    className: "agent-yoyo",
+  arc: {
+    label: "arc",
+    className: "agent-arc",
     status: "logged",
     description: "Maintains the journal and connects the trail.",
   },
@@ -105,7 +105,7 @@ function inferAgent(title, agentRaw) {
   if (normalizedTitle.includes("pm")) return "pm";
   if (normalizedTitle.includes("build")) return "build";
   if (normalizedTitle.includes("review")) return "review";
-  return "yoyo";
+  return "arc";
 }
 
 function parseHeading(heading) {
@@ -169,7 +169,7 @@ function assertPlausibleJournalDate(parsed, heading) {
 
   throw new Error(
     `Journal heading has implausible date outside ${journalMinDate}..${journalMaxDate}: "${heading}". ` +
-      "Fix the source heading in .yoyo/journal.md before publishing.",
+    "Fix the source heading in .arc/journal.md before publishing.",
   );
 }
 
@@ -556,7 +556,7 @@ function renderEntries(entries) {
               <time datetime="${escapeAttr(entry.timestamp)}">${formatShortDate(entry.date)}</time>
               <span>${entry.time ? `${escapeHtml(entry.time)} UTC` : "00:00 UTC"}</span>
               <span class="agent-badge">${meta.label}</span>
-              <span>yoyo</span>
+              <span>arc</span>
               ${issue ? `<a href="${issueBaseUrl}${issue.slice(1)}">${issue}</a>` : ""}
             </div>
             <h2><a href="#${escapeAttr(entry.id)}">${escapeHtml(entry.title)}</a></h2>
@@ -595,26 +595,26 @@ function renderHtml(entries) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light">
-    <title>yopedia Growth Journal</title>
-    <meta name="description" content="A public archive of the agent sessions growing yopedia.">
+    <title>arcpedia Growth Journal</title>
+    <meta name="description" content="A public archive of the agent sessions growing arcpedia.">
     <link rel="stylesheet" href="./assets/site.css">
   </head>
   <body>
     <main class="journal-shell" id="top">
       <header class="hero">
         <nav class="topline" aria-label="Project links">
-          <strong>yopedia Growth Journal</strong>
+          <strong>arcpedia Growth Journal</strong>
           <span></span>
           <a href="${repoUrl}">GitHub</a>
-          <a href="${repoUrl}/blob/main/.yoyo/journal.md">Source Journal</a>
-          <code>.yoyo/journal.md</code>
+          <a href="${repoUrl}/blob/main/.arc/journal.md">Source Journal</a>
+          <code>.arc/journal.md</code>
         </nav>
         <div class="hero-grid">
           <div class="hero-copy">
             <p class="eyebrow">Public lab log</p>
             <h1>Watch a wiki grow itself.</h1>
             <p class="hero-deck">
-              yopedia is a shared second brain for humans and agents. This journal is the visible trail: every scan, triage, build, review, and decision that moves the product forward.
+              arcpedia is a shared second brain for humans and agents. This journal is the visible trail: every scan, triage, build, review, and decision that moves the product forward.
             </p>
             <div class="hero-actions">
               <a href="#archive">Browse the archive</a>
@@ -706,8 +706,8 @@ function renderHtml(entries) {
     </main>
 
     <footer class="site-footer">
-      <p>Generated from <code>.yoyo/journal.md</code></p>
-      <a href="${repoUrl}">Back to yopedia</a>
+      <p>Generated from <code>.arc/journal.md</code></p>
+      <a href="${repoUrl}">Back to arcpedia</a>
     </footer>
 
     <a class="to-top" href="#top" aria-label="Go to top">Top</a>

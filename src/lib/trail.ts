@@ -17,7 +17,7 @@ export interface TrailEvent {
   /** Who acted — a human handle or an agent id (automation actors like
    * `system`/`lint-fix` are folded to the agent via {@link normalizeActor}). */
   actor: string;
-  /** True when the actor is an autonomous agent (e.g. `yoyo`). */
+  /** True when the actor is an autonomous agent (e.g. `arc`). */
   isAgent: boolean;
   /** What happened. */
   action: "ingested" | "re-ingested" | "edited";
@@ -190,15 +190,15 @@ export async function trailEventsForPages(
       // secure-default stance.
       const commons = full
         ? belongsInCommons({
-            visibility:
-              typeof full.frontmatter.visibility === "string"
-                ? full.frontmatter.visibility
-                : undefined,
-            type:
-              typeof full.frontmatter.type === "string"
-                ? full.frontmatter.type
-                : undefined,
-          })
+          visibility:
+            typeof full.frontmatter.visibility === "string"
+              ? full.frontmatter.visibility
+              : undefined,
+          type:
+            typeof full.frontmatter.type === "string"
+              ? full.frontmatter.type
+              : undefined,
+        })
         : false;
 
       // Ingests — structured provenance entries.
@@ -209,8 +209,8 @@ export async function trailEventsForPages(
         for (const s of sources) {
           const ts = Date.parse(s.fetched);
           if (Number.isNaN(ts)) continue;
-          // Fold automation actors (system / lint-fix / yopedia) into the agent
-          // so the trail reads as one yoyo, matching the (rebuilt) contributor index.
+          // Fold automation actors (system / lint-fix / arcpedia) into the agent
+          // so the trail reads as one arc, matching the (rebuilt) contributor index.
           const actor = normalizeActor(s.triggered_by || "system");
           evs.push({
             ts,

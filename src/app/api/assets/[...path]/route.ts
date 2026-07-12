@@ -10,7 +10,7 @@ import { canReadFrontmatter } from "@/lib/authz";
  *
  * Serves a binary asset (image) that was stored during ingest. Stored images
  * (e.g. single-image ingests via `storeImageBytes` / `ingestImage`, and baked
- * yoyo illustrations) live at the storage key `raw/assets/{slug}/{file}` and are
+ * arc illustrations) live at the storage key `raw/assets/{slug}/{file}` and are
  * referenced in markdown by the relative path `assets/{slug}/{file}`. This route
  * maps a request path back to that storage key and streams the bytes.
  *

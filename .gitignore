@@ -19,6 +19,7 @@ SESSION_PLAN.md
 ISSUE_RESPONSE.md
 timelapse.mp4
 generate_video.py
-.yoyo/scripts/__pycache__/
+.arc/scripts/__pycache__/
 journal-site/dist/
 .dev.vars
+.DS_Store

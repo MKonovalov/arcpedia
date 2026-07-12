@@ -1,10 +1,10 @@
 {
-	// yopedia — Cloudflare Pages deployment via @opennextjs/cloudflare
+	// arcpedia — Cloudflare Pages deployment via @opennextjs/cloudflare
 	//
 	// Binding names match src/lib/storage/cloudflare-types.ts CloudflareEnv:
-	//   YOPEDIA_BUCKET   → R2Bucket
-	//   YOPEDIA_CONFIG   → KVNamespace
-	//   YOPEDIA_VECTORIZE → VectorizeIndex (optional)
+	//   arcpedia_BUCKET   → R2Bucket
+	//   arcpedia_CONFIG   → KVNamespace
+	//   arcpedia_VECTORIZE → VectorizeIndex (optional)
 	//
 	// After provisioning resources, update bucket_name / id / index_name
 	// to match your Cloudflare account. Run:
@@ -12,7 +12,7 @@
 	//   npx wrangler kv namespace list
 	//   npx wrangler vectorize list
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "yopedia",
+	"name": "arcpedia",
 	"main": ".open-next/worker.js",
 	"compatibility_date": "2025-01-01",
 	"compatibility_flags": [
@@ -31,26 +31,26 @@
 	// --- R2: Primary storage (wiki pages, raw sources, assets) ---
 	"r2_buckets": [
 		{
-			"binding": "YOPEDIA_BUCKET",
-			"bucket_name": "yopedia-raw"
+			"binding": "arcpedia_BUCKET",
+			"bucket_name": "arcpedia-raw"
 		}
 	],
 	// --- KV: Config and derived indexes ---
 	"kv_namespaces": [
 		{
-			"binding": "YOPEDIA_CONFIG",
+			"binding": "arcpedia_CONFIG",
 			"id": "31e48c3fc033443788f1d3fe130e6266"
 		}
 	],
 	// --- Vectorize: Semantic search embeddings (optional) ---
 	"vectorize": [
 		{
-			"binding": "YOPEDIA_VECTORIZE",
-			"index_name": "yopedia-embeddings"
+			"binding": "arcpedia_VECTORIZE",
+			"index_name": "arcpedia-embeddings"
 		},
 		{
 			"binding": "VECTORIZE",
-			"index_name": "yopedia-embeddings"
+			"index_name": "arcpedia-embeddings"
 		}
 	],
 	// --- Workers AI: serverless embeddings (e.g. @cf/baai/bge-m3 for CJK) ---
@@ -61,13 +61,13 @@
 	// The consumer is a separate worker (workers/task-consumer/). enqueueTask()
 	// (src/lib/tasks.ts) sends here; it no-ops gracefully when this binding is
 	// absent (local dev / next start / tests). One-time provisioning:
-	//   npx wrangler queues create yopedia-tasks
-	//   npx wrangler queues create yopedia-tasks-dlq
+	//   npx wrangler queues create arcpedia-tasks
+	//   npx wrangler queues create arcpedia-tasks-dlq
 	"queues": {
 		"producers": [
 			{
 				"binding": "TASK_QUEUE",
-				"queue": "yopedia-tasks"
+				"queue": "arcpedia-tasks"
 			}
 		]
 	},

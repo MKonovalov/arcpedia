@@ -7,14 +7,14 @@ import { logger } from "@/lib/logger";
 /**
  * POST /api/agents/ensure
  *
- * Idempotently provision the signed-in user's personal yoyo, forked from the
- * canonical base (`yopedia/yoyo`). Auto-called client-side on sign-in (no
+ * Idempotently provision the signed-in user's personal arc, forked from the
+ * canonical base (`yopedia/arc`). Auto-called client-side on sign-in (no
  * button), so it must be cheap and safe to call repeatedly:
  *   - already provisioned → returns the existing agent
  *   - base not seeded yet → `{ provisioned: false }` (not an error)
  *
  * The fork inherits the base's identity/learnings by reference, so it stays in
- * sync with the weekly yoyo-evolve seed until the owner overrides a page.
+ * sync with the weekly arc-evolve seed until the owner overrides a page.
  */
 export async function POST() {
   try {

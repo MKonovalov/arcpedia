@@ -102,20 +102,20 @@ export default function IngestPage() {
           fontStyle: "italic",
         }}
       >
-        Drop a link, PDF, or post. yoyo synthesizes it into a cited page — and
+        Drop a link, PDF, or post. arc synthesizes it into a cited page — and
         merges it if the source already lives in the commons.
       </p>
 
       <IngestStepper current={currentStep} />
 
-      {/* Step 2: the ingest was queued — yoyo builds the page in the background. */}
+      {/* Step 2: the ingest was queued — arc builds the page in the background. */}
       {stage === "queued" && (
         <div style={{ marginTop: 28 }}>
           <p style={{ fontSize: 18, fontWeight: 600, color: "var(--ink)", margin: 0 }}>
             Processing your source…
           </p>
           <p style={{ marginTop: 8, color: "var(--muted)", maxWidth: "48ch" }}>
-            yoyo is synthesizing your page in the background — this can take a
+            arc is synthesizing your page in the background — this can take a
             minute for a long source. It&apos;ll appear here when it&apos;s ready.
             You can leave this page; the outcome shows under{" "}
             <strong>Recent ingests</strong>.

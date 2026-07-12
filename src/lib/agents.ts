@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// Agent registry — Phase 4 agent identity as yopedia pages (data layer)
+// Agent registry — Phase 4 agent identity as arcpedia pages (data layer)
 // ---------------------------------------------------------------------------
 //
 // Each registered agent gets a JSON file at `agents/<id>.json` under the data
@@ -82,8 +82,8 @@ function validateProfile(profile: AgentProfile): void {
 // Addressing — an agent is identified by (owner, name)
 // ---------------------------------------------------------------------------
 //
-// Every owner can have their own "yoyo", so the stored id encodes both:
-//   id = slugify("<owner>-<name>")   e.g. "yopedia-yoyo", "alice-yoyo"
+// Every owner can have their own "arc", so the stored id encodes both:
+//   id = slugify("<owner>-<name>")   e.g. "arcpedia-arc", "alice-arc"
 // This keeps a flat agents/<id>.json registry (and the existing id-based API
 // and `agent:<id>` search scope) working unchanged — the id is just composite.
 
@@ -93,7 +93,7 @@ export { DEFAULT_AGENT_NAME, isAgentHandle } from "./agent-handle";
 import { DEFAULT_AGENT_NAME } from "./agent-handle";
 
 /** The owner handle of the canonical root agent (the synced base). */
-export const BASE_AGENT_OWNER = "yopedia";
+export const BASE_AGENT_OWNER = "arcpedia";
 
 /**
  * Compose the stable storage id for an agent from its (owner, name).
@@ -101,8 +101,8 @@ export const BASE_AGENT_OWNER = "yopedia";
  * Each part is slugified SEPARATELY and joined with `--`. Because slugify never
  * emits a run of separators, the `--` delimiter is unambiguous and the
  * owner/name boundary cannot be crossed — so a user-chosen short name can't be
- * crafted to collide with another owner's id (e.g. owner `a_b`+`yoyo` →
- * `a-b--yoyo`, owner `a`+`b_yoyo` → `a--b-yoyo`, distinct). The only residual
+ * crafted to collide with another owner's id (e.g. owner `a_b`+`arc` →
+ * `a-b--arc`, owner `a`+`b_arc` → `a--b-arc`, distinct). The only residual
  * collision is two owner handles that slugify identically, which forkAgent and
  * the seed ownership check guard against.
  */
@@ -110,7 +110,7 @@ export function agentIdFor(owner: string, name: string = DEFAULT_AGENT_NAME): st
   return `${slugify(owner)}--${slugify(name)}`;
 }
 
-/** The id of the canonical root agent every per-user yoyo is forked from. */
+/** The id of the canonical root agent every per-user arc is forked from. */
 export function baseAgentId(): string {
   return agentIdFor(BASE_AGENT_OWNER, DEFAULT_AGENT_NAME);
 }
@@ -135,7 +135,7 @@ export function agentShortName(agent: AgentProfile): string {
  * owner slug. Returns null for bare/legacy ids without a `--` delimiter.
  *
  * Used by read-authorization to decide whether a requester owns the human
- * behind an agent-owned page (e.g. owner `yuanhao--yoyo` → `yuanhao`).
+ * behind an agent-owned page (e.g. owner `yuanhao--arc` → `yuanhao`).
  */
 export function agentOwnerHandle(agentId: string): string | null {
   const idx = agentId.indexOf("--");
@@ -454,7 +454,7 @@ export async function getAgentByOwnerName(
  * Resolve an agent's EFFECTIVE pages, following its `template` chain.
  *
  * A fork stores only its own pages; everything else is inherited from its
- * template (and the template's template, …). So a freshly forked yoyo with no
+ * template (and the template's template, …). So a freshly forked arc with no
  * own pages resolves to exactly the base's pages — and when the base is
  * re-seeded, the fork sees the update. Own pages are unioned on top (additive
  * learnings); de-duplicated, own-first. A depth cap guards against cycles.
@@ -684,14 +684,14 @@ export async function updateAgent(
     for (const page of options.addPages) {
       // Build frontmatter
       const frontmatter: Record<string, string | string[] | number | boolean> =
-        {
-          type: "agent-identity",
-          authors: [id],
-          confidence: 0.9,
-          expiry: expiryStr,
-          created: now.toISOString(),
-          updated: now.toISOString(),
-        };
+      {
+        type: "agent-identity",
+        authors: [id],
+        confidence: 0.9,
+        expiry: expiryStr,
+        created: now.toISOString(),
+        updated: now.toISOString(),
+      };
 
       // If the page already exists, preserve `created` and merge contributors.
       const existingPage = await readWikiPageWithFrontmatter(page.slug).catch(
@@ -892,7 +892,7 @@ export async function seedAgent(options: SeedAgentOptions): Promise<AgentProfile
     }
   }
 
-  // Composite id so each owner can have their own "<name>" (e.g. "yopedia-yoyo").
+  // Composite id so each owner can have their own "<name>" (e.g. "arcpedia-arc").
   // Unowned/legacy seeds keep the bare id for back-compat.
   const storedId = options.owner
     ? agentIdFor(options.owner, options.id)
@@ -933,7 +933,7 @@ export async function seedAgent(options: SeedAgentOptions): Promise<AgentProfile
 export interface ForkAgentOptions {
   /** The owner (principal handle) of the new fork. */
   owner: string;
-  /** The id of the template to fork from (e.g. the base "yopedia-yoyo"). */
+  /** The id of the template to fork from (e.g. the base "arcpedia-arc"). */
   templateId: string;
   /** Short name for the fork; defaults to {@link DEFAULT_AGENT_NAME}. */
   name?: string;

@@ -5,7 +5,7 @@
  * a server-side per-user job index.
  */
 
-const KEY = "yopedia_recent_ingests";
+const KEY = "arcpedia_recent_ingests";
 const MAX = 8;
 
 export function rememberRecentJob(jobId: string): void {

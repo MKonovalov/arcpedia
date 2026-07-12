@@ -1,4 +1,4 @@
-name: yoyo Research
+name: arc Research
 
 on:
   schedule:
@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
     inputs:
       focus:
-        description: 'What should yoyo research?'
+        description: 'What should arc research?'
         required: false
 
 concurrency:
-  group: yoyo-research
+  group: arc-research
   cancel-in-progress: false
 
 permissions:
@@ -58,8 +58,8 @@ jobs:
           git config user.name "${SLUG}[bot]"
           git config user.email "${SLUG}[bot]@users.noreply.github.com"
 
-      - name: Run yoyo Research
-        uses: yologdev/yoyo-action@v1
+      - name: Run arc Research
+        uses: mkonovalov/arc-action@v1
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
         with:

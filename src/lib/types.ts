@@ -171,13 +171,13 @@ export interface ContributorProfile {
 }
 
 // ---------------------------------------------------------------------------
-// Agent profiles — Phase 4 agent identity as yopedia pages
+// Agent profiles — Phase 4 agent identity as arcpedia pages
 // ---------------------------------------------------------------------------
 
-/** An agent registered in yopedia. */
+/** An agent registered in arcpedia. */
 export interface AgentProfile {
   /** Unique agent identifier. For owned agents this is the composite
-   *  `slugify("<owner>-<name>")` (e.g. "yopedia-yoyo", "alice-yoyo"), so every
+   *  `slugify("<owner>-<name>")` (e.g. "arcpedia-yoyo", "alice-yoyo"), so every
    *  owner can have their own "yoyo". Legacy/unowned agents may use a bare slug. */
   id: string;
   /** Display name */
@@ -190,7 +190,7 @@ export interface AgentProfile {
    *  back-compat with any pre-ownership agent records (treated as unowned). */
   owner?: string;
   /** The id of the agent this one was forked from (its template), or undefined
-   *  for a root agent (the synced base, e.g. "yopedia-yoyo"). A fork inherits
+   *  for a root agent (the synced base, e.g. "arcpedia-yoyo"). A fork inherits
    *  the template's pages by reference — see resolveAgentPages() — so base
    *  updates keep flowing through until the fork overrides a page (future). */
   template?: string;

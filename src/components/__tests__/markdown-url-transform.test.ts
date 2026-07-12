@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { urlTransform } from "@/components/MarkdownRenderer";
 
 // react-markdown's default urlTransform strips `data:` URIs (XSS guard). We
-// allow RASTER image data URIs through so baked yoyo-illustrations render, while
+// allow RASTER image data URIs through so baked arc-illustrations render, while
 // still blocking script-capable ones (svg, text/html) and other schemes.
 describe("urlTransform", () => {
   it("passes raster image data URIs through unchanged", () => {

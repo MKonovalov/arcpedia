@@ -54,14 +54,14 @@ export interface EffectiveSettings {
  * Returns `true` when the instance should reject settings writes.
  *
  * True when:
- *   1. `YOPEDIA_READONLY=1` environment variable is set, **or**
+ *   1. `arcpedia_READONLY=1` environment variable is set, **or**
  *   2. `STORAGE_PROVIDER=cloudflare-r2` env var is set, **or**
  *   3. Cloudflare Workers runtime is detected (globalThis.caches.default)
  *
  * This protects public cloud deployments from unauthenticated config changes.
  */
 export function isReadOnly(): boolean {
-  if (process.env.YOPEDIA_READONLY === "1") return true;
+  if (process.env.arcpedia_READONLY === "1") return true;
   if (process.env.STORAGE_PROVIDER === "cloudflare-r2") return true;
 
   // Cloudflare Workers runtime detection (mirrors storage/index.ts logic)

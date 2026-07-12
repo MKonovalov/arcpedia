@@ -131,14 +131,14 @@ export async function getPrincipal(): Promise<Principal | null> {
 // ---------------------------------------------------------------------------
 //
 // A bearer token lets a trusted automated caller (e.g. the weekly
-// seed-yoyo GitHub Action) write WITHOUT a Clerk session. It is intentionally
+// seed-arc GitHub Action) write WITHOUT a Clerk session. It is intentionally
 // narrow: only routes that opt in by calling getServicePrincipal() honor it,
-// and it resolves to ONE fixed principal handle (YOPEDIA_SERVICE_PRINCIPAL) so
+// and it resolves to ONE fixed principal handle (arcpedia_SERVICE_PRINCIPAL) so
 // everything it writes is attributed and owner-gated like any other user.
 //
 // Set both as Worker secrets:
-//   wrangler secret put YOPEDIA_SERVICE_TOKEN       (a long random string)
-//   wrangler secret put YOPEDIA_SERVICE_PRINCIPAL   (the handle it acts as)
+//   wrangler secret put arcpedia_SERVICE_TOKEN       (a long random string)
+//   wrangler secret put arcpedia_SERVICE_PRINCIPAL   (the handle it acts as)
 
 /** Extract the bearer token from an Authorization header, or null. */
 function bearerToken(header: string | null): string | null {
@@ -164,14 +164,14 @@ function timingSafeEqual(a: string, b: string): boolean {
 /**
  * Resolve a service principal from a request's bearer token, or `null`.
  *
- * Returns a principal ONLY when both `YOPEDIA_SERVICE_TOKEN` and
- * `YOPEDIA_SERVICE_PRINCIPAL` are configured and the request presents the
+ * Returns a principal ONLY when both `arcpedia_SERVICE_TOKEN` and
+ * `arcpedia_SERVICE_PRINCIPAL` are configured and the request presents the
  * exact token. The principal's handle is the configured value, so writes are
  * attributed/owned exactly like a human user with that handle.
  */
 export function getServicePrincipal(req: Request): Principal | null {
-  const expected = process.env.YOPEDIA_SERVICE_TOKEN;
-  const handle = process.env.YOPEDIA_SERVICE_PRINCIPAL;
+  const expected = process.env.arcpedia_SERVICE_TOKEN;
+  const handle = process.env.arcpedia_SERVICE_PRINCIPAL;
   if (!expected || !handle) return null;
 
   const provided = bearerToken(req.headers.get("authorization"));

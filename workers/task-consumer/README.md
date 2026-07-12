@@ -1,10 +1,10 @@
 # task-consumer Worker
 
-The consumer for the **yopedia agent task queue** (Cloudflare Queues), as a
+The consumer for the **arcpedia agent task queue** (Cloudflare Queues), as a
 **standalone Worker** (so it gets a first-class Queues consumer without wrapping
 the OpenNext entry).
 
-It drains the **`yopedia-tasks`** queue and, for each message, POSTs the task to
+It drains the **`arcpedia-tasks`** queue and, for each message, POSTs the task to
 the deployed main app's **`POST /api/tasks/run`** with the system token. It is a
 **thin dispatcher** — the actual work (`reconcile` a page from a discussion
 thread, async `ingest`) runs in the main app, which has the full `src/lib` and
@@ -12,13 +12,13 @@ the OpenNext request context. This worker imports **no `src/lib` code** (that
 would transitively pull Clerk/Next + require the OpenNext context it can't
 provide).
 
-**Producers** (who enqueues) live in the main app: the "Ask yoyo to address this"
-button (`/api/wiki/<slug>/discuss/<idx>/ask-yoyo`), and this worker's **daily
+**Producers** (who enqueues) live in the main app: the "Ask arc to address this"
+button (`/api/wiki/<slug>/discuss/<idx>/ask-arc`), and this worker's **daily
 cron** → `POST /api/tasks/scan` (autonomous maintenance, Q2). `enqueueTask()`
 (`src/lib/tasks.ts`) sends to the `TASK_QUEUE` producer binding, and no-ops
 gracefully off the Workers runtime.
 
-This worker has two triggers: the **queue consumer** (drains `yopedia-tasks`) and
+This worker has two triggers: the **queue consumer** (drains `arcpedia-tasks`) and
 a **cron** (`scheduled()`, daily) that POSTs `/api/tasks/scan`.
 
 ### Autonomous maintenance (Q2)
@@ -27,11 +27,11 @@ The daily cron scans the **commons** (public pages only) for upkeep no human
 reports and enqueues `maintain` tasks:
 
 - a **`disputed`** page with an open discussion thread whose latest comment is
-  from a human (yoyo hasn't already answered) → **reconcile** it;
+  from a human (arc hasn't already answered) → **reconcile** it;
 - a page past its **`expiry`** that has a `source_url` → **re-ingest** from source.
 
 Guardrails: commons-only (never a private vault page), skip pages edited today,
-skip disputes yoyo already replied to, and a per-scan cap.
+skip disputes arc already replied to, and a per-scan cap.
 
 #### It is OFF by default
 
@@ -46,11 +46,11 @@ exactly `"on"` (including unset) = dry-run.
 #### How to enable it
 
 **1. Inspect what it would do** (dry-run, works regardless of the flag). Replace
-the token with the same `YOPEDIA_SERVICE_TOKEN` the workers use:
+the token with the same `arcpedia_SERVICE_TOKEN` the workers use:
 
 ```sh
-curl -s -X POST "https://yopedia.yuanhao-li.workers.dev/api/tasks/scan?dry=1" \
-  -H "Authorization: Bearer <YOPEDIA_SERVICE_TOKEN>" | jq
+curl -s -X POST "https://arcpedia.yuanhao-li.workers.dev/api/tasks/scan?dry=1" \
+  -H "Authorization: Bearer <arcpedia_SERVICE_TOKEN>" | jq
 # → { enabled, dry: true, found, enqueued: 0, tasks: [ { op, slug, threadIndex? } … ] }
 ```
 
@@ -87,8 +87,8 @@ pnpm exec wrangler secret put AUTONOMOUS_MAINTENANCE   # enter:  on
 and confirm `enabled: true`, `dry: false`, and `enqueued > 0` when there's work:
 
 ```sh
-curl -s -X POST "https://yopedia.yuanhao-li.workers.dev/api/tasks/scan" \
-  -H "Authorization: Bearer <YOPEDIA_SERVICE_TOKEN>" | jq
+curl -s -X POST "https://arcpedia.yuanhao-li.workers.dev/api/tasks/scan" \
+  -H "Authorization: Bearer <arcpedia_SERVICE_TOKEN>" | jq
 ```
 
 #### Tuning
@@ -109,7 +109,7 @@ it as a secret. The cron keeps running but reverts to harmless dry-runs.
 - `4xx` → poison (malformed / not-found) → ack + drop (don't retry forever).
 - `5xx` / network → retry (CF redelivers; → dead-letter queue after `max_retries`).
 
-> **Same-zone fetch note:** the `/api/tasks/run` call targets the main yopedia
+> **Same-zone fetch note:** the `/api/tasks/run` call targets the main arcpedia
 > Worker on the same account. A plain same-zone Worker→Worker `fetch()` is blocked
 > (**error 1042**), so this Worker sets the **`global_fetch_strictly_public`**
 > compatibility flag.
@@ -118,26 +118,26 @@ it as a secret. The cron keeps running but reverts to harmless dry-runs.
 
 ```sh
 # Create the queue + dead-letter queue:
-pnpm exec wrangler queues create yopedia-tasks
-pnpm exec wrangler queues create yopedia-tasks-dlq
+pnpm exec wrangler queues create arcpedia-tasks
+pnpm exec wrangler queues create arcpedia-tasks-dlq
 
 # Secret (same value as the main Worker's):
-pnpm exec wrangler secret put YOPEDIA_SERVICE_TOKEN --config workers/task-consumer/wrangler.jsonc
+pnpm exec wrangler secret put arcpedia_SERVICE_TOKEN --config workers/task-consumer/wrangler.jsonc
 
 # First deploy (afterwards it auto-deploys via deploy-cloudflare.yml on push to main):
 pnpm exec wrangler deploy --config workers/task-consumer/wrangler.jsonc
 ```
 
 The main app's `wrangler.jsonc` already declares the `TASK_QUEUE` producer
-binding for the same `yopedia-tasks` queue.
+binding for the same `arcpedia-tasks` queue.
 
 ## Test it
 
-Open a discussion thread on a commons page → **🛠 Ask yoyo to address this** →
-within a queue cycle the page updates and yoyo replies in the thread. Logs:
+Open a discussion thread on a commons page → **🛠 Ask arc to address this** →
+within a queue cycle the page updates and arc replies in the thread. Logs:
 
 ```sh
 pnpm exec wrangler tail --config workers/task-consumer/wrangler.jsonc
 ```
 
-Health check: `GET https://yopedia-task-consumer.<subdomain>.workers.dev` → `ok`.
+Health check: `GET https://arcpedia-task-consumer.<subdomain>.workers.dev` → `ok`.

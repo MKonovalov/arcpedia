@@ -23,7 +23,7 @@ layer end-to-end. It is also gitignored — humans read it, the LLM writes it.
 
 **The schema** is this file. It co-evolves with the project: when a new
 convention emerges (a new lint check, a new page type, a new prompt rule),
-yoyo updates this document so future sessions inherit the convention. See
+arc updates this document so future sessions inherit the convention. See
 [Co-evolution](#co-evolution) below.
 
 ## Page conventions
@@ -52,11 +52,11 @@ yoyo updates this document so future sessions inherit the convention. See
 - Pages should not be edited by humans. The LLM owns the wiki layer; humans
   curate sources and ask questions.
 
-### Yopedia frontmatter fields
+### arcpedia frontmatter fields
 
 In addition to the base fields (`type`, `source_url`, `tags`, `created`,
-`updated`, `source_count`), every wiki page carries yopedia metadata fields.
-These were added in Phase 1 of the yopedia pivot.
+`updated`, `source_count`), every wiki page carries arcpedia metadata fields.
+These were added in Phase 1 of the arcpedia pivot.
 
 | Field | Type | Default | Set when | Consumed by |
 |-------|------|---------|----------|-------------|
@@ -95,7 +95,7 @@ page view displays this as "Verified May 2026 · Review by Oct 2026". The
 is the page-level analog of Graphiti's `valid_at`/`invalid_at` model for
 temporal knowledge management.
 
-**Note:** The `authors` default is `"system"` (not `"yoyo"`) because the
+**Note:** The `authors` default is `"system"` (not `"arc"`) because the
 ingest operation is performed by the system on behalf of the user. Phase 4
 (agent identity) introduced proper agent attribution via the agent registry,
 `seedAgent()`, and MCP tools (`seed-agent`, `update-agent`, etc.).
@@ -235,9 +235,9 @@ sidecar and appear with `author: undefined` in the API — backward compatible.
 
 ## Agent registry (Phase 4)
 
-Agents are registered entities in yopedia whose identity, learnings, and social
-wisdom are stored as wiki pages. This is how yopedia "eats its own cooking" —
-agents are yopedia citizens with proper attribution and provenance.
+Agents are registered entities in arcpedia whose identity, learnings, and social
+wisdom are stored as wiki pages. This is how arcpedia "eats its own cooking" —
+agents are arcpedia citizens with proper attribution and provenance.
 
 **Location:** `agents/<id>.json` — under the data directory (configured via
 `DATA_DIR`). Each agent gets a JSON profile file, mirroring the `discuss/`
@@ -247,7 +247,7 @@ pattern for talk pages.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `id` | string | Unique agent identifier, e.g. `"yoyo"`. Must match `/^[a-z0-9][a-z0-9-]*$/` |
+| `id` | string | Unique agent identifier, e.g. `"arc"`. Must match `/^[a-z0-9][a-z0-9-]*$/` |
 | `name` | string | Display name |
 | `description` | string | Short description of who this agent is |
 | `identityPages` | `string[]` | Wiki page slugs forming the agent's identity context |
@@ -282,13 +282,13 @@ side effects.
   remove wiki pages (body: `{ name?, description?, addPages?, removePages? }`)
 - `GET /api/agents/:id/context` — get the agent's full context (identity +
   learnings + social wisdom concatenated from wiki pages), designed for
-  bootstrapping an agent's system prompt from yopedia
+  bootstrapping an agent's system prompt from arcpedia
 
 **Context endpoint response (`GET /api/agents/:id/context`):**
 
 ```json
 {
-  "agent": { "id": "yoyo", "name": "Yoyo", ... },
+  "agent": { "id": "arc", "name": "arc", ... },
   "context": {
     "identity": "<concatenated identity page contents>",
     "learnings": "<concatenated learnings page contents>",
@@ -589,7 +589,7 @@ Current checks performed by `lint()` in `src/lib/lint.ts`:
   frontmatter and no inline citation markers in the body, meaning its claims
   are unsupported. No auto-fix — requires ingesting a source URL for the
   topic or adding inline citations manually.
-- **`unmigrated-page`** (info) — page is missing all three core yopedia
+- **`unmigrated-page`** (info) — page is missing all three core arcpedia
   frontmatter fields (`confidence`, `expiry`, `authors`), indicating it
   predates the schema migration. Auto-fix: add sensible defaults
   (confidence 0.5, expiry 90 days out, authors `["system"]`, etc.).
@@ -653,7 +653,7 @@ sessions should pick from this list:
   The `broken-link` fix removes broken links from the source page.
   The `stale-page` fix bumps the expiry date forward by 90 days and
   refreshes `valid_from` to today.
-  The `unmigrated-page` fix adds sensible yopedia defaults (confidence 0.5,
+  The `unmigrated-page` fix adds sensible arcpedia defaults (confidence 0.5,
   expiry 90 days out, authors `["system"]`).
   The seven exceptions without auto-fix are: `low-confidence` (requires
   ingesting additional sources), `duplicate-entity` (requires human judgment
@@ -672,7 +672,7 @@ sessions should pick from this list:
   cross-references) from TOCTOU races within a single Next.js server process
   via `withFileLock()` in `src/lib/lock.ts`. This does NOT protect against
   multiple server processes (which would require OS-level lockfiles).
-- The wiki page view displays yopedia metadata fields (`confidence`,
+- The wiki page view displays arcpedia metadata fields (`confidence`,
   `expiry`, `valid_from`, `authors`, `contributors`, `disputed`, `aliases`,
   `supersedes`, `sources`) when present. Confidence is color-coded
   (green/yellow/red), temporal validity shows as "Verified May 2026 ·
@@ -691,17 +691,17 @@ Phase 3 (X ingestion loop) library and API work is complete — `ingestXMention(
 and `POST /api/ingest/x-mention` are implemented, along with the MCP tool
 `ingest_x_mention`. The remaining piece is the GitHub Actions polling workflow (#21),
 which is blocked on deployment architecture.
-Phase 4 (agent identity as yopedia pages) is **substantially complete** — the agent
+Phase 4 (agent identity as arcpedia pages) is **substantially complete** — the agent
 registry, context API, `seedAgent()` utility, `agent-identity` page type, scoped
 search, MCP tools (`seed-agent`, `list-agents`, `update-agent`, `delete-agent`,
 `agent-context`), and contributor profiles are implemented. Remaining Phase 4 work:
-migrating yoyo's actual identity content into yopedia pages and `grow.sh` integration.
-The schema will continue to evolve toward the full yopedia model defined in
-[`yopedia-concept.md`](yopedia-concept.md). See YOYO.md for the phased roadmap.
+migrating arc's actual identity content into arcpedia pages and `grow.sh` integration.
+The schema will continue to evolve toward the full arcpedia model defined in
+[`arcpedia-concept.md`](arcpedia-concept.md). See arc.md for the phased roadmap.
 Next up: Phase 5 (agent surface research).
 
 **Provenance depth (evaluated in #140):** Three primitives proposed by external
-agent-wiki builders were evaluated against yopedia's architecture:
+agent-wiki builders were evaluated against arcpedia's architecture:
 
 - **Hybrid raw anchors (claim-level citation)** — WATCH. Requires new claims
   data model, LLM ingest prompt restructuring, and offset tracking. The
@@ -718,7 +718,7 @@ agent-wiki builders were evaluated against yopedia's architecture:
 
 Three independent agent-wiki builders (OmegaWiki, SwarmVault, and
 [@kiluazen](https://github.com/kiluazen)) converged on three v0 schema choices
-that yopedia hadn't shipped. Issue #139 reported the convergence with a
+that arcpedia hadn't shipped. Issue #139 reported the convergence with a
 [reference gist](https://gist.github.com/kiluazen/727948f9517eacd665d21199e8318da1)
 containing field-level schemas. Each primitive was evaluated for adopt/watch/ignore.
 
@@ -832,7 +832,7 @@ above for the full description.
 
 **Trigger/notification system:** A research evaluation of trigger patterns for
 wiki change events is documented in [`DESIGN-triggers.md`](DESIGN-triggers.md).
-The recommendation is "watch" — yopedia's 15 lint check types already detect
+The recommendation is "watch" — arcpedia's 15 lint check types already detect
 the most valuable change conditions deterministically; a structured trigger
 schema is proposed for when demand or the MCP Triggers & Events WG spec
 materializes. The preparatory step (exposing wiki pages as MCP resources with
@@ -843,11 +843,11 @@ this file describes how the wiki works today, not how it will work tomorrow.
 
 ## Co-evolution
 
-This document is meant to be updated by yoyo as conventions emerge. When a
+This document is meant to be updated by arc as conventions emerge. When a
 session adds a new lint check, a new page type, a new operation, or changes
 how cross-references work, the schema should be updated in the same commit.
 The running history of what changed and why lives in
-[`.yoyo/journal.md`](.yoyo/journal.md), and project-specific learnings live
-in [`.yoyo/learnings.md`](.yoyo/learnings.md). Treat this file as the
+[`.arc/journal.md`](.arc/journal.md), and project-specific learnings live
+in [`.arc/learnings.md`](.arc/learnings.md). Treat this file as the
 single source of truth for "how the wiki works today" — if it disagrees
 with the code, fix one or the other in the same commit.

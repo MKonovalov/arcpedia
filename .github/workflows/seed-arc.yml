@@ -1,7 +1,7 @@
-name: Seed yoyo
+name: Seed arc
 
-# Keeps the yopedia "yoyo" agent in sync with the canonical identity in
-# yologdev/yoyo-evolve. Assembles yoyo's identity / learnings / social pages
+# Keeps the arcpedia "arc" agent in sync with the canonical identity in
+# mkonovalov/arc-evolve. Assembles arc's identity / learnings / social pages
 # from that repo and POSTs them to /api/agents/seed.
 #
 # Auth: a service token (NOT a human Clerk session) — see src/lib/auth.ts
@@ -9,9 +9,9 @@ name: Seed yoyo
 # weekly re-seed refreshes the content without changing the owner.
 #
 # Required config:
-#   - secret YOPEDIA_SERVICE_TOKEN  — must equal the Worker secret of the same name
-#   - (Worker secrets, set via wrangler) YOPEDIA_SERVICE_TOKEN + YOPEDIA_SERVICE_PRINCIPAL
-#   - optional repo variable YOPEDIA_URL (defaults to the production Worker URL)
+#   - secret arcpedia_SERVICE_TOKEN  — must equal the Worker secret of the same name
+#   - (Worker secrets, set via wrangler) arcpedia_SERVICE_TOKEN + arcpedia_SERVICE_PRINCIPAL
+#   - optional repo variable arcpedia_URL (defaults to the production Worker URL)
 
 on:
   schedule:
@@ -22,7 +22,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: seed-yoyo
+  group: seed-arc
   cancel-in-progress: false
 
 jobs:
@@ -30,30 +30,30 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out yoyo-evolve identity (public repo)
+      - name: Check out arc-evolve identity (public repo)
         uses: actions/checkout@v6
         with:
-          repository: yologdev/yoyo-evolve
-          path: yoyo-evolve
+          repository: mkonovalov/arc-evolve
+          path: arc-evolve
 
       - name: Build seed payload
         run: |
           cat > build-seed.mjs <<'EOF'
           import { readFileSync, existsSync, writeFileSync } from "node:fs";
 
-          const ROOT = "yoyo-evolve";
+          const ROOT = "arc-evolve";
           const read = (rel) => {
             const path = `${ROOT}/${rel}`;
             return existsSync(path) ? readFileSync(path, "utf8").trim() : "";
           };
 
-          // Maps yoyo-evolve's identity files onto seedAgent sections.
+          // Maps arc-evolve's identity files onto seedAgent sections.
           const defs = [
-            { type: "identity",  slug: "yoyo-identity",      title: "yoyo — Identity",             file: "IDENTITY.md" },
-            { type: "identity",  slug: "yoyo-personality",   title: "yoyo — Voice & Personality",  file: "PERSONALITY.md" },
-            { type: "identity",  slug: "yoyo-economics",     title: "yoyo — Economics",            file: "ECONOMICS.md" },
-            { type: "learnings", slug: "yoyo-learnings",     title: "yoyo — Learnings",            file: "memory/active_learnings.md" },
-            { type: "social",    slug: "yoyo-social-wisdom", title: "yoyo — Social Wisdom",        file: "memory/active_social_learnings.md" },
+            { type: "identity",  slug: "arc-identity",      title: "arc — Identity",             file: "IDENTITY.md" },
+            { type: "identity",  slug: "arc-personality",   title: "arc — Voice & Personality",  file: "PERSONALITY.md" },
+            { type: "identity",  slug: "arc-economics",     title: "arc — Economics",            file: "ECONOMICS.md" },
+            { type: "learnings", slug: "arc-learnings",     title: "arc — Learnings",            file: "memory/active_learnings.md" },
+            { type: "social",    slug: "arc-social-wisdom", title: "arc — Social Wisdom",        file: "memory/active_social_learnings.md" },
           ];
 
           // Skip any file that is missing or empty — seedAgent rejects empty content.
@@ -62,15 +62,15 @@ jobs:
             .filter((s) => s.content.length > 0);
 
           if (sections.length === 0) {
-            console.error("No identity content found in yoyo-evolve — aborting.");
+            console.error("No identity content found in arc-evolve — aborting.");
             process.exit(1);
           }
 
           const payload = {
-            id: "yoyo",
-            name: "yoyo",
+            id: "arc",
+            name: "arc",
             description:
-              "A self-evolving coding agent growing up in public. Identity synced from yologdev/yoyo-evolve.",
+              "A self-evolving coding agent growing up in public. Identity synced from mkonovalov/arc-evolve.",
             sections,
           };
 
@@ -82,19 +82,19 @@ jobs:
           EOF
           node build-seed.mjs
 
-      - name: Seed yopedia
+      - name: Seed arcpedia
         env:
-          YOPEDIA_SERVICE_TOKEN: ${{ secrets.YOPEDIA_SERVICE_TOKEN }}
-          YOPEDIA_URL: ${{ vars.YOPEDIA_URL || 'https://yopedia.yuanhao-li.workers.dev' }}
+          arcpedia_SERVICE_TOKEN: ${{ secrets.arcpedia_SERVICE_TOKEN }}
+          arcpedia_URL: ${{ vars.arcpedia_URL || 'https://arcpedia.yuanhao-li.workers.dev' }}
         run: |
           set -euo pipefail
-          if [ -z "${YOPEDIA_SERVICE_TOKEN:-}" ]; then
-            echo "::error::YOPEDIA_SERVICE_TOKEN secret is not set"
+          if [ -z "${arcpedia_SERVICE_TOKEN:-}" ]; then
+            echo "::error::arcpedia_SERVICE_TOKEN secret is not set"
             exit 1
           fi
           code=$(curl -sS -o resp.json -w '%{http_code}' \
-            -X POST "$YOPEDIA_URL/api/agents/seed" \
-            -H "Authorization: Bearer $YOPEDIA_SERVICE_TOKEN" \
+            -X POST "$arcpedia_URL/api/agents/seed" \
+            -H "Authorization: Bearer $arcpedia_SERVICE_TOKEN" \
             -H "Content-Type: application/json" \
             --data @payload.json)
           echo "HTTP $code"
@@ -104,4 +104,4 @@ jobs:
             echo "::error::Seed failed with HTTP $code"
             exit 1
           fi
-          echo "yoyo seeded/updated successfully."
+          echo "arc seeded/updated successfully."

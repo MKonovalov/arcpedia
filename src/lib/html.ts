@@ -60,7 +60,7 @@ const SANDBOX_CSP =
  *
  * Content width is one shared token, `--measure`: the `.doc`/`main`/`article`
  * wrappers, the body column (centered for document-style docs in `sandboxHead`),
- * and the `.yoyo-illustration` figure all use it, so prose and the measure-width
+ * and the `.arc-illustration` figure all use it, so prose and the measure-width
  * hand-drawn illustrations land on the SAME centered edges. For document-style
  * docs the body column supplies that alignment even when the model didn't wrap
  * its content; app-style (viewport-unit) layouts are left full-bleed and manage
@@ -68,7 +68,7 @@ const SANDBOX_CSP =
  */
 // Folio color tokens, light + dark — factored out so the per-frame theme
 // override in `sandboxHead` can force the app's RESOLVED theme (matching
-// yopedia's in-app light/dark toggle, not just the OS `prefers-color-scheme`).
+// arcpedia's in-app light/dark toggle, not just the OS `prefers-color-scheme`).
 const LIGHT_VARS =
   "--paper:#fbfaf6;--paper-2:#f4f1e9;--ink:#1b1a16;--ink-2:#423f38;--muted:#756f62;--rule:#e2ddd0;--accent:#4d6bfe;--accent-soft:#e7ebff";
 const DARK_VARS =
@@ -108,12 +108,12 @@ tr:hover td{background:var(--paper-2)}
 .stat .num{font-family:var(--head);font-size:2.1rem;font-weight:700;color:var(--ink);line-height:1}
 .stat .label{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
 .badge{display:inline-block;font-size:.78rem;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--rule)}
-figure{margin:1.6em 0}figure.yoyo-illustration{max-width:var(--measure);margin-left:auto;margin-right:auto;text-align:center}figure>figcaption{font-size:.85rem;color:var(--muted);margin-top:.5em;text-align:center}
-/* The yoyo illustration is a BAKED img (generated server-side); the class is
+figure{margin:1.6em 0}figure.arc-illustration{max-width:var(--measure);margin-left:auto;margin-right:auto;text-align:center}figure>figcaption{font-size:.85rem;color:var(--muted);margin-top:.5em;text-align:center}
+/* The arc illustration is a BAKED img (generated server-side); the class is
    ours. Some models try to "draw" it themselves with emoji + CSS gradient
    pseudo-elements layered on the figure — kill those so only the real image
    shows. The important flag beats the model's own style, injected after this. */
-figure.yoyo-illustration::before,figure.yoyo-illustration::after{content:none!important;display:none!important}
+figure.arc-illustration::before,figure.arc-illustration::after{content:none!important;display:none!important}
 .chart{position:relative;height:340px}
 details{border:1px solid var(--rule);border-radius:var(--radius);padding:0 16px;margin:1em 0;background:var(--paper-2)}
 details[open]{padding-bottom:8px}
@@ -181,7 +181,7 @@ export function usesChartLib(html: string): boolean {
  * a fixed-height frame and let them scroll inside it (see `HtmlPreview`), and we
  * skip the centered content column (see `sandboxHead`).
  *
- * Inlined `data:` URIs are stripped FIRST: a baked yoyo illustration is a large
+ * Inlined `data:` URIs are stripped FIRST: a baked arc illustration is a large
  * base64 image (`<img src="data:image/jpeg;base64,…">`) whose payload
  * coincidentally contains `<digits>vh`-style runs at `/`/`+` boundaries, which
  * would false-positive this check and wrongly flag a normal document as
@@ -264,7 +264,7 @@ function sandboxHead(
       ? `<script>${chartLibSource}</script>`
       : "";
   // Force the app's RESOLVED theme so the artifact's paper/ink matches the page
-  // around it — including yopedia's in-app dark TOGGLE, which the BASE_STYLE
+  // around it — including arcpedia's in-app dark TOGGLE, which the BASE_STYLE
   // `@media (prefers-color-scheme)` default can't see. Injected AFTER BASE_STYLE
   // so this `:root` wins over the media-query default at equal specificity.
   const themeOverride = theme
@@ -274,11 +274,11 @@ function sandboxHead(
   // scrolls inside it — hide that inner scrollbar so the page reads clean.
   const hideBar = hideScrollbar
     ? `<style>html{scrollbar-width:none;-ms-overflow-style:none}` +
-      `html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}</style>`
+    `html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}</style>`
     : "";
   // Document-style artifacts (blog-post HTML, no viewport/app layout) are
   // centered in a column of the shared `--measure`, so prose and the
-  // measure-width yoyo illustrations land on the SAME aligned edges instead of
+  // measure-width arc illustrations land on the SAME aligned edges instead of
   // sprawling edge-to-edge on a wide viewport (the iframe is full-bleed). This
   // applies even when the model didn't wrap its content in `<main>`/`.doc`. We
   // also paint `html` with `--paper` so the gutters beside the narrowed body

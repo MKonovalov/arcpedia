@@ -1,14 +1,14 @@
 ---
-name: yopedia
-description: Read and ingest into yopedia — a cited, agent-maintained wiki — over the remote MCP endpoint. Use it to save URLs/notes into your own yopedia content and to query the wiki for cited answers.
-homepage: https://yopedia.yuanhao-li.workers.dev
+name: arcpedia
+description: Read and ingest into arcpedia — a cited, agent-maintained wiki — over the remote MCP endpoint. Use it to save URLs/notes into your own arcpedia content and to query the wiki for cited answers.
+homepage: https://arcpedia.arclumen.de
 ---
 
-# yopedia (remote MCP)
+# arcpedia (remote MCP)
 
-yopedia is a cited, agent-maintained wiki. This skill lets any MCP-capable agent
+arcpedia is a cited, agent-maintained wiki. This skill lets any MCP-capable agent
 (Claude Desktop/Code, Cursor, OpenClaw, …) **read** the public commons and
-**ingest** content into the user's own yopedia — no browser extension, no
+**ingest** content into the user's own arcpedia — no browser extension, no
 copy-paste.
 
 ## Connect
@@ -16,7 +16,7 @@ copy-paste.
 The server speaks **stateless Streamable-HTTP JSON-RPC** at:
 
 ```
-https://yopedia.yuanhao-li.workers.dev/api/mcp
+https://arcpedia.arclumen.de/api/mcp
 ```
 
 - **Reads** (`search_wiki`, `read_page`, `list_pages`, `query_wiki`) need **no auth** — they run against the public commons.
@@ -24,17 +24,17 @@ https://yopedia.yuanhao-li.workers.dev/api/mcp
 
 ### Get a token (one-time)
 
-Your yopedia token is your **personal write credential — treat it like a
-password.** It's the token of your personal yopedia agent:
+Your arcpedia token is your **personal write credential — treat it like a
+password.** It's the token of your personal arcpedia agent:
 
-1. Sign in to yopedia, then mint a token: `POST /api/agents/<your-agent-id>/token` (owner-only).
+1. Sign in to arcpedia, then mint a token: `POST /api/agents/<your-agent-id>/token` (owner-only).
 2. Put it in the MCP client config as a Bearer header.
 
 ### Client config examples
 
 **Claude Code:**
 ```
-claude mcp add --transport http yopedia https://yopedia.yuanhao-li.workers.dev/api/mcp \
+claude mcp add --transport http arcpedia https://arcpedia.arclumen.de/api/mcp \
   --header "Authorization: Bearer <YOUR_TOKEN>"
 ```
 
@@ -42,8 +42,8 @@ claude mcp add --transport http yopedia https://yopedia.yuanhao-li.workers.dev/a
 ```json
 {
   "mcpServers": {
-    "yopedia": {
-      "url": "https://yopedia.yuanhao-li.workers.dev/api/mcp",
+    "arcpedia": {
+      "url": "https://arcpedia.arclumen.de/api/mcp",
       "headers": { "Authorization": "Bearer <YOUR_TOKEN>" }
     }
   }

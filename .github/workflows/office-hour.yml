@@ -1,4 +1,4 @@
-name: yoyo Office Hour
+name: arc Office Hour
 
 on:
   schedule:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch: {}
 
 concurrency:
-  group: yoyo-office-hour
+  group: arc-office-hour
   cancel-in-progress: false
 
 permissions:
@@ -50,8 +50,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile 2>/dev/null || pnpm install || true
 
-      - name: Run yoyo Office Hour
-        uses: yologdev/yoyo-action@v1
+      - name: Run arc Office Hour
+        uses: yologdev/arc-action@v1
         with:
           agent: office-hour
           args: ${{ github.event_name == 'issue_comment' && format('decision-discussion issue {0}', github.event.issue.number) || '' }}

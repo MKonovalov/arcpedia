@@ -205,7 +205,7 @@ export async function computeScanData(
   principal: Principal | null = null,
 ): Promise<ContributorScanData> {
   // Human pages only — agent-scoped pages are authored by the agent itself
-  // (e.g. "yuanhao--yoyo"), not a human contributor, so their revisions never
+  // (e.g. "yuanhao--arc"), not a human contributor, so their revisions never
   // factor in. Filtering here also means we never read them.
   const pages = (await listReadableWikiPages(principal)).filter(
     (p) => !isAgentScopedType(p.type),
@@ -363,7 +363,7 @@ export async function listContributors(
   return profiles.filter(isRealContributor);
 }
 
-/** Keep only real contributors. Automation actors (system/lint-fix/yopedia) are
+/** Keep only real contributors. Automation actors (system/lint-fix/arcpedia) are
  *  normally folded into the agent by {@link normalizeActor}, but a stale
  *  precomputed index may still carry their raw handles, so exclude them here too.
  *  An empty/whitespace handle is a real data defect (an edit attributed to a

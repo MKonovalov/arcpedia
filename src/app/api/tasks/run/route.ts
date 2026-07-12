@@ -50,8 +50,8 @@ export async function POST(req: Request) {
 
   try {
     if (task.kind === "reconcile") {
-      // Attribute the edit to the requester's yoyo (the human who asked), else a
-      // generic yoyo for autonomous/unknown triggers.
+      // Attribute the edit to the requester's arc (the human who asked), else a
+      // generic arc for autonomous/unknown triggers.
       const author = task.requestedBy
         ? agentIdFor(task.requestedBy, DEFAULT_AGENT_NAME)
         : undefined;
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
     }
 
     if (task.kind === "maintain") {
-      // Autonomous maintenance (Q2). Attributed to a generic yoyo (no requester).
+      // Autonomous maintenance (Q2). Attributed to a generic arc (no requester).
       if (task.op === "reconcile") {
         if (typeof task.threadIndex !== "number") {
           return NextResponse.json(

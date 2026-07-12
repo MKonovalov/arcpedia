@@ -57,7 +57,7 @@ export function hasLinkTo(content: string, targetSlug: string): boolean {
 
 /**
  * Catch-all tenant for ownerless / seed content. yopedia is built in public by
- * yoyo, so unattributed/seed pages are the platform's own — they belong to the
+ * arc, so unattributed/seed pages are the platform's own — they belong to the
  * `yopedia` tenant. Defined here (a pure module) so both client and server
  * resolve owner→tenant identically; `wiki.ts` re-exports it.
  */
@@ -75,7 +75,7 @@ export const DEFAULT_TENANT = "yopedia";
  * an API/MCP-supplied `"Jean Luc"`) still yields a valid, routable tenant rather
  * than a broken URL or a silo write that throws. Unicode (e.g. CJK handles) is
  * preserved — only the unsafe set is touched. Normal handles (Clerk usernames,
- * `alice--yoyo`) pass through unchanged apart from lowercasing.
+ * `alice--arc`) pass through unchanged apart from lowercasing.
  */
 export function ownerToTenant(owner?: string | null): string {
   if (typeof owner !== "string") return DEFAULT_TENANT;

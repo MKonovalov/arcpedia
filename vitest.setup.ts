@@ -7,5 +7,5 @@ import { mkdtempSync } from "fs";
 // (tenants/<tenant>/…), and .indexes — never touches the repo cwd. Tests that
 // set their own DATA_DIR/WIKI_DIR/RAW_DIR in beforeEach still override this.
 if (!process.env.DATA_DIR) {
-  process.env.DATA_DIR = mkdtempSync(path.join(os.tmpdir(), "yopedia-test-"));
+  process.env.DATA_DIR = mkdtempSync(path.join(os.tmpdir(), "arcpedia-test-"));
 }

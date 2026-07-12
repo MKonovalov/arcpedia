@@ -5,14 +5,14 @@
  * maintenance is off). Two ops, chosen for safety + reuse of proven engines:
  *
  *   - **reconcile**: a `disputed` page with an OPEN thread whose latest comment
- *     is from a HUMAN (so yoyo hasn't already answered and is waiting) → run the
+ *     is from a HUMAN (so arc hasn't already answered and is waiting) → run the
  *     same `reconcileFromTalk` as the on-demand button.
  *   - **staleness**: a page past its `expiry` with a `source_url` → re-ingest
  *     from the source (the reconcile-on-merge step refreshes it). Also used for
  *     low-confidence pages (below `LOW_CONFIDENCE_THRESHOLD`) that have a
  *     `source_url` — re-ingesting re-synthesizes and may raise confidence.
  *   - **fix** (deterministic, no LLM): backfill a legacy page missing all
- *     yopedia schema fields (`unmigrated-page`); clear a dangling `supersedes`
+ *     arcpedia schema fields (`unmigrated-page`); clear a dangling `supersedes`
  *     reference (`supersedes-dangling`); drop an index entry whose page file is
  *     gone (`stale-index`). These reuse the lint auto-fixes (`lint-fix.ts`).
  *
@@ -23,7 +23,7 @@
  *     private page reingested by a generic agent forks (the realm guard) instead
  *     of refreshing, leaving the original to be re-flagged every scan;
  *   - skip pages updated TODAY (don't act on a just-edited page);
- *   - skip disputed threads yoyo already answered (last comment is an agent) —
+ *   - skip disputed threads arc already answered (last comment is an agent) —
  *     avoids re-reconciling a stuck dispute on every scan;
  *   - cap the number of tasks per scan (cost + blast-radius bound).
  */
@@ -99,7 +99,7 @@ export async function scanForMaintenance(
     eligibleSlugs.add(entry.slug);
 
     // (1) Disputed → reconcile, but only when a HUMAN is awaiting a response
-    //     (the latest comment on an open thread isn't yoyo's).
+    //     (the latest comment on an open thread isn't arc's).
     if (fm.disputed === true) {
       const threads = await listThreads(entry.slug);
       const idx = threads.findIndex(
@@ -115,7 +115,7 @@ export async function scanForMaintenance(
     }
 
     // (2) Deterministic janitorial fixes (no LLM, safe): backfill a legacy page
-    //     missing ALL yopedia schema fields; clear a dangling `supersedes` ref.
+    //     missing ALL arcpedia schema fields; clear a dangling `supersedes` ref.
     if (
       !("confidence" in fm) &&
       !("authors" in fm) &&

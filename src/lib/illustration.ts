@@ -2,15 +2,15 @@ import { getStorage } from "./storage";
 import { rawRelPath } from "./wiki";
 import { isEnoent } from "./errors";
 import { logger } from "./logger";
-import { YOYO_REFERENCE_PNG_BASE64 } from "./vendor/yoyo-reference.generated";
+import { arc_REFERENCE_PNG_BASE64 } from "./vendor/arc-reference.generated";
 import {
-  renderYoyoIllustrationsInHtml,
-  renderYoyoIllustrationsInMarkdown,
+  renderarcIllustrationsInHtml,
+  renderarcIllustrationsInMarkdown,
 } from "./illustration-render";
 
 /**
- * yoyo brand illustrations via the xAI Grok image API. The static brand DNA
- * below is ported from the `yoyo-illustrations` skill (style-dna / yoyo-ip /
+ * arc brand illustrations via the xAI Grok image API. The static brand DNA
+ * below is ported from the `arc-illustrations` skill (style-dna / arc-ip /
  * prompt-template). The reference image is sent to the **edits** endpoint so the
  * octopus stays on-model across generations.
  *
@@ -26,9 +26,9 @@ const XAI_IMAGE_MODEL = "grok-imagine-image-quality";
 function buildIllustrationPrompt(scene: string, lang: string): string {
   return [
     `Generate one standalone 16:9 horizontal hand-drawn article illustration.`,
-    `Visual DNA: pure white background; minimalist black hand-drawn line art (thin, slightly wobbly pen lines) for the scene and props; lots of empty white space; a few short handwritten annotations in ${lang}. Clean, quietly weird, product-sketch feeling. No gradients, no shadows (except yoyo's soft ground shadow), no paper texture, no commercial vector style, no PPT/infographic look, no flowchart, no cute mascot poster, no children's illustration, no realistic UI.`,
-    `Recurring character (required): yoyo — a soft lavender-purple octopus (#B3A7F0) with a bold slightly-uneven black outline, a rounded-square head, two simple black dot eyes, a small calm smile, and eight tentacles with pale-pink undersides. yoyo is the ONLY filled-color subject; everything else is black line art on white. yoyo must PERFORM the core action of the scene with its tentacles, not stand beside it. Keep yoyo gentle, earnest, deadpan, a little shy.`,
-    `Color: purple body + pale-pink tentacle undersides for yoyo only; black for all other line art; orange for the main flow/path/arrows; red only for key warnings/results; blue only for secondary notes. Nothing except yoyo is purple or pink.`,
+    `Visual DNA: pure white background; minimalist black hand-drawn line art (thin, slightly wobbly pen lines) for the scene and props; lots of empty white space; a few short handwritten annotations in ${lang}. Clean, quietly weird, product-sketch feeling. No gradients, no shadows (except arc's soft ground shadow), no paper texture, no commercial vector style, no PPT/infographic look, no flowchart, no cute mascot poster, no children's illustration, no realistic UI.`,
+    `Recurring character (required): arc — a soft lavender-purple octopus (#B3A7F0) with a bold slightly-uneven black outline, a rounded-square head, two simple black dot eyes, a small calm smile, and eight tentacles with pale-pink undersides. arc is the ONLY filled-color subject; everything else is black line art on white. arc must PERFORM the core action of the scene with its tentacles, not stand beside it. Keep arc gentle, earnest, deadpan, a little shy.`,
+    `Color: purple body + pale-pink tentacle undersides for arc only; black for all other line art; orange for the main flow/path/arrows; red only for key warnings/results; blue only for secondary notes. Nothing except arc is purple or pink.`,
     `The scene to draw: ${scene}`,
     `Constraints: explain only ONE idea; subject ~40-60% of canvas; keep at least 35% blank white space; at most 5-8 short handwritten labels, all in ${lang}; no title in the top-left corner; invent a fresh visual metaphor for this scene; clear but not instructional, interesting but not childish, strange but clean.`,
   ].join("\n\n");
@@ -91,7 +91,7 @@ async function callGrok(prompt: string, key: string): Promise<string | null> {
       prompt,
       image: {
         type: "image_url",
-        url: `data:image/png;base64,${YOYO_REFERENCE_PNG_BASE64}`,
+        url: `data:image/png;base64,${arc_REFERENCE_PNG_BASE64}`,
       },
       response_format: "b64_json",
     }),
@@ -126,7 +126,7 @@ async function callGrok(prompt: string, key: string): Promise<string | null> {
 }
 
 /** Encode raw image bytes as a `data:image/jpeg` URI — for the self-contained
- *  HTML-iframe path (see {@link generateYoyoIllustrationDataUri}). */
+ *  HTML-iframe path (see {@link generatearcIllustrationDataUri}). */
 function dataUriFromBytes(bytes: ArrayBuffer): string {
   const buf = new Uint8Array(bytes);
   let bin = "";
@@ -189,14 +189,14 @@ async function ensureIllustrationAsset(
 }
 
 /**
- * Generate (or return a cached) yoyo illustration and return its **servable
+ * Generate (or return a cached) arc illustration and return its **servable
  * `/api/assets/…` URL** — for slides/markdown, rendered in the main document
  * where a same-origin URL loads normally. Returns `null` on failure (the caller
  * renders without the illustration). Called server-side at answer generation
  * time (`query()`), so every viewer — including anonymous shares — loads the
  * finished image by URL with no per-view fetch.
  */
-export async function generateYoyoIllustration(
+export async function generatearcIllustration(
   scene: string,
   lang = "English",
 ): Promise<string | null> {
@@ -212,7 +212,7 @@ export async function generateYoyoIllustration(
  * (shared scene-hash cache → no per-view Grok); this reads them back. Returns
  * `null` on failure.
  */
-export async function generateYoyoIllustrationDataUri(
+export async function generatearcIllustrationDataUri(
   scene: string,
   lang = "English",
 ): Promise<string | null> {
@@ -227,7 +227,7 @@ export async function generateYoyoIllustrationDataUri(
 }
 
 /**
- * Bake every `yoyo-illustration` directive in an answer into a real image
+ * Bake every `arc-illustration` directive in an answer into a real image
  * reference — generating each scene server-side (cache-first), storing it in R2.
  * Slides embed the `/api/assets/…` URL; the HTML artifact embeds a self-contained
  * `data:` URI (its sandboxed iframe can't load a same-origin URL). Called at
@@ -237,20 +237,20 @@ export async function generateYoyoIllustrationDataUri(
  * broken placeholder baked into a saved page. Returns the content unchanged when
  * it carries no directives. Mermaid stays client-rendered (it's free).
  */
-export async function bakeYoyoIllustrations(
+export async function bakearcIllustrations(
   content: string,
   isHtml: boolean,
 ): Promise<string> {
   return isHtml
     ? // HTML → a self-contained `data:` URI: the sandboxed iframe's opaque
-      // origin can't load a same-origin `/api/assets` URL, so do NOT swap in the
-      // URL fetcher (`generateYoyoIllustration`) here.
-      renderYoyoIllustrationsInHtml(content, (scene, lang) =>
-        generateYoyoIllustrationDataUri(scene, lang),
-      )
-    : renderYoyoIllustrationsInMarkdown(content, (scene, lang) =>
-        generateYoyoIllustration(scene, lang),
-      );
+    // origin can't load a same-origin `/api/assets` URL, so do NOT swap in the
+    // URL fetcher (`generatearcIllustration`) here.
+    renderarcIllustrationsInHtml(content, (scene, lang) =>
+      generatearcIllustrationDataUri(scene, lang),
+    )
+    : renderarcIllustrationsInMarkdown(content, (scene, lang) =>
+      generatearcIllustration(scene, lang),
+    );
 }
 
 export const _internal = {

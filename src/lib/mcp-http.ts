@@ -1,6 +1,6 @@
 /**
  * Stateless JSON-RPC dispatch for the REMOTE (HTTP) MCP endpoint at
- * `/api/mcp`. yopedia's MCP server is otherwise stdio-only; this exposes the
+ * `/api/mcp`. arcpedia's MCP server is otherwise stdio-only; this exposes the
  * same tools to external agents (Claude Desktop/Code, Cursor, OpenClaw) over
  * HTTP so they can read and ingest into a DEPLOYED instance.
  *
@@ -11,7 +11,7 @@
  * `tools/call`.
  *
  * Tool handlers are REUSED from the stdio server (`@/mcp`) — single source of
- * truth, no parallel write-path to drift (see `.yoyo/learnings.md`). All 49
+ * truth, no parallel write-path to drift (see `.arc/learnings.md`). All 49
  * tools are exposed — full parity with the stdio MCP server.
  *
  * Auth/attribution lives in the route (`src/app/api/mcp/route.ts`): a Bearer
@@ -84,7 +84,7 @@ export interface TargetVault {
 
 /** Protocol version we advertise in `initialize`. */
 export const MCP_PROTOCOL_VERSION = "2025-06-18";
-export const MCP_SERVER_INFO = { name: "yopedia", version: "1.0.0" } as const;
+export const MCP_SERVER_INFO = { name: "arcpedia", version: "1.0.0" } as const;
 
 // ---------------------------------------------------------------------------
 // JSON-RPC envelope
@@ -164,12 +164,12 @@ function attributed(
 export const MCP_TOOLS: ToolDef[] = [
   {
     name: "search_wiki",
-    description: "Search yopedia wiki pages by query string (public commons).",
+    description: "Search arcpedia wiki pages by query string (public commons).",
     inputSchema: schema(
       {
         query: str("Search query"),
         limit: { type: "number", description: "Max results (default 10)" },
-        scope: str("Optional scope, e.g. 'agent:yoyo' or 'vault:<id>'"),
+        scope: str("Optional scope, e.g. 'agent:arc' or 'vault:<id>'"),
       },
       ["query"],
     ),
@@ -201,7 +201,7 @@ export const MCP_TOOLS: ToolDef[] = [
       {
         question: str("The question to answer"),
         format: str("prose | table | slides | html (default prose)"),
-        scope: str("Optional scope, e.g. 'agent:yoyo' or 'vault:<id>'"),
+        scope: str("Optional scope, e.g. 'agent:arc' or 'vault:<id>'"),
       },
       ["question"],
     ),
@@ -440,7 +440,7 @@ export const MCP_TOOLS: ToolDef[] = [
     inputSchema: schema(
       {
         slug: str("Slug of the agent-knowledge page to publish"),
-        agentId: str("ID of the agent that owns the page (e.g. alice--yoyo)"),
+        agentId: str("ID of the agent that owns the page (e.g. alice--arc)"),
       },
       ["slug", "agentId"],
     ),
@@ -794,7 +794,7 @@ export const MCP_TOOLS: ToolDef[] = [
       "Bootstrap an agent's identity context — returns identity, learnings, " +
       "social wisdom, and metadata in a single payload. Call once at startup.",
     inputSchema: schema(
-      { agent_id: str("Agent ID (e.g. 'yoyo')") },
+      { agent_id: str("Agent ID (e.g. 'arc')") },
       ["agent_id"],
     ),
     write: false,
@@ -858,7 +858,7 @@ export const MCP_TOOLS: ToolDef[] = [
       "and social sections. The owner is set to the authenticated caller.",
     inputSchema: schema(
       {
-        agent_id: str("Agent ID (e.g. 'yoyo')"),
+        agent_id: str("Agent ID (e.g. 'arc')"),
         name: str("Display name"),
         description: str("Agent description"),
         sections: {
@@ -951,7 +951,7 @@ export const MCP_TOOLS: ToolDef[] = [
   {
     name: "dataview_query",
     description:
-      "Query yopedia wiki pages by frontmatter fields with structured filters, sort, and limit. " +
+      "Query arcpedia wiki pages by frontmatter fields with structured filters, sort, and limit. " +
       "Supports operators: eq, neq, gt, lt, gte, lte, contains, exists.",
     inputSchema: schema({
       filters: {
@@ -1151,7 +1151,7 @@ export async function dispatchMcp(
         return ok(
           id,
           toolResult(
-            "Authentication required: this tool writes to your content. Send Authorization: Bearer <your yopedia token>.",
+            "Authentication required: this tool writes to your content. Send Authorization: Bearer <your arcpedia token>.",
             true,
           ),
         );
