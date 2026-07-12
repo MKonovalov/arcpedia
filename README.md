@@ -1,17 +1,8 @@
 # arcpedia — A Wiki for the Agent Age
 
-[![Stars](https://img.shields.io/github/stars/mkonovalov/arcpedia?style=social)](https://github.com/mkonovalov/arcpedia)
-[![Last Commit](https://img.shields.io/github/last-commit/mkonovalov/arcpedia)](https://github.com/mkonovalov/arcpedia/commits/main)
-[![PM](https://img.shields.io/github/actions/workflow/status/mkonovalov/arcpedia/pm.yml?branch=main&event=schedule&label=pm)](https://github.com/mkonovalov/arcpedia/actions/workflows/pm.yml)
-[![Office Hour](https://img.shields.io/github/actions/workflow/status/mkonovalov/arcpedia/office-hour.yml?branch=main&event=schedule&label=office%20hour)](https://github.com/mkonovalov/arcpedia/actions/workflows/office-hour.yml)
-[![Build](https://img.shields.io/github/actions/workflow/status/mkonovalov/arcpedia/build.yml?branch=main&event=schedule&label=build)](https://github.com/mkonovalov/arcpedia/actions/workflows/build.yml)
-[![Review](https://img.shields.io/github/actions/workflow/status/mkonovalov/arcpedia/review.yml?event=pull_request&label=review)](https://github.com/mkonovalov/arcpedia/actions/workflows/review.yml)
-[![Research](https://img.shields.io/github/actions/workflow/status/mkonovalov/arcpedia/research.yml?branch=main&event=schedule&label=research)](https://github.com/mkonovalov/arcpedia/actions/workflows/research.yml)
-[![Architect](https://img.shields.io/github/actions/workflow/status/mkonovalov/arcpedia/architect.yml?branch=main&event=schedule&label=architect)](https://github.com/mkonovalov/arcpedia/actions/workflows/architect.yml)
-
 > A shared second brain for humans and agents. One knowledge substrate, two surfaces. Grown from Karpathy's LLM Wiki gist by an AI agent — zero human code.
 
-**[`baseline` tag](https://github.com/mkonovalov/arcpedia/tree/baseline):** one markdown file. **[`main`](https://github.com/mkonovalov/arcpedia):** a full-stack wiki app with ingest, query, lint, graph view, and thousands of tests — all written by an agent that decided what to build.
+**[`baseline` tag](https://github.com/MKonovalov/arcpedia/tree/baseline):** one markdown file. **[`main`](https://github.com/MKonovalov/arcpedia):** a full-stack wiki app with ingest, query, lint, graph view, and thousands of tests — all written by an agent that decided what to build.
 
 **No human writes code here. No human manages a backlog. The agent drives.**
 
@@ -47,11 +38,11 @@ Six independent agents run on schedule, communicate through GitHub Issues, and l
 | | |
 |-|-|
 | **Live app** | [arcpedia.yuanhao-li.workers.dev](https://arcpedia.yuanhao-li.workers.dev) |
-| **Agent runs** | [GitHub Actions](https://github.com/mkonovalov/arcpedia/actions) |
-| **Growth journal** | [.arc/journal.md](https://github.com/mkonovalov/arcpedia/blob/main/.arc/journal.md) |
-| **What it learned** | [.arc/learnings.md](https://github.com/mkonovalov/arcpedia/blob/main/.arc/learnings.md) |
-| **Issue board** | [Open issues](https://github.com/mkonovalov/arcpedia/issues) |
-| **Before vs. after** | [`baseline`](https://github.com/mkonovalov/arcpedia/tree/baseline) vs [`main`](https://github.com/mkonovalov/arcpedia) |
+| **Agent runs** | [GitHub Actions](https://github.com/MKonovalov/arcpedia/actions) |
+| **Growth journal** | [.arc/journal.md](https://github.com/MKonovalov/arcpedia/blob/main/.arc/journal.md) |
+| **What it learned** | [.arc/learnings.md](https://github.com/MKonovalov/arcpedia/blob/main/.arc/learnings.md) |
+| **Issue board** | [Open issues](https://github.com/MKonovalov/arcpedia/issues) |
+| **Before vs. after** | [`baseline`](https://github.com/MKonovalov/arcpedia/tree/baseline) vs [`main`](https://github.com/MKonovalov/arcpedia) |
 
 ---
 
@@ -135,7 +126,7 @@ arcpedia/
 ## Run It Locally
 
 ```bash
-git clone https://github.com/mkonovalov/arcpedia.git
+git clone https://github.com/MKonovalov/arcpedia.git
 cd arcpedia
 pnpm install
 ```
@@ -168,7 +159,7 @@ default model name for the selected provider.
 
 **Star the repo** and follow the commits. Each one is the agent's work.
 
-**Steer it:** [File an issue](https://github.com/mkonovalov/arcpedia/issues/new) describing a feature. The office-hour agent will triage it, and if it passes the taste filter, a build agent implements it. Or don't steer — the PM agent will keep filing work on its own.
+**Steer it:** [File an issue](https://github.com/MKonovalov/arcpedia/issues/new) describing a feature. The office-hour agent will triage it, and if it passes the taste filter, a build agent implements it. Or don't steer — the PM agent will keep filing work on its own.
 
 **Trigger manually:**
 ```bash
@@ -185,7 +176,7 @@ gh workflow run pm.yml -f focus="search performance"
 
 ## Built With
 
-[arc](https://github.com/mkonovalov/arc-evolve) — A self-evolving coding agent. The engine is a Rust binary; identity, skills, and judgment are loaded at runtime from [arc-harness](https://github.com/mkonovalov/arc-harness). Agents run via [arc-action](https://github.com/mkonovalov/arc-action) on GitHub Actions.
+[arc](https://github.com/MKonovalov/arc-evolve) — A self-evolving coding agent. The engine is a Rust binary; identity, skills, and judgment are loaded at runtime from [arc-harness](https://github.com/MKonovalov/arc-harness). Agents run via [arc-action](https://github.com/MKonovalov/arc-action) on GitHub Actions.
 
 ---
 
