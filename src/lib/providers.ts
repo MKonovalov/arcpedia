@@ -14,6 +14,7 @@ export const PROVIDER_INFO = [
   { value: "openai", label: "OpenAI" },
   { value: "google", label: "Google" },
   { value: "deepseek", label: "DeepSeek" },
+  { value: "openrouter", label: "OpenRouter" },
   { value: "ollama", label: "Ollama" },
 ] as const;
 
@@ -56,6 +57,7 @@ export const DEFAULT_MODELS: Record<string, string> = {
   openai: "gpt-4o",
   google: "gemini-2.0-flash",
   deepseek: "deepseek-v4-flash",
+  openrouter: "tencent/hunyuan-a13b-instruct:free",
   ollama: "llama3.2",
 };
 
