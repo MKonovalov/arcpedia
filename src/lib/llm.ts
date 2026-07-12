@@ -170,6 +170,7 @@ export async function retryWithBackoff<T>(
  *   - OpenAI:    OPENAI_API_KEY
  *   - Google:    GOOGLE_GENERATIVE_AI_API_KEY
  *   - DeepSeek:  DEEPSEEK_API_KEY (OpenAI-compatible endpoint)
+ *   - OpenRouter: OPENROUTER_API_KEY (OpenAI-compatible endpoint)
  *   - Ollama:    OLLAMA_BASE_URL or OLLAMA_MODEL (Ollama is typically keyless;
  *                presence of either env var signals intent to use a local
  *                Ollama server)
