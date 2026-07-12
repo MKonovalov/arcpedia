@@ -4,8 +4,8 @@ import { isEnoent } from "./errors";
 import { logger } from "./logger";
 import { ARC_REFERENCE_PNG_BASE64 } from "./vendor/arc-reference.generated";
 import {
-  renderarcIllustrationsInHtml,
-  renderarcIllustrationsInMarkdown,
+  renderArcIllustrationsInHtml,
+  renderArcIllustrationsInMarkdown,
 } from "./illustration-render";
 
 /**
@@ -126,7 +126,7 @@ async function callGrok(prompt: string, key: string): Promise<string | null> {
 }
 
 /** Encode raw image bytes as a `data:image/jpeg` URI — for the self-contained
- *  HTML-iframe path (see {@link generatearcIllustrationDataUri}). */
+ *  HTML-iframe path (see {@link generateArcIllustrationDataUri}). */
 function dataUriFromBytes(bytes: ArrayBuffer): string {
   const buf = new Uint8Array(bytes);
   let bin = "";
@@ -196,7 +196,7 @@ async function ensureIllustrationAsset(
  * time (`query()`), so every viewer — including anonymous shares — loads the
  * finished image by URL with no per-view fetch.
  */
-export async function generatearcIllustration(
+export async function generateArcIllustration(
   scene: string,
   lang = "English",
 ): Promise<string | null> {
@@ -212,7 +212,7 @@ export async function generatearcIllustration(
  * (shared scene-hash cache → no per-view Grok); this reads them back. Returns
  * `null` on failure.
  */
-export async function generatearcIllustrationDataUri(
+export async function generateArcIllustrationDataUri(
   scene: string,
   lang = "English",
 ): Promise<string | null> {
@@ -237,19 +237,19 @@ export async function generatearcIllustrationDataUri(
  * broken placeholder baked into a saved page. Returns the content unchanged when
  * it carries no directives. Mermaid stays client-rendered (it's free).
  */
-export async function bakearcIllustrations(
+export async function bakeArcIllustrations(
   content: string,
   isHtml: boolean,
 ): Promise<string> {
   return isHtml
     ? // HTML → a self-contained `data:` URI: the sandboxed iframe's opaque
     // origin can't load a same-origin `/api/assets` URL, so do NOT swap in the
-    // URL fetcher (`generatearcIllustration`) here.
-    renderarcIllustrationsInHtml(content, (scene, lang) =>
-      generatearcIllustrationDataUri(scene, lang),
+    // URL fetcher (`generateArcIllustration`) here.
+    renderArcIllustrationsInHtml(content, (scene, lang) =>
+      generateArcIllustrationDataUri(scene, lang),
     )
-    : renderarcIllustrationsInMarkdown(content, (scene, lang) =>
-      generatearcIllustration(scene, lang),
+    : renderArcIllustrationsInMarkdown(content, (scene, lang) =>
+      generateArcIllustration(scene, lang),
     );
 }
 

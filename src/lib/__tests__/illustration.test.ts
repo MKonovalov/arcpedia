@@ -4,9 +4,9 @@ import os from "os";
 import path from "path";
 import {
   _internal,
-  generateYoyoIllustration,
-  generateYoyoIllustrationDataUri,
-  bakeYoyoIllustrations,
+  generateArcIllustration,
+  generateArcIllustrationDataUri,
+  bakeArcIllustrations,
 } from "../illustration";
 import { getStorage, _resetStorage } from "../storage";
 import { rawRelPath } from "../wiki";
@@ -33,11 +33,11 @@ describe("cacheKeyFor", () => {
 });
 
 describe("format instructions", () => {
-  it("slides + html offer the yoyo-illustration directive", () => {
-    expect(SLIDES_FORMAT_INSTRUCTION).toContain("yoyo-illustration");
-    expect(HTML_FORMAT_INSTRUCTION).toContain("yoyo-illustration");
+  it("slides + html offer the arc-illustration directive", () => {
+    expect(SLIDES_FORMAT_INSTRUCTION).toContain("arc-illustration");
+    expect(HTML_FORMAT_INSTRUCTION).toContain("arc-illustration");
     // HTML uses the figure convention the renderer keys on.
-    expect(HTML_FORMAT_INSTRUCTION).toContain('class="yoyo-illustration"');
+    expect(HTML_FORMAT_INSTRUCTION).toContain('class="arc-illustration"');
   });
 
   it("reliably requests an illustration (not just 'sparingly/may')", () => {
@@ -91,7 +91,7 @@ describe("callGrok request format", () => {
   });
 });
 
-describe("generateYoyoIllustration (R2 asset cache)", () => {
+describe("generateArcIllustration (R2 asset cache)", () => {
   let tmpDir: string;
   const saved: Record<string, string | undefined> = {};
 
@@ -134,7 +134,7 @@ describe("generateYoyoIllustration (R2 asset cache)", () => {
 
   it("generates on a miss, stores the asset in R2, returns its /api/assets URL", async () => {
     const grokCalls = stubGrok();
-    const url = await generateYoyoIllustration("yoyo sorting boxes", "English");
+    const url = await generateArcIllustration("yoyo sorting boxes", "English");
 
     const key = _internal.cacheKeyFor("yoyo sorting boxes", "English");
     expect(url).toBe(`/api/assets/illustrations/${key}.jpg`);
@@ -149,8 +149,8 @@ describe("generateYoyoIllustration (R2 asset cache)", () => {
 
   it("is a cache hit on a repeat scene — no second Grok call", async () => {
     const grokCalls = stubGrok();
-    const a = await generateYoyoIllustration("same scene");
-    const b = await generateYoyoIllustration("same scene");
+    const a = await generateArcIllustration("same scene");
+    const b = await generateArcIllustration("same scene");
     expect(a).not.toBeNull();
     expect(b).toBe(a);
     // The second call short-circuits on the asset's existence (stat), not Grok.
@@ -159,20 +159,20 @@ describe("generateYoyoIllustration (R2 asset cache)", () => {
 
   it("returns null when XAI_API_KEY is unset and the scene isn't cached", async () => {
     delete process.env.XAI_API_KEY;
-    expect(await generateYoyoIllustration("unkeyed scene")).toBeNull();
+    expect(await generateArcIllustration("unkeyed scene")).toBeNull();
   });
 
   it("data-URI variant inlines the stored bytes (for the sandboxed HTML iframe)", async () => {
     stubGrok();
-    const dataUri = await generateYoyoIllustrationDataUri("html scene");
+    const dataUri = await generateArcIllustrationDataUri("html scene");
     // bytes "ABC" re-encoded back to base64 "QUJD".
     expect(dataUri).toBe("data:image/jpeg;base64,QUJD");
   });
 
   it("data-URI variant is a cache hit on a repeat scene — no second Grok call", async () => {
     const grokCalls = stubGrok();
-    const a = await generateYoyoIllustrationDataUri("repeat html scene");
-    const b = await generateYoyoIllustrationDataUri("repeat html scene");
+    const a = await generateArcIllustrationDataUri("repeat html scene");
+    const b = await generateArcIllustrationDataUri("repeat html scene");
     expect(a).not.toBeNull();
     expect(b).toBe(a);
     // Same stat short-circuit as the URL path — the HTML view never re-hits Grok.
@@ -184,24 +184,24 @@ describe("generateYoyoIllustration (R2 asset cache)", () => {
     vi.spyOn(getStorage(), "writeAsset").mockRejectedValueOnce(
       new Error("disk full"),
     );
-    expect(await generateYoyoIllustration("write-fail scene")).toBeNull();
+    expect(await generateArcIllustration("write-fail scene")).toBeNull();
   });
 
-  it("bakeYoyoIllustrations pairs each format with the right reference (HTML→data URI, slides→/api/assets URL)", async () => {
+  it("bakeArcIllustrations pairs each format with the right reference (HTML→data URI, slides→/api/assets URL)", async () => {
     // The load-bearing CSP invariant: HTML (sandboxed, opaque origin) must get a
     // self-contained data: URI, while slides (main document) get the asset URL.
     // A future swap of the two fetchers would ship broken iframe images — lock it.
     stubGrok();
 
-    const html = await bakeYoyoIllustrations(
-      '<figure class="yoyo-illustration" data-scene="a robot"></figure>',
+    const html = await bakeArcIllustrations(
+      '<figure class="arc-illustration" data-scene="a robot"></figure>',
       true,
     );
     expect(html).toContain('<img src="data:image/jpeg;base64,QUJD"');
     expect(html).not.toContain("/api/assets");
 
-    const md = await bakeYoyoIllustrations(
-      "```yoyo-illustration\na fish\n```",
+    const md = await bakeArcIllustrations(
+      "```arc-illustration\na fish\n```",
       false,
     );
     const key = _internal.cacheKeyFor("a fish", "English");

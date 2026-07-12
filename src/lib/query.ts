@@ -9,7 +9,7 @@ import {
 } from "./wiki";
 import { slugify } from "./slugify";
 import { htmlToPlainText, stripHtmlFence } from "./html";
-import { bakearcIllustrations } from "./illustration";
+import { bakeArcIllustrations } from "./illustration";
 import { extractSummary } from "./ingest";
 import { loadPageConventions } from "./schema";
 import { serializeFrontmatter } from "./frontmatter";
@@ -322,7 +322,7 @@ export async function query(
       format === "slides" || format === "html"
         ? // slides answers are HTML decks now, so bake via the HTML path too —
         // else the live preview shows an un-baked empty <figure>.
-        await bakearcIllustrations(raw, format === "html" || format === "slides")
+        await bakeArcIllustrations(raw, format === "html" || format === "slides")
         : raw;
 
     // All slugs in the wiki are valid citation targets
@@ -381,7 +381,7 @@ export async function saveAnswerToWiki(
   // one — generate it server-side, store it in R2, embed the URL. A directive
   // that can't be generated is dropped. No-op when there are none. Mermaid stays
   // client-rendered (it's free). (Slides bake as markdown.)
-  const content = await bakearcIllustrations(rawContent, isHtml);
+  const content = await bakeArcIllustrations(rawContent, isHtml);
 
   // Body, by type:
   //  - HTML / slides: strip a wrapping ```html fence; store the HTML verbatim, no

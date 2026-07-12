@@ -163,7 +163,7 @@ describe("composeSrcDoc", () => {
     // All three consumers share the token: the body column, the wrapper, and
     // the illustration figure — so they align whether or not content is wrapped.
     expect(out).toContain(".doc,main,article{max-width:var(--measure)");
-    expect(out).toContain("figure.yoyo-illustration{max-width:var(--measure)");
+    expect(out).toContain("figure.arc-illustration{max-width:var(--measure)");
   });
 
   it("keeps the body-column CAP overridable by the model (plain `body` specificity)", () => {
@@ -237,7 +237,7 @@ describe("composeSrcDoc", () => {
     for (const deck of [true, false]) {
       const out = composeSrcDoc("<p>x</p>", undefined, false, undefined, deck);
       expect(out).toContain(
-        "figure.yoyo-illustration::before,figure.yoyo-illustration::after{content:none!important",
+        "figure.arc-illustration::before,figure.arc-illustration::after{content:none!important",
       );
     }
   });
@@ -285,7 +285,7 @@ describe("composeSrcDoc", () => {
     // Regression: a baked illustration's base64 payload contains vh-like runs
     // that must NOT flip the doc to app-style and skip the centered column.
     const out = composeSrcDoc(
-      '<main><p>article</p><figure class="yoyo-illustration">' +
+      '<main><p>article</p><figure class="arc-illustration">' +
         '<img src="data:image/jpeg;base64,/9j/4AAQ/100vh/SkZJRg=="></figure></main>',
     );
     expect(out).toContain("body{max-width:var(--measure)}");

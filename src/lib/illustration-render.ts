@@ -4,9 +4,9 @@
  * `<figure class="arc-illustration" data-scene="…">` in HTML — and here we
  * replace each with a real image reference. The `fetcher` generates each scene
  * once, stores it in R2, and returns a servable image reference — an
- * `/api/assets/…` URL for slides/markdown (`generatearcIllustration`), or a
+ * `/api/assets/…` URL for slides/markdown (`generateArcIllustration`), or a
  * self-contained `data:` URI for the HTML artifact
- * (`generatearcIllustrationDataUri`, whose sandboxed iframe can't load a
+ * (`generateArcIllustrationDataUri`, whose sandboxed iframe can't load a
  * same-origin URL) — so the baked answer renders for every viewer (including
  * anonymous shares) with no per-view fetch. Generation is paid + cached
  * server-side, so only directives actually present are filled, bounded to a few
@@ -18,8 +18,8 @@ export const MAX_ILLUSTRATIONS = 3;
 
 /** Generate a scene's illustration, returning a servable image reference — an
  *  `/api/assets/…` URL or a self-contained `data:` URI — or null. Injectable for
- *  tests; in production it's `generatearcIllustration` (slides) or
- *  `generatearcIllustrationDataUri` (HTML). */
+ *  tests; in production it's `generateArcIllustration` (slides) or
+ *  `generateArcIllustrationDataUri` (HTML). */
 export type IllustrateFetcher = (
   scene: string,
   lang: string,
@@ -67,7 +67,7 @@ export interface IllustrationRenderOptions {
  * untouched, so re-baking the same content is idempotent. A figure whose scene
  * can't be generated is dropped (default) or left in place (`onMissing: "keep"`).
  */
-export async function renderarcIllustrationsInHtml(
+export async function renderArcIllustrationsInHtml(
   html: string,
   fetcher: IllustrateFetcher,
   { onMissing = "drop" }: IllustrationRenderOptions = {},
@@ -116,7 +116,7 @@ const MD_FENCE_RE = /```arc-illustration\b[^\n]*\n([\s\S]*?)\n```/g;
  * bake in English — a slide fence carries no lang hint (unlike the HTML
  * `data-lang`).
  */
-export async function renderarcIllustrationsInMarkdown(
+export async function renderArcIllustrationsInMarkdown(
   md: string,
   fetcher: IllustrateFetcher,
   { onMissing = "drop" }: IllustrationRenderOptions = {},

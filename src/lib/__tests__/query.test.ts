@@ -847,7 +847,7 @@ describe("query", () => {
     expect(prompt).not.toMatch(/more pages not listed/);
   });
 
-  it("bakes yoyo-illustration directives out of a slides answer (server-side, at /query)", async () => {
+  it("bakes arc-illustration directives out of a slides answer (server-side, at /query)", async () => {
     // The single generation point: query() bakes slides/HTML answers. With no
     // XAI_API_KEY here, generation returns null and the directive is dropped —
     // proving the bake ran for format=slides (no leftover fence reaches the client).
@@ -856,7 +856,7 @@ describe("query", () => {
     // directive is an HTML <figure>, baked via the HTML path.
     mockedCallLLM.mockResolvedValue(
       '<!doctype html><html><body><section class="slide">' +
-      '<figure class="yoyo-illustration" data-scene="yoyo waving hello"></figure>' +
+      '<figure class="arc-illustration" data-scene="yoyo waving hello"></figure>' +
       "</section></body></html>",
     );
     await writeWikiPage("alpha", "# Alpha\n\nAlpha content.");
@@ -864,7 +864,7 @@ describe("query", () => {
 
     const result = await query("make slides about alpha", "slides");
 
-    expect(result.answer).not.toContain("yoyo-illustration");
+    expect(result.answer).not.toContain("arc-illustration");
     expect(result.answer).not.toContain("yoyo waving hello");
   });
 
@@ -873,14 +873,14 @@ describe("query", () => {
     // (contrived) directive in a prose answer passes through untouched.
     mockedHasLLMKey.mockReturnValue(true);
     mockedCallLLM.mockResolvedValue(
-      "Prose answer.\n\n```yoyo-illustration\nyoyo waving hello\n```\n",
+      "Prose answer.\n\n```arc-illustration\nyoyo waving hello\n```\n",
     );
     await writeWikiPage("alpha", "# Alpha\n\nAlpha content.");
     await updateIndex([{ slug: "alpha", title: "Alpha", summary: "Alpha page" }]);
 
     const result = await query("tell me about alpha", "prose");
 
-    expect(result.answer).toContain("```yoyo-illustration");
+    expect(result.answer).toContain("```arc-illustration");
   });
 });
 
@@ -1135,7 +1135,7 @@ describe("saveAnswerToWiki", () => {
       [
         "# Baked Deck",
         "",
-        "```yoyo-illustration",
+        "```arc-illustration",
         "yoyo holding a lantern",
         "```",
         "",
@@ -1148,7 +1148,7 @@ describe("saveAnswerToWiki", () => {
     const page = await readWikiPage("baked-deck");
     expect(page).not.toBeNull();
     // The unfillable directive is dropped — no literal fence or scene text left...
-    expect(page!.content).not.toContain("```yoyo-illustration");
+    expect(page!.content).not.toContain("```arc-illustration");
     expect(page!.content).not.toContain("yoyo holding a lantern");
     // ...and the mermaid block is left exactly as written.
     expect(page!.content).toContain("flowchart LR; A-->B");
