@@ -30,6 +30,11 @@ export type { ProviderInfo } from "./types";
  *  wire format, so we reuse the `@ai-sdk/openai` provider pointed here. */
 const DEEPSEEK_BASE_URL = "https://api.deepseek.com";
 
+/** OpenRouter's OpenAI-compatible API base URL. Like DeepSeek, OpenRouter
+ *  speaks the OpenAI Chat Completions wire format, proxying many hosted
+ *  models (e.g. Tencent Hunyuan, Llama, Gemini) behind one API key. */
+const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
+
 /** HTTP status codes that indicate a transient / retryable failure. */
 const RETRYABLE_STATUS_CODES = new Set([429, 500, 502, 503, 504]);
 
@@ -226,9 +231,9 @@ function getModel() {
   if (!creds.provider) {
     throw new Error(
       "No LLM API key found. Set one of ANTHROPIC_API_KEY, OPENAI_API_KEY, " +
-        "GOOGLE_GENERATIVE_AI_API_KEY, DEEPSEEK_API_KEY, or " +
-        "OLLAMA_BASE_URL / OLLAMA_MODEL in your environment, or configure a " +
-        "provider in Settings.",
+        "GOOGLE_GENERATIVE_AI_API_KEY, DEEPSEEK_API_KEY, OPENROUTER_API_KEY, " +
+        "or OLLAMA_BASE_URL / OLLAMA_MODEL in your environment, or configure " +
+        "a provider in Settings.",
     );
   }
 
@@ -256,6 +261,18 @@ function getModel() {
         baseURL: DEEPSEEK_BASE_URL,
       });
       return deepseek.chat(model);
+    }
+    case "openrouter": {
+      // Same rationale as deepseek above: OpenRouter is OpenAI Chat
+      // Completions-compatible, so no new SDK dependency is needed. Model
+      // name selects which of OpenRouter's hosted models to use (see
+      // DEFAULT_MODELS.openrouter for the default: Tencent Hunyuan A13B,
+      // free tier). Use `.chat()` for the same /responses-vs-/chat reason.
+      const openrouter = createOpenAI({
+        apiKey: creds.apiKey!,
+        baseURL: OPENROUTER_BASE_URL,
+      });
+      return openrouter.chat(model);
     }
     case "google": {
       const google = createGoogleGenerativeAI({ apiKey: creds.apiKey! });
