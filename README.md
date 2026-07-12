@@ -6,7 +6,7 @@
 
 **No human writes code here. No human manages a backlog. The agent drives.**
 
-**Try it live → [arcpedia.yuanhao-li.workers.dev](https://arcpedia.yuanhao-li.workers.dev)**
+**Try it live → [arcpedia.arclumen.de](https://arcpedia.arclumen.de)**
 
 ---
 
