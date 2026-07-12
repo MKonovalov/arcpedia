@@ -124,16 +124,16 @@ describe("contributors data layer", () => {
       await createThread("page-a", "T", "alice", "post");
       await addComment("page-a", 0, "lint-fix", "auto comment");
 
-      // Live-scan path: system/lint-fix are credited to the agent (yoyo), never
+      // Live-scan path: system/lint-fix are credited to the agent (arc), never
       // shown as their own contributors.
       const scanned = await listContributors({ id: "alice", handle: "alice" });
       const handles = scanned.map((c) => c.handle);
       expect(handles).toContain("alice");
-      expect(handles).toContain("yoyo");
+      expect(handles).toContain("arc");
       expect(handles).not.toContain("system");
       expect(handles).not.toContain("lint-fix");
-      // The lint-fix comment counts toward yoyo, not its own handle.
-      expect(scanned.find((c) => c.handle === "yoyo")?.commentCount).toBe(1);
+      // The lint-fix comment counts toward arc, not its own handle.
+      expect(scanned.find((c) => c.handle === "arc")?.commentCount).toBe(1);
 
       // Index fast path (anonymous) stays clean too.
       const { rebuildContributorIndex } = await import("../contributor-index");
@@ -550,7 +550,7 @@ describe("contributors data layer", () => {
 
     it("treats different automation handles as same-author (no false revert)", () => {
       // "system" writes 1000 bytes, then "lint-fix" shrinks to 100 bytes.
-      // Both normalise to "yoyo", so this is a same-author edit, NOT a revert.
+      // Both normalise to "arc", so this is a same-author edit, NOT a revert.
       const revisions: Revision[][] = [
         [rev("lint-fix", 100, 2), rev("system", 1000, 1)], // newest-first
       ];
@@ -561,16 +561,16 @@ describe("contributors data layer", () => {
 
     it("keys revert counts on the normalized handle", () => {
       // "system" writes 1000 bytes, then "alice" shrinks to 100 (>50% reduction).
-      // The revert count should be keyed as "yoyo" (normalized "system"), not "system".
+      // The revert count should be keyed as "arc" (normalized "system"), not "system".
       const revisions: Revision[][] = [
         [rev("alice", 100, 2), rev("system", 1000, 1)], // newest-first
       ];
       const counts = reduceReverts(revisions);
-      expect(counts.get("yoyo")).toBe(1);
+      expect(counts.get("arc")).toBe(1);
       expect(counts.has("system")).toBe(false);
     });
 
-    it("trust score for yoyo reflects revert penalties from automation actors", async () => {
+    it("trust score for arc reflects revert penalties from automation actors", async () => {
       await createPage("page-auto-revert", "Auto Revert", "# Auto\n\nContent.");
       // "system" writes a large revision...
       await saveRevision("page-auto-revert", "# Auto\n\n" + "x".repeat(1000), "system");
@@ -578,11 +578,11 @@ describe("contributors data layer", () => {
       await saveRevision("page-auto-revert", "# Auto\n\nShort.", "alice");
 
       const scanData = await computeScanData();
-      // The normalized handle "yoyo" should appear in activityMap (from reduceActivity)
+      // The normalized handle "arc" should appear in activityMap (from reduceActivity)
       // and revertCounts (from reduceReverts) with matching keys.
-      const yoyoProfile = await buildContributorProfile("yoyo", scanData);
-      expect(yoyoProfile.revertCount).toBe(1);
-      expect(yoyoProfile.trustScore).toBeLessThan(1.0);
+      const arcProfile = await buildContributorProfile("arc", scanData);
+      expect(arcProfile.revertCount).toBe(1);
+      expect(arcProfile.trustScore).toBeLessThan(1.0);
     });
   });
 });

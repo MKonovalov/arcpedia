@@ -33,8 +33,8 @@ describe("isAgentHandle", () => {
   });
 
   it("recognizes the bare default agent name (the UserLink guard hinges on this)", () => {
-    expect(DEFAULT_AGENT_NAME).toBe("yoyo");
-    expect(isAgentHandle("yoyo")).toBe(true);
+    expect(DEFAULT_AGENT_NAME).toBe("arc");
+    expect(isAgentHandle("arc")).toBe(true);
   });
 
   it("treats real human handles as non-agents", () => {

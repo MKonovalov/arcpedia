@@ -877,8 +877,8 @@ describe("recent trail action labeling", () => {
     const idx = (await getRecentIndex()) ?? [];
     const ev = idx.find((e) => e.slug === "test-page");
     expect(ev).toBeDefined();
-    // Raw "lint-fix" must not leak into the live "Recent" strip — it reads as yoyo.
-    expect(ev!.actor).toBe("yoyo");
+    // Raw "lint-fix" must not leak into the live "Recent" strip — it reads as arc.
+    expect(ev!.actor).toBe("arc");
     expect(ev!.isAgent).toBe(true);
   });
 

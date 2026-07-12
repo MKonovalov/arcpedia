@@ -1559,8 +1559,8 @@ describe("dispatchMcp — update_agent", () => {
 
   it("updates an agent profile when called by the owner", async () => {
     await registerAgent({
-      id: "alice--yoyo",
-      name: "yoyo",
+      id: "alice--arc",
+      name: "arc",
       description: "Alice's agent",
       owner: "alice",
       identityPages: [],

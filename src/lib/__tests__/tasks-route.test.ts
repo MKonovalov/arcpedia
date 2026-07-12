@@ -83,7 +83,7 @@ describe("POST /api/tasks/run", () => {
     expect(mockedReconcile).not.toHaveBeenCalled();
   });
 
-  it("dispatches a reconcile task, attributing to the requester's yoyo", async () => {
+  it("dispatches a reconcile task, attributing to the requester's arc", async () => {
     mockedReconcile.mockResolvedValue({ slug: "p", changed: true, disputed: false });
     const res = await run({
       kind: "reconcile",
@@ -92,7 +92,7 @@ describe("POST /api/tasks/run", () => {
       requestedBy: "alice",
     });
     expect(res.status).toBe(200);
-    expect(mockedReconcile).toHaveBeenCalledWith("p", 3, { author: "alice--yoyo" });
+    expect(mockedReconcile).toHaveBeenCalledWith("p", 3, { author: "alice--arc" });
   });
 
   it("dispatches an ingest task by URL", async () => {
@@ -339,7 +339,7 @@ describe("POST /api/tasks/run", () => {
     mockedReingest.mockResolvedValue({ primarySlug: "s" } as any);
     const res = await run({ kind: "maintain", op: "staleness", slug: "s" });
     expect(res.status).toBe(200);
-    expect(mockedReingest).toHaveBeenCalledWith("s", expect.objectContaining({ author: "yoyo" }));
+    expect(mockedReingest).toHaveBeenCalledWith("s", expect.objectContaining({ author: "arc" }));
   });
 
   it("drives a tracked ingest job processing → done on success", async () => {

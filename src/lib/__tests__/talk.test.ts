@@ -477,12 +477,12 @@ describe("ensureReconciliationThread", () => {
 
   it("coerces an agent-handle actor to 'system' so the scan can act on it", async () => {
     // An agent self-ingest (author === the agent's own handle) or an autonomous
-    // `yoyo` staleness re-ingest must NOT leave the thread's latest comment
+    // `arc` staleness re-ingest must NOT leave the thread's latest comment
     // agent-side — the maintenance scan only acts on human-side latest comments.
     await ensureReconciliationThread("p", "alice--yoyo");
     expect((await listThreads("p"))[0].comments[0].author).toBe("system");
 
-    await ensureReconciliationThread("q", "yoyo");
+    await ensureReconciliationThread("q", "arc");
     expect((await listThreads("q"))[0].comments[0].author).toBe("system");
   });
 });

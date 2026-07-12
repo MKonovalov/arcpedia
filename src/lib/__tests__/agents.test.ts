@@ -17,6 +17,7 @@ import {
   AgentOwnershipError,
   agentIdFor,
   agentShortName,
+  DEFAULT_AGENT_NAME,
   forkAgent,
   resolveAgentPages,
   generateAgentToken,
@@ -1084,7 +1085,7 @@ describe("agent addressing", () => {
   it("agentIdFor composes owner + name with an unambiguous '--' separator", () => {
     expect(agentIdFor("arcpedia", "yoyo")).toBe("arcpedia--yoyo");
     expect(agentIdFor("Alice_B", "yoyo")).toBe("alice-b--yoyo");
-    expect(agentIdFor("bob")).toBe("bob--yoyo"); // default name
+    expect(agentIdFor("bob")).toBe(`bob--${DEFAULT_AGENT_NAME}`); // default name
   });
 
   it("agentIdFor does not let a crafted name collide across owners", () => {
@@ -1156,7 +1157,7 @@ describe("forkAgent", () => {
     const base = await seedBase();
     const fork = await forkAgent({ owner: "alice", templateId: base.id });
     expect(fork).not.toBeNull();
-    expect(fork!.id).toBe(agentIdFor("alice", "yoyo"));
+    expect(fork!.id).toBe(agentIdFor("alice", DEFAULT_AGENT_NAME));
     expect(fork!.owner).toBe("alice");
     expect(fork!.template).toBe(base.id);
     // Own pages are empty — content is inherited.
@@ -1180,7 +1181,7 @@ describe("forkAgent", () => {
   it("never returns an agent owned by someone else (collision safety)", async () => {
     // Simulate an id already taken by a different owner (e.g. an owner-slug
     // collision): forkAgent must not hand it over.
-    const id = agentIdFor("alice", "yoyo");
+    const id = agentIdFor("alice", DEFAULT_AGENT_NAME);
     await registerAgent(makeProfile({ id, owner: "mallory" }));
     const base = await seedBase();
     expect(await forkAgent({ owner: "alice", templateId: base.id })).toBeNull();

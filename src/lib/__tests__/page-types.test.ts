@@ -81,7 +81,7 @@ describe("selectFeaturedArtifacts", () => {
     const out = selectFeaturedArtifacts([
       entry({ slug: "human", type: "html", owner: "alice" }),
       entry({ slug: "agent", type: "html", owner: "alice--yoyo" }),
-      entry({ slug: "bare-agent", type: "html", owner: "yoyo" }),
+      entry({ slug: "bare-agent", type: "html", owner: "arc" }),
       entry({ slug: "system", type: "html", owner: "system" }),
       entry({ slug: "anon", type: "html", owner: undefined }),
     ]);

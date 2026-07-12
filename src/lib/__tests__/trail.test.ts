@@ -56,7 +56,7 @@ describe("trailEventsForPages — actor normalization", () => {
 
     expect(events.length).toBeGreaterThanOrEqual(2);
     // No raw automation actor leaks into the feed.
-    expect(events.every((e) => e.actor === "yoyo")).toBe(true);
+    expect(events.every((e) => e.actor === "arc")).toBe(true);
     expect(events.every((e) => e.isAgent)).toBe(true);
     expect(events.map((e) => e.action).sort()).toEqual(["edited", "ingested"]);
   });
