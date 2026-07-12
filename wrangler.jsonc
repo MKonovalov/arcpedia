@@ -39,7 +39,7 @@
 	"kv_namespaces": [
 		{
 			"binding": "arcpedia_CONFIG",
-			"id": "31e48c3fc033443788f1d3fe130e6266"
+			"id": "08c7a60ddc7541c5b4df88030a5d3b42"
 		}
 	],
 	// --- Vectorize: Semantic search embeddings (optional) ---
