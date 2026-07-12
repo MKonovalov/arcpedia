@@ -37,7 +37,7 @@ Six independent agents run on schedule, communicate through GitHub Issues, and l
 
 | | |
 |-|-|
-| **Live app** | [arcpedia.yuanhao-li.workers.dev](https://arcpedia.yuanhao-li.workers.dev) |
+| **Live app** | [arcpedia.yuanhao-li.workers.dev](https://arcpedia.arclumen.de) |
 | **Agent runs** | [GitHub Actions](https://github.com/MKonovalov/arcpedia/actions) |
 | **Growth journal** | [.arc/journal.md](https://github.com/MKonovalov/arcpedia/blob/main/.arc/journal.md) |
 | **What it learned** | [.arc/learnings.md](https://github.com/MKonovalov/arcpedia/blob/main/.arc/learnings.md) |

@@ -12,6 +12,25 @@ import { getStorage, _resetStorage } from "../storage";
 import { rawRelPath } from "../wiki";
 import { SLIDES_FORMAT_INSTRUCTION, HTML_FORMAT_INSTRUCTION } from "../query";
 
+// The arc brand reference must exist in storage before an illustration call,
+// else callGrok short-circuits (fail-soft) and Grok is never hit. Seed a
+// minimal valid PNG (1x1 — bytes don't matter, only the read path).
+const PNG_1X1 = new Uint8Array([
+  0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d,
+  0x49, 0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+  0x08, 0x06, 0x00, 0x00, 0x00, 0x1f, 0x15, 0xc4, 0x89, 0x00, 0x00, 0x00,
+  0x0a, 0x49, 0x44, 0x41, 0x54, 0x78, 0x9c, 0x63, 0x00, 0x01, 0x00, 0x00,
+  0x05, 0x00, 0x01, 0x0d, 0x0a, 0x2d, 0xb4, 0x00, 0x00, 0x00, 0x00, 0x49,
+  0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82,
+]);
+
+async function seedArcReference() {
+  await getStorage().writeAsset(
+    rawRelPath("assets/arc-reference.png"),
+    PNG_1X1.buffer,
+  );
+}
+
 describe("buildIllustrationPrompt", () => {
   it("embeds the brand DNA and the scene/language", () => {
     const p = _internal.buildIllustrationPrompt("yoyo sorting boxes", "中文");
@@ -63,6 +82,7 @@ describe("callGrok request format", () => {
       );
     });
 
+    await seedArcReference();
     const out = await _internal.callGrok("draw yoyo", "test-key");
 
     expect(out).toBe("data:image/jpeg;base64,QUJD");
@@ -105,6 +125,7 @@ describe("generateArcIllustration (R2 asset cache)", () => {
     process.env.RAW_DIR = path.join(tmpDir, "raw");
     process.env.XAI_API_KEY = "test-key";
     _resetStorage(); // re-root storage at this test's fresh tmpDir
+    await seedArcReference(); // arc reference must exist before any Grok call
   });
 
   afterEach(async () => {
@@ -120,6 +141,7 @@ describe("generateArcIllustration (R2 asset cache)", () => {
 
   // Stub Grok's image-edits endpoint to return a tiny jpeg (base64 "QUJD" =
   // bytes "ABC"). Returns a counter so a test can assert how often Grok was hit.
+  // The arc brand reference asset is seeded in this describe's beforeEach.
   function stubGrok(): () => number {
     let calls = 0;
     vi.stubGlobal("fetch", async () => {

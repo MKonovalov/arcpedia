@@ -2,11 +2,48 @@ import { getStorage } from "./storage";
 import { rawRelPath } from "./wiki";
 import { isEnoent } from "./errors";
 import { logger } from "./logger";
-import { ARC_REFERENCE_PNG_BASE64 } from "./vendor/arc-reference.generated";
 import {
   renderArcIllustrationsInHtml,
   renderArcIllustrationsInMarkdown,
 } from "./illustration-render";
+
+/**
+ * The arc brand reference image used to keep Grok image-edits on-model.
+ *
+ * This used to be a ~277 KB base64 PNG baked directly into the server bundle
+ * (`vendor/arc-reference.generated.ts`), which inflated the Workers upload and
+ * counted against Cloudflare's bundle-size limit. It's a *constant brand asset*,
+ * not code — so it now lives in storage (R2 in prod, filesystem in dev) at
+ * `raw/assets/arc-reference.png`, seeded once by `scripts/seed-arc-reference.mjs`
+ * (run as part of `setup-cloudflare.sh`). It is read lazily at runtime, with an
+ * in-memory cache, and the feature degrades to "no illustration" if the asset is
+ * missing — the same fail-soft contract as the rest of this module.
+ */
+const ARC_REFERENCE_STORAGE_KEY = rawRelPath("assets/arc-reference.png");
+
+/** In-memory cache of the reference data URI — it never changes at runtime. */
+let arcReferenceDataUri: string | null | undefined;
+
+async function getArcReferenceDataUri(): Promise<string | null> {
+  if (arcReferenceDataUri !== undefined) return arcReferenceDataUri;
+  try {
+    const bytes = await getStorage().readAsset(ARC_REFERENCE_STORAGE_KEY);
+    const buf = new Uint8Array(bytes);
+    let bin = "";
+    for (let i = 0; i < buf.length; i++) bin += String.fromCharCode(buf[i]);
+    // Only memoize on success. A transient read failure (cold start, R2 blip)
+    // must NOT poison the cache for the worker's whole lifetime — leave it
+    // `undefined` so the next call retries.
+    arcReferenceDataUri = `data:image/png;base64,${btoa(bin)}`;
+    return arcReferenceDataUri;
+  } catch (err) {
+    // Missing/locked asset → illustrations degrade; don't hard-fail the answer.
+    if (!isEnoent(err)) {
+      logger.warn("illustration", "arc reference asset unreadable", err);
+    }
+    return null;
+  }
+}
 
 /**
  * arc brand illustrations via the xAI Grok image API. The static brand DNA
@@ -80,6 +117,14 @@ function bytesFromDataUri(dataUri: string): ArrayBuffer {
  * reference image is passed inline as a base64 data URI in an `image_url`
  * object. See https://github.com/vercel/ai/issues/12368. */
 async function callGrok(prompt: string, key: string): Promise<string | null> {
+  const refImage = await getArcReferenceDataUri();
+  if (!refImage) {
+    // The brand reference asset is missing (not seeded, or storage locked) —
+    // without it Grok can't stay on-model, so skip illustration generation
+    // rather than ship off-brand art. Fail-soft by contract.
+    logger.warn("illustration", "arc reference asset missing; skipping illustration");
+    return null;
+  }
   const res = await fetch(XAI_EDITS_ENDPOINT, {
     method: "POST",
     headers: {
@@ -91,7 +136,7 @@ async function callGrok(prompt: string, key: string): Promise<string | null> {
       prompt,
       image: {
         type: "image_url",
-        url: `data:image/png;base64,${ARC_REFERENCE_PNG_BASE64}`,
+        url: refImage,
       },
       response_format: "b64_json",
     }),
@@ -257,6 +302,8 @@ export const _internal = {
   buildIllustrationPrompt,
   cacheKeyFor,
   callGrok,
+  getArcReferenceDataUri,
+  ARC_REFERENCE_STORAGE_KEY,
   assetRefFor,
   assetUrlFor,
   bytesFromDataUri,

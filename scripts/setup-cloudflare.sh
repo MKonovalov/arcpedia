@@ -20,6 +20,10 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 WRANGLER="npx --yes wrangler"
 WRANGLER_TOML="$PROJECT_ROOT/wrangler.toml"
 
+# R2 object key for the arc brand reference PNG — must match
+# rawRelPath("assets/arc-reference.png") used by src/lib/illustration.ts.
+R2_REF_KEY="raw/assets/arc-reference.png"
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -125,6 +129,19 @@ else
   else
     fail "Failed to create R2 bucket. See output above."
   fi
+fi
+echo ""
+
+# ---------- 1b. Seed the arc brand reference asset into R2 ----------
+# The arc brand reference PNG (assets/arc-reference.png) is read at runtime by
+# the illustration feature via the R2 binding at raw/assets/arc-reference.png.
+# Seed it once here (idempotent — overwrites the same object).
+info "Seeding arc brand reference asset into R2 ..."
+if $WRANGLER r2 object put "arcpedia-raw/${R2_REF_KEY}" --file "$PROJECT_ROOT/assets/arc-reference.png" --remote 2>&1 | tee /tmp/arcpedia-seed.log; then
+  ok "arc reference asset seeded into R2."
+else
+  warn "Failed to seed arc reference asset (illustrations will degrade until seeded)."
+  info "Re-run: npx tsx scripts/seed-arc-reference.mts --r2"
 fi
 echo ""
 
