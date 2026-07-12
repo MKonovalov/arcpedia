@@ -2,7 +2,7 @@ import { getStorage } from "./storage";
 import { rawRelPath } from "./wiki";
 import { isEnoent } from "./errors";
 import { logger } from "./logger";
-import { arc_REFERENCE_PNG_BASE64 } from "./vendor/arc-reference.generated";
+import { ARC_REFERENCE_PNG_BASE64 } from "./vendor/arc-reference.generated";
 import {
   renderarcIllustrationsInHtml,
   renderarcIllustrationsInMarkdown,
