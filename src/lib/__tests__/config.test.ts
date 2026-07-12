@@ -36,12 +36,13 @@ const ENV_KEYS = [
   "OPENAI_API_KEY",
   "GOOGLE_GENERATIVE_AI_API_KEY",
   "DEEPSEEK_API_KEY",
+  "OPENROUTER_API_KEY",
   "OLLAMA_BASE_URL",
   "OLLAMA_MODEL",
   "LLM_MODEL",
   "EMBEDDING_MODEL",
   "EMBEDDING_PROVIDER",
-  "YOPEDIA_READONLY",
+  "arcpedia_READONLY",
   "STORAGE_PROVIDER",
 ];
 
@@ -59,6 +60,7 @@ beforeEach(async () => {
   delete process.env.OPENAI_API_KEY;
   delete process.env.GOOGLE_GENERATIVE_AI_API_KEY;
   delete process.env.DEEPSEEK_API_KEY;
+  delete process.env.OPENROUTER_API_KEY;
   delete process.env.OLLAMA_BASE_URL;
   delete process.env.OLLAMA_MODEL;
   delete process.env.LLM_MODEL;
@@ -352,6 +354,41 @@ describe("getResolvedCredentials", () => {
     expect(creds.provider).toBe("deepseek");
     expect(creds.model).toBe("deepseek-v4-pro");
   });
+
+  it("detects openrouter from OPENROUTER_API_KEY with its default model", () => {
+    process.env.OPENROUTER_API_KEY = "sk-or-key";
+
+    const creds = getResolvedCredentials();
+    expect(creds.provider).toBe("openrouter");
+    expect(creds.apiKey).toBe("sk-or-key");
+    // Falls back to DEFAULT_MODELS["openrouter"] when no override is set.
+    expect(creds.model).toBe("tencent/hunyuan-a13b-instruct:free");
+  });
+
+  it("honors LLM_MODEL override for openrouter (e.g. a different hosted model)", () => {
+    process.env.OPENROUTER_API_KEY = "sk-or-key";
+    process.env.LLM_MODEL = "meta-llama/llama-3.3-70b-instruct:free";
+
+    const creds = getResolvedCredentials();
+    expect(creds.provider).toBe("openrouter");
+    expect(creds.model).toBe("meta-llama/llama-3.3-70b-instruct:free");
+  });
+
+  it("prefers deepseek over openrouter when both keys are set", () => {
+    process.env.DEEPSEEK_API_KEY = "sk-ds-key";
+    process.env.OPENROUTER_API_KEY = "sk-or-key";
+
+    const creds = getResolvedCredentials();
+    expect(creds.provider).toBe("deepseek");
+  });
+
+  it("prefers openrouter over ollama when both are configured", () => {
+    process.env.OPENROUTER_API_KEY = "sk-or-key";
+    process.env.OLLAMA_BASE_URL = "http://localhost:11434/api";
+
+    const creds = getResolvedCredentials();
+    expect(creds.provider).toBe("openrouter");
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -437,18 +474,18 @@ describe("getOllamaBaseUrl", () => {
 
 describe("isReadOnly", () => {
   it("returns false by default", () => {
-    delete process.env.YOPEDIA_READONLY;
+    delete process.env.arcpedia_READONLY;
     delete process.env.STORAGE_PROVIDER;
     expect(isReadOnly()).toBe(false);
   });
 
-  it("returns true when YOPEDIA_READONLY=1", () => {
-    process.env.YOPEDIA_READONLY = "1";
+  it("returns true when arcpedia_READONLY=1", () => {
+    process.env.arcpedia_READONLY = "1";
     expect(isReadOnly()).toBe(true);
   });
 
-  it("returns false when YOPEDIA_READONLY is set to something other than 1", () => {
-    process.env.YOPEDIA_READONLY = "0";
+  it("returns false when arcpedia_READONLY is set to something other than 1", () => {
+    process.env.arcpedia_READONLY = "0";
     expect(isReadOnly()).toBe(false);
   });
 
@@ -469,14 +506,14 @@ describe("isReadOnly", () => {
 
 describe("getEffectiveSettings readOnly", () => {
   it("includes readOnly: false by default", () => {
-    delete process.env.YOPEDIA_READONLY;
+    delete process.env.arcpedia_READONLY;
     delete process.env.STORAGE_PROVIDER;
     const s = getEffectiveSettings();
     expect(s.readOnly).toBe(false);
   });
 
-  it("includes readOnly: true when YOPEDIA_READONLY=1", () => {
-    process.env.YOPEDIA_READONLY = "1";
+  it("includes readOnly: true when arcpedia_READONLY=1", () => {
+    process.env.arcpedia_READONLY = "1";
     const s = getEffectiveSettings();
     expect(s.readOnly).toBe(true);
   });

@@ -218,6 +218,9 @@ export function detectEnvProvider(): {
   if (process.env.DEEPSEEK_API_KEY) {
     return { provider: "deepseek", apiKey: process.env.DEEPSEEK_API_KEY };
   }
+  if (process.env.OPENROUTER_API_KEY) {
+    return { provider: "openrouter", apiKey: process.env.OPENROUTER_API_KEY };
+  }
   if (process.env.OLLAMA_BASE_URL || process.env.OLLAMA_MODEL) {
     return { provider: "ollama", apiKey: null };
   }
@@ -391,6 +394,8 @@ export function getResolvedCredentials(): ResolvedCredentials {
     apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY ?? null;
   } else if (provider === "deepseek") {
     apiKey = process.env.DEEPSEEK_API_KEY ?? null;
+  } else if (provider === "openrouter") {
+    apiKey = process.env.OPENROUTER_API_KEY ?? null;
   } else {
     apiKey = null; // ollama is keyless
   }
