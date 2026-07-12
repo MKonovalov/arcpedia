@@ -1,0 +1,11 @@
+overrides:
+  vite: ^7.3.2
+  postcss: ^8.5.10
+
+allowBuilds:
+  '@clerk/shared': true
+  core-js: true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+  workerd: true
