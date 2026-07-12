@@ -99,7 +99,7 @@ describe("scanForMaintenance", () => {
     expect(await scanForMaintenance()).toHaveLength(0);
   });
 
-  it("enqueues a fix for a legacy page missing all yopedia schema fields", async () => {
+  it("enqueues a fix for a legacy page missing all arcpedia schema fields", async () => {
     // Write a page with only owner/visibility/updated — no confidence/authors/expiry.
     await writeWikiPageWithSideEffects({
       slug: "legacy",

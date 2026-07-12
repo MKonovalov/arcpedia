@@ -96,9 +96,9 @@ describe("syncOwnerIndexForPage (after seeding)", () => {
     expect(idx?.carol).toEqual(["p"]); // tenant is lowercased
   });
 
-  it("ownerless pages land in the default (yopedia) tenant", async () => {
+  it("ownerless pages land in the default (arcpedia) tenant", async () => {
     await syncOwnerIndexForPage("o");
-    expect((await getOwnerIndex())?.yopedia).toEqual(["o"]);
+    expect((await getOwnerIndex())?.arcpedia).toEqual(["o"]);
   });
 
   it("removes the slug from a stale bucket when owner/contributors change", async () => {
@@ -132,12 +132,12 @@ describe("rebuildOwnerIndex", () => {
   it("builds all buckets in one pass over frontmatter", async () => {
     await createPage("a", "owner: alice");
     await createPage("b", "owner: bob\ncontributors: [alice]");
-    await createPage("c", ""); // ownerless → yopedia
+    await createPage("c", ""); // ownerless → arcpedia
     await rebuildOwnerIndex();
     const idx = await getOwnerIndex();
     expect(idx!.alice.sort()).toEqual(["a", "b"]);
     expect(idx!.bob).toEqual(["b"]);
-    expect(idx!.yopedia).toEqual(["c"]);
+    expect(idx!.arcpedia).toEqual(["c"]);
   });
 });
 

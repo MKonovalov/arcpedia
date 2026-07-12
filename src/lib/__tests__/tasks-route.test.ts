@@ -14,16 +14,16 @@ vi.mock("@/lib/lint-fix", () => ({ fixLintIssue: vi.fn() }));
 // only stub addAgentLearningPage so we can assert the learning attach + fail-soft.
 vi.mock("@/lib/agents", async (orig) => ({
   ...(await orig<typeof import("@/lib/agents")>()),
-  addAgentLearningPage: vi.fn(async () => {}),
+  addAgentLearningPage: vi.fn(async () => { }),
 }));
 vi.mock("@/lib/ingest-jobs", () => ({ updateIngestJob: vi.fn(async () => ({})) }));
 vi.mock("@/lib/ingest-staging", () => ({
   readStagedBytes: vi.fn(async () => new Uint8Array([1, 2, 3]).buffer),
   readStagedText: vi.fn(async () => "staged pasted text"),
-  deleteStaged: vi.fn(async () => {}),
+  deleteStaged: vi.fn(async () => { }),
 }));
 vi.mock("@/lib/vault", () => ({
-  addToVault: vi.fn(async () => {}),
+  addToVault: vi.fn(async () => { }),
 }));
 
 import { getServicePrincipal } from "@/lib/auth";
@@ -66,7 +66,7 @@ async function run(body: unknown) {
 beforeEach(() => {
   vi.clearAllMocks();
   // Default: authenticated as the service principal.
-  mockedGetService.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+  mockedGetService.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
 });
 
 describe("POST /api/tasks/run", () => {

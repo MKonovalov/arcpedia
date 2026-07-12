@@ -171,7 +171,7 @@ describe("POST /api/agents/[id]/ingest", () => {
     // Precedence guard: the per-agent check must short-circuit BEFORE the
     // system-token branch — a wrong agent token can't escalate via the system path.
     mockedVerify.mockResolvedValue("bob--yoyo");
-    mockedServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     const res = await POST(req({ url: "https://example.com" }, "bob--yoyo.s"), {
       params,
     });
@@ -188,8 +188,8 @@ describe("POST /api/agents/[id]/ingest", () => {
     it("ingests into a registered (existing) agent", async () => {
       mockedVerify.mockResolvedValue(null); // not an agent token
       mockedServicePrincipal.mockReturnValue({
-        id: "service:yopedia",
-        handle: "yopedia",
+        id: "service:arcpedia",
+        handle: "arcpedia",
       });
       mockedGetAgent.mockResolvedValue({ id: "alice--yoyo" } as never);
 
@@ -206,7 +206,7 @@ describe("POST /api/agents/[id]/ingest", () => {
 
     it("ingests text (not just url) into an existing agent", async () => {
       mockedVerify.mockResolvedValue(null);
-      mockedServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+      mockedServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
       mockedGetAgent.mockResolvedValue({ id: "alice--yoyo" } as never);
 
       const res = await POST(
@@ -224,8 +224,8 @@ describe("POST /api/agents/[id]/ingest", () => {
     it("404 when the handle is not a registered user (agent missing) — skip", async () => {
       mockedVerify.mockResolvedValue(null);
       mockedServicePrincipal.mockReturnValue({
-        id: "service:yopedia",
-        handle: "yopedia",
+        id: "service:arcpedia",
+        handle: "arcpedia",
       });
       mockedGetAgent.mockResolvedValue(null); // no such agent → not a user
 
@@ -238,7 +238,7 @@ describe("POST /api/agents/[id]/ingest", () => {
 
     it("asOwner: ingests into the owner's OWN content (not agent-scoped) and does not touch learnings", async () => {
       mockedVerify.mockResolvedValue(null);
-      mockedServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+      mockedServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
       mockedGetAgent.mockResolvedValue({ id: "alice--yoyo", owner: "alice" } as never);
 
       const res = await POST(
@@ -256,7 +256,7 @@ describe("POST /api/agents/[id]/ingest", () => {
 
     it("asOwner: derives sourceType 'x-mention' for X/Twitter URLs", async () => {
       mockedVerify.mockResolvedValue(null);
-      mockedServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+      mockedServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
       mockedGetAgent.mockResolvedValue({ id: "alice--yoyo", owner: "alice" } as never);
 
       const res = await POST(
@@ -270,7 +270,7 @@ describe("POST /api/agents/[id]/ingest", () => {
 
     it("asOwner: derives sourceType 'x-mention' for twitter.com URLs", async () => {
       mockedVerify.mockResolvedValue(null);
-      mockedServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+      mockedServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
       mockedGetAgent.mockResolvedValue({ id: "alice--yoyo", owner: "alice" } as never);
 
       const res = await POST(
@@ -284,7 +284,7 @@ describe("POST /api/agents/[id]/ingest", () => {
 
     it("asOwner: derives sourceType 'text' for text-only ingests", async () => {
       mockedVerify.mockResolvedValue(null);
-      mockedServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+      mockedServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
       mockedGetAgent.mockResolvedValue({ id: "alice--yoyo", owner: "alice" } as never);
 
       const res = await POST(
@@ -400,7 +400,7 @@ describe("POST /api/agents/[id]/ingest", () => {
 
     it("works with system token and defaultVault", async () => {
       mockedVerify.mockResolvedValue(null);
-      mockedServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+      mockedServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
       mockedGetAgent.mockResolvedValue({
         id: "alice--yoyo",
         owner: "alice",

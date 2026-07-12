@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 vi.mock("@/lib/agents", () => ({
   forkAgent: vi.fn(),
-  baseAgentId: vi.fn(() => "yopedia-yoyo"),
+  baseAgentId: vi.fn(() => "arcpedia-arc"),
 }));
 
 vi.mock("@/lib/auth", () => ({
@@ -23,7 +23,7 @@ const aliceYoyo: AgentProfile = {
   name: "Yoyo",
   description: "Base yoyo",
   owner: "alice",
-  template: "yopedia-yoyo",
+  template: "arcpedia-yoyo",
   identityPages: [],
   learningPages: [],
   socialPages: [],
@@ -34,7 +34,7 @@ const aliceYoyo: AgentProfile = {
 beforeEach(() => {
   vi.clearAllMocks();
   mockedGetPrincipal.mockResolvedValue({ id: "alice", handle: "alice" });
-  mockedBaseId.mockReturnValue("yopedia-yoyo");
+  mockedBaseId.mockReturnValue("arcpedia-yoyo");
   mockedFork.mockResolvedValue(aliceYoyo);
 });
 
@@ -47,7 +47,7 @@ describe("POST /api/agents/ensure", () => {
     expect(data.agent.id).toBe("alice-yoyo");
     expect(mockedFork).toHaveBeenCalledWith({
       owner: "alice",
-      templateId: "yopedia-yoyo",
+      templateId: "arcpedia-yoyo",
     });
   });
 

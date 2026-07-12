@@ -22,8 +22,8 @@ vi.mock("../llm", () => ({
 // Mock searchByVector from embeddings so tests don't need a real provider
 vi.mock("../embeddings", () => ({
   searchByVector: vi.fn(async () => []),
-  upsertEmbedding: vi.fn(async () => {}),
-  removeEmbedding: vi.fn(async () => {}),
+  upsertEmbedding: vi.fn(async () => { }),
+  removeEmbedding: vi.fn(async () => { }),
 }));
 
 import { hasLLMKey, callLLM } from "../llm";
@@ -856,8 +856,8 @@ describe("query", () => {
     // directive is an HTML <figure>, baked via the HTML path.
     mockedCallLLM.mockResolvedValue(
       '<!doctype html><html><body><section class="slide">' +
-        '<figure class="yoyo-illustration" data-scene="yoyo waving hello"></figure>' +
-        "</section></body></html>",
+      '<figure class="yoyo-illustration" data-scene="yoyo waving hello"></figure>' +
+      "</section></body></html>",
     );
     await writeWikiPage("alpha", "# Alpha\n\nAlpha content.");
     await updateIndex([{ slug: "alpha", title: "Alpha", summary: "Alpha page" }]);
@@ -982,7 +982,7 @@ describe("saveAnswerToWiki", () => {
     expect(parsed!.frontmatter.tags).toEqual(["query-answer"]);
     expect(parsed!.frontmatter.created).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(parsed!.frontmatter.updated).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-    // yopedia Phase 1 metadata — #106
+    // arcpedia Phase 1 metadata — #106
     expect(parsed!.frontmatter.confidence).toBe(0.5);
     expect(parsed!.frontmatter.expiry).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(parsed!.frontmatter.authors).toEqual(["system"]);

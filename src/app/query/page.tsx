@@ -16,7 +16,7 @@ import { logger } from "@/lib/logger";
 
 const EXAMPLES = [
   "What is harness engineering?",
-  "How is yopedia different from RAG?",
+  "How is arcpedia different from RAG?",
   "What are the agentic harness patterns?",
 ];
 
@@ -71,7 +71,7 @@ export default function QueryPage() {
       .then((d: { vaults?: { id: string; name: string }[] }) => {
         if (!cancelled) setMyVaults(d.vaults ?? []);
       })
-      .catch(() => {});
+      .catch(() => { });
     return () => {
       cancelled = true;
     };
@@ -367,24 +367,24 @@ export default function QueryPage() {
                 >
                   {hasContent &&
                     EXAMPLES.map((ex) => (
-                    <button
-                      type="button"
-                      key={ex}
-                      onClick={() => setQuestion(ex)}
-                      className="receipt folio-chip"
-                      style={{
-                        fontSize: 11.5,
-                        color: "var(--muted)",
-                        background: "transparent",
-                        whiteSpace: "nowrap",
-                        border: "1px solid var(--rule)",
-                        borderRadius: 999,
-                        padding: "5px 11px",
-                      }}
-                    >
-                      {ex}
-                    </button>
-                  ))}
+                      <button
+                        type="button"
+                        key={ex}
+                        onClick={() => setQuestion(ex)}
+                        className="receipt folio-chip"
+                        style={{
+                          fontSize: 11.5,
+                          color: "var(--muted)",
+                          background: "transparent",
+                          whiteSpace: "nowrap",
+                          border: "1px solid var(--rule)",
+                          borderRadius: 999,
+                          padding: "5px 11px",
+                        }}
+                      >
+                        {ex}
+                      </button>
+                    ))}
                 </div>
                 <button
                   type="submit"

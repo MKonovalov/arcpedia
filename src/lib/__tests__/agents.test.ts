@@ -1082,7 +1082,7 @@ describe("agent ownership", () => {
 
 describe("agent addressing", () => {
   it("agentIdFor composes owner + name with an unambiguous '--' separator", () => {
-    expect(agentIdFor("yopedia", "yoyo")).toBe("yopedia--yoyo");
+    expect(agentIdFor("arcpedia", "yoyo")).toBe("arcpedia--yoyo");
     expect(agentIdFor("Alice_B", "yoyo")).toBe("alice-b--yoyo");
     expect(agentIdFor("bob")).toBe("bob--yoyo"); // default name
   });
@@ -1144,7 +1144,7 @@ describe("forkAgent", () => {
       id: "yoyo",
       name: "Yoyo",
       description: "Base yoyo",
-      owner: "yopedia",
+      owner: "arcpedia",
       sections: [
         { type: "identity", slug: "yoyo-identity", title: "Id", content: "I am yoyo." },
         { type: "learnings", slug: "yoyo-learnings", title: "L", content: "Lesson 1." },
@@ -1224,7 +1224,7 @@ describe("resolveAgentPages", () => {
       id: "yoyo",
       name: "Yoyo",
       description: "Base",
-      owner: "yopedia",
+      owner: "arcpedia",
       sections: [
         { type: "identity", slug: "yoyo-identity", title: "Id", content: "x" },
         { type: "learnings", slug: "yoyo-learnings", title: "L", content: "y" },
@@ -1244,7 +1244,7 @@ describe("resolveAgentPages", () => {
       id: "yoyo",
       name: "Yoyo",
       description: "Base",
-      owner: "yopedia",
+      owner: "arcpedia",
       sections: [
         { type: "learnings", slug: "yoyo-learnings", title: "L", content: "y" },
       ],
@@ -1264,7 +1264,7 @@ describe("agent page interlinking", () => {
       id: "yoyo",
       name: "Yoyo",
       description: "Base",
-      owner: "yopedia",
+      owner: "arcpedia",
       sections: [
         { type: "identity", slug: "yoyo-identity", title: "yoyo — Identity", content: "id" },
         { type: "learnings", slug: "yoyo-learnings", title: "yoyo — Learnings", content: "l" },
@@ -1288,7 +1288,7 @@ describe("agent page interlinking", () => {
       id: "solo",
       name: "Solo",
       description: "d",
-      owner: "yopedia",
+      owner: "arcpedia",
       sections: [{ type: "identity", slug: "solo-id", title: "Solo", content: "x" }],
     });
     const p = await readWikiPage("solo-id");

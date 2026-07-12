@@ -1173,7 +1173,7 @@ describe("resolveScope", () => {
     await registerAgent(
       makeProfile({
         id: "base--yoyo",
-        owner: "yopedia",
+        owner: "arcpedia",
         identityPages: ["yoyo-identity"],
         learningPages: ["yoyo-learnings"],
         socialPages: [],

@@ -11,13 +11,13 @@ import { Icon } from "./folio/icons";
 
 const EXAMPLES = [
   "What is harness engineering?",
-  "How is yopedia different from RAG?",
+  "How is arcpedia different from RAG?",
   "What are the agentic harness patterns?",
 ];
 
 // One free taste per browser: after a signed-out visitor sees one demo answer,
 // the next interaction prompts sign-in.
-const DEMO_USED_KEY = "yopedia_demo_used";
+const DEMO_USED_KEY = "arcpedia_demo_used";
 
 /**
  * The homepage hero / launcher. Signed-in: submitting (or clicking a sample)
@@ -126,13 +126,13 @@ export function HomeAsk() {
         onSubmit={
           isSignedIn
             ? (e) => {
-                e.preventDefault();
-                goToQuery(question);
-              }
+              e.preventDefault();
+              goToQuery(question);
+            }
             : (e) => {
-                e.preventDefault();
-                openSignIn();
-              }
+              e.preventDefault();
+              openSignIn();
+            }
         }
       >
         <div

@@ -1,6 +1,6 @@
 # Design: Trigger/Notification System for Wiki Change Events
 
-Research evaluation for [#148](https://github.com/yologdev/arcpedia/issues/148).
+Research evaluation for [#148](https://github.com/MKonovalov/arcpedia/issues/148).
 No implementation — evaluation and design only.
 
 ---

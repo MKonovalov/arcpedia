@@ -41,7 +41,7 @@ function ago(iso: string): string {
  * Recent ingest activity. The durable list comes from the SERVER ledger
  * (`/api/ingest/history`, scoped to pages the caller can read) so it survives
  * across domains/devices and includes EVERY ingest path — the form, the queue,
- * MCP, and the "Save to yopedia" bookmarklet/share (which don't touch this
+ * MCP, and the "Save to arcpedia" bookmarklet/share (which don't touch this
  * browser's localStorage). On top of that, jobs this browser just submitted are
  * polled by id for live status (incl. failures) until they land in the ledger.
  * Refreshes on tab focus so a bookmarklet save made in a popup appears on return.
@@ -84,18 +84,18 @@ export function RecentIngests() {
       const ids = getRecentJobIds();
       const results = ids.length
         ? await Promise.all(
-            ids.map(async (id) => {
-              try {
-                const r = await fetch(`/api/ingest/status/${id}`);
-                if (!r.ok) return null;
-                return { jobId: id, ...(await r.json()) } as InFlight & {
-                  status: string;
-                };
-              } catch {
-                return null;
-              }
-            }),
-          )
+          ids.map(async (id) => {
+            try {
+              const r = await fetch(`/api/ingest/status/${id}`);
+              if (!r.ok) return null;
+              return { jobId: id, ...(await r.json()) } as InFlight & {
+                status: string;
+              };
+            } catch {
+              return null;
+            }
+          }),
+        )
         : [];
       if (cancelled) return;
       // Keep queued/processing (live) AND failed (so a failure isn't silent);

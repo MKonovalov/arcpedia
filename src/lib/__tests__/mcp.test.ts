@@ -470,7 +470,7 @@ describe("MCP write tools", () => {
       expect(fileContent).toContain("Body text here.");
     });
 
-    it("includes all yopedia schema fields in frontmatter", async () => {
+    it("includes all arcpedia schema fields in frontmatter", async () => {
       await handleCreatePage({
         slug: "schema-check",
         content: "# Schema Test\n\nBody.",

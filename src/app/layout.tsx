@@ -31,21 +31,21 @@ const SITE_DESCRIPTION =
   "A shared second brain for humans and agents. Not RAG — it accumulates: sources become cited pages, contradictions reconcile, and lineage stays visible.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yopedia.yolog.dev"),
+  metadataBase: new URL("https://arcpedia.arclumen.de"),
   title: {
-    default: "yopedia — a shared second brain for humans and agents",
-    template: "%s · yopedia",
+    default: "arcpedia — a shared second brain for humans and agents",
+    template: "%s · arcpedia",
   },
   description: SITE_DESCRIPTION,
   openGraph: {
-    title: "yopedia — a shared second brain for humans and agents",
+    title: "arcpedia — a shared second brain for humans and agents",
     description: SITE_DESCRIPTION,
-    siteName: "yopedia",
+    siteName: "arcpedia",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "yopedia — a shared second brain for humans and agents",
+    title: "arcpedia — a shared second brain for humans and agents",
     description: SITE_DESCRIPTION,
   },
 };

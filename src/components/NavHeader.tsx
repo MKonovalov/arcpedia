@@ -85,7 +85,7 @@ export function NavHeader() {
               className="display"
               style={{ fontSize: 22, letterSpacing: "-0.03em", fontWeight: 600 }}
             >
-              yopedia
+              arcpedia
             </span>
           </Link>
 

@@ -258,9 +258,9 @@ function createMockEnv(opts?: {
   withVectorize?: boolean;
 }): CloudflareEnv {
   return {
-    YOPEDIA_BUCKET: createMockR2Bucket(),
-    YOPEDIA_CONFIG: createMockKV(),
-    YOPEDIA_VECTORIZE: opts?.withVectorize ? createMockVectorize() : undefined,
+    arcpedia_BUCKET: createMockR2Bucket(),
+    arcpedia_CONFIG: createMockKV(),
+    arcpedia_VECTORIZE: opts?.withVectorize ? createMockVectorize() : undefined,
   };
 }
 

@@ -56,12 +56,12 @@ export function hasLinkTo(content: string, targetSlug: string): boolean {
 // ---------------------------------------------------------------------------
 
 /**
- * Catch-all tenant for ownerless / seed content. yopedia is built in public by
+ * Catch-all tenant for ownerless / seed content. arcpedia is built in public by
  * arc, so unattributed/seed pages are the platform's own — they belong to the
- * `yopedia` tenant. Defined here (a pure module) so both client and server
+ * `arcpedia` tenant. Defined here (a pure module) so both client and server
  * resolve owner→tenant identically; `wiki.ts` re-exports it.
  */
-export const DEFAULT_TENANT = "yopedia";
+export const DEFAULT_TENANT = "arcpedia";
 
 /**
  * The canonical tenant for an owner handle: lowercased (owner checks are

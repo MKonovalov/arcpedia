@@ -17,7 +17,7 @@ const bob = { handle: "bob" };
 // canWritePage needs the full Principal (it inspects `id` for the service case).
 const aliceP = { id: "user_alice", handle: "alice" };
 const bobP = { id: "user_bob", handle: "bob" };
-const service = { id: "service:yopedia", handle: "yopedia" };
+const service = { id: "service:arcpedia", handle: "arcpedia" };
 
 describe("agentOwnerHandle", () => {
   it("recovers the owner slug from a composite agent id", () => {

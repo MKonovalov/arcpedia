@@ -21,7 +21,7 @@ async function post() {
 
 beforeEach(() => {
   vi.clearAllMocks();
-  mockedGetService.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+  mockedGetService.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
   mockedRebuild.mockResolvedValue({ total: 3, embedded: 3, skipped: 0, model: "@cf/baai/bge-m3" });
 });
 

@@ -82,10 +82,10 @@ describe("syncCommonsForPage", () => {
     expect(idx[0]).toMatchObject({ tenant: "alice", slug: "p", title: "P" });
   });
 
-  it("ownerless pages land in the default (yopedia) tenant", async () => {
+  it("ownerless pages land in the default (arcpedia) tenant", async () => {
     await syncCommonsForPage("o", { title: "O", summary: "" });
     const idx = await getCommonsIndex();
-    expect(idx[0]).toMatchObject({ tenant: "yopedia", slug: "o" });
+    expect(idx[0]).toMatchObject({ tenant: "arcpedia", slug: "o" });
   });
 
   it("private pages are excluded (and removed if previously public)", async () => {

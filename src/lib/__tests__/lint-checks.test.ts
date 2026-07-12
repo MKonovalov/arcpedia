@@ -700,7 +700,7 @@ describe("checkLowConfidence", () => {
 // checkUnmigratedPages
 // ---------------------------------------------------------------------------
 describe("checkUnmigratedPages", () => {
-  it("flags a page with no yopedia fields", async () => {
+  it("flags a page with no arcpedia fields", async () => {
     await createPageWithIndex("old-page", "Old Page", {
       created: "2025-01-01",
     });
@@ -710,7 +710,7 @@ describe("checkUnmigratedPages", () => {
     expect(issues[0].type).toBe("unmigrated-page");
     expect(issues[0].slug).toBe("old-page");
     expect(issues[0].severity).toBe("info");
-    expect(issues[0].message).toContain("yopedia metadata");
+    expect(issues[0].message).toContain("arcpedia metadata");
     expect(issues[0].suggestion).toBeDefined();
   });
 
@@ -757,7 +757,7 @@ describe("checkUnmigratedPages", () => {
   });
 
   it("never flags infrastructure pages (index.md)", async () => {
-    // Write an index.md file with no yopedia fields — it should be skipped
+    // Write an index.md file with no arcpedia fields — it should be skipped
     const wikiDir = process.env.WIKI_DIR!;
     await fs.writeFile(path.join(wikiDir, "index.md"), "# Index\n\n- stuff");
 

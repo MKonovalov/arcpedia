@@ -115,12 +115,12 @@ describe("ownerToTenant", () => {
     expect(ownerToTenant("  Bob  ")).toBe("bob");
   });
 
-  it("falls back to DEFAULT_TENANT (yopedia) when ownerless", () => {
-    expect(DEFAULT_TENANT).toBe("yopedia");
-    expect(ownerToTenant(undefined)).toBe("yopedia");
-    expect(ownerToTenant(null)).toBe("yopedia");
-    expect(ownerToTenant("")).toBe("yopedia");
-    expect(ownerToTenant("   ")).toBe("yopedia");
+  it("falls back to DEFAULT_TENANT (arcpedia) when ownerless", () => {
+    expect(DEFAULT_TENANT).toBe("arcpedia");
+    expect(ownerToTenant(undefined)).toBe("arcpedia");
+    expect(ownerToTenant(null)).toBe("arcpedia");
+    expect(ownerToTenant("")).toBe("arcpedia");
+    expect(ownerToTenant("   ")).toBe("arcpedia");
   });
 
   it("normalizes path-unsafe chars so the tenant is always a valid URL/folder", () => {
@@ -128,7 +128,7 @@ describe("ownerToTenant", () => {
     expect(ownerToTenant("Jean Luc")).toBe("jean-luc");
     expect(ownerToTenant("bob/admin")).toBe("bob-admin");
     expect(ownerToTenant("a.b")).toBe("a-b");
-    expect(ownerToTenant("..")).toBe("yopedia"); // ".." → trimmed empty → default
+    expect(ownerToTenant("..")).toBe("arcpedia"); // ".." → trimmed empty → default
   });
 
   it("preserves the `--` in agent-style ids and unicode handles", () => {
@@ -182,8 +182,8 @@ describe("resolveSlugPath", () => {
 
   it("falls back to the linking page's tenant for unknown (dangling) targets", () => {
     expect(resolveSlugPath("missing", map, "yuanhao")).toBe("/u/yuanhao/missing");
-    expect(resolveSlugPath("missing", undefined, "yopedia")).toBe(
-      "/u/yopedia/missing",
+    expect(resolveSlugPath("missing", undefined, "arcpedia")).toBe(
+      "/u/arcpedia/missing",
     );
   });
 
@@ -200,7 +200,7 @@ describe("resolveSlugPath", () => {
     expect(resolveSlugPath("foo", map, "yuanhao", commons)).toBe("/u/alice/foo");
     // A dangling commons target still resolves global (existence in the set wins
     // over the slug→tenant lookup).
-    expect(resolveSlugPath("ghost", map, "yopedia", new Set(["ghost"]))).toBe(
+    expect(resolveSlugPath("ghost", map, "arcpedia", new Set(["ghost"]))).toBe(
       "/wiki/ghost",
     );
   });

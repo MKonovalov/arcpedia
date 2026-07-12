@@ -9,7 +9,7 @@ describe("FilesystemStorageProvider", () => {
   let provider: FilesystemStorageProvider;
 
   beforeEach(async () => {
-    tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "yopedia-storage-test-"));
+    tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "arcpedia-storage-test-"));
     provider = new FilesystemStorageProvider(tmpDir);
   });
 

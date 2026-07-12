@@ -20,7 +20,7 @@ const HANDLE = "yoyo-bot";
 function reqWith(authHeader?: string): Request {
   const headers = new Headers();
   if (authHeader !== undefined) headers.set("authorization", authHeader);
-  return new Request("https://yopedia.example/api/agents/seed", {
+  return new Request("https://arcpedia.example/api/agents/seed", {
     method: "POST",
     headers,
   });
@@ -30,17 +30,17 @@ let savedToken: string | undefined;
 let savedHandle: string | undefined;
 
 beforeEach(() => {
-  savedToken = process.env.YOPEDIA_SERVICE_TOKEN;
-  savedHandle = process.env.YOPEDIA_SERVICE_PRINCIPAL;
-  process.env.YOPEDIA_SERVICE_TOKEN = TOKEN;
-  process.env.YOPEDIA_SERVICE_PRINCIPAL = HANDLE;
+  savedToken = process.env.arcpedia_SERVICE_TOKEN;
+  savedHandle = process.env.arcpedia_SERVICE_PRINCIPAL;
+  process.env.arcpedia_SERVICE_TOKEN = TOKEN;
+  process.env.arcpedia_SERVICE_PRINCIPAL = HANDLE;
 });
 
 afterEach(() => {
-  if (savedToken === undefined) delete process.env.YOPEDIA_SERVICE_TOKEN;
-  else process.env.YOPEDIA_SERVICE_TOKEN = savedToken;
-  if (savedHandle === undefined) delete process.env.YOPEDIA_SERVICE_PRINCIPAL;
-  else process.env.YOPEDIA_SERVICE_PRINCIPAL = savedHandle;
+  if (savedToken === undefined) delete process.env.arcpedia_SERVICE_TOKEN;
+  else process.env.arcpedia_SERVICE_TOKEN = savedToken;
+  if (savedHandle === undefined) delete process.env.arcpedia_SERVICE_PRINCIPAL;
+  else process.env.arcpedia_SERVICE_PRINCIPAL = savedHandle;
 });
 
 describe("getServicePrincipal", () => {
@@ -70,17 +70,17 @@ describe("getServicePrincipal", () => {
   });
 
   it("returns null when the token env var is unset (feature off)", () => {
-    delete process.env.YOPEDIA_SERVICE_TOKEN;
+    delete process.env.arcpedia_SERVICE_TOKEN;
     expect(getServicePrincipal(reqWith(`Bearer ${TOKEN}`))).toBeNull();
   });
 
   it("returns null when the principal handle env var is unset", () => {
-    delete process.env.YOPEDIA_SERVICE_PRINCIPAL;
+    delete process.env.arcpedia_SERVICE_PRINCIPAL;
     expect(getServicePrincipal(reqWith(`Bearer ${TOKEN}`))).toBeNull();
   });
 
   it("does not accept an empty bearer token even if env token is empty", () => {
-    process.env.YOPEDIA_SERVICE_TOKEN = "";
+    process.env.arcpedia_SERVICE_TOKEN = "";
     expect(getServicePrincipal(reqWith("Bearer "))).toBeNull();
   });
 });
@@ -170,8 +170,8 @@ describe("getPrincipal", () => {
   });
 
   it("returns null and warns (not errors) when auth() throws — no context or secret mismatch", async () => {
-    const warn = vi.spyOn(logger, "warn").mockImplementation(() => {});
-    const error = vi.spyOn(logger, "error").mockImplementation(() => {});
+    const warn = vi.spyOn(logger, "warn").mockImplementation(() => { });
+    const error = vi.spyOn(logger, "error").mockImplementation(() => { });
     mockedAuth.mockRejectedValue(new Error("no request context"));
     expect(await getPrincipal()).toBeNull();
     expect(warn).toHaveBeenCalled(); // the downgrade must not be silent…
@@ -183,8 +183,8 @@ describe("getPrincipal", () => {
   it("returns null and errors (not warns) when currentUser() throws for a signed-in user", async () => {
     // auth() gave us a userId, so this is a real Clerk backend error (outage /
     // bad secret key), not a missing context — still anonymous, but surfaced.
-    const warn = vi.spyOn(logger, "warn").mockImplementation(() => {});
-    const error = vi.spyOn(logger, "error").mockImplementation(() => {});
+    const warn = vi.spyOn(logger, "warn").mockImplementation(() => { });
+    const error = vi.spyOn(logger, "error").mockImplementation(() => { });
     mockedAuth.mockResolvedValue({ userId: "user_9" } as never);
     mockedCurrentUser.mockRejectedValue(new Error("clerk backend 503"));
     expect(await getPrincipal()).toBeNull();

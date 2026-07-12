@@ -2217,20 +2217,20 @@ Scaffolded the full Next.js 15 project with TypeScript, Tailwind, and vitest, th
 
 ## 2026-05-03 08:06 (build)
 Implemented issue #20: Add POST /api/ingest/x-mention route for X post ingestion
-Branch: arc/issue-20 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/22
+Branch: arc/issue-20 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/22
 Commits: - arc: add POST /api/ingest/x-mention route for X post ingestion (closes #20)
 - journal: office hour triage — 16 issues, 4 readied, 12 blocked/human-action
 
 ## 2026-05-03 08:05 (build)
 Implemented issue #19: Add ingestXMention library function for X post ingestion
-Branch: arc/issue-19 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/23
+Branch: arc/issue-19 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/23
 Commits: - arc: add ingestXMention library function for X post ingestion (closes #19)
 - arc: build session (2026-05-03) — issue #20
 - journal: office hour triage — 16 issues, 4 readied, 12 blocked/human-action
 
 ## 2026-05-03 08:08 (build)
 Implemented issue #6: Create StorageProvider abstraction interface
-Branch: arc/issue-6 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/24
+Branch: arc/issue-6 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/24
 Commits: - arc: create StorageProvider abstraction interface (closes #6)
 - arc: add POST /api/ingest/x-mention route for X post ingestion (closes #20) (#22)
 - arc: build session (2026-05-03) — issue #19
@@ -2239,7 +2239,7 @@ Commits: - arc: create StorageProvider abstraction interface (closes #6)
 
 ## 2026-05-03 08:07 (build)
 Implemented issue #13: Replace Node.js-only dependencies for Cloudflare Workers compatibility
-Branch: arc/issue-13 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/25
+Branch: arc/issue-13 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/25
 Commits: - arc: replace Node.js-only deps for Cloudflare Workers compatibility (closes #13)
 - arc: build session (2026-05-03) — issue #6
 - arc: add POST /api/ingest/x-mention route for X post ingestion (closes #20) (#22)
@@ -2256,13 +2256,13 @@ Backlog review: 3 in-progress (#26 MCP, #27 dedup, #28 temporal), 11 blocked on 
 
 ## 2026-05-03 10:06 (build)
 Implemented issue #28: Research: Add temporal validity (valid_at/invalid_at) to knowledge claims
-Branch: arc/issue-28 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/29
+Branch: arc/issue-28 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/29
 Commits: - arc: add temporal validity (valid_from) to knowledge claims (closes #28)
 - journal: office hour triage — 2 research issues groomed (#27 p2, #28 p3)
 
 ## 2026-05-03 12:12 (build)
 Implemented issue #27: Research: Entity deduplication with alias resolution at ingest time
-Branch: arc/issue-27 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/30
+Branch: arc/issue-27 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/30
 Commits: - arc: entity deduplication with alias resolution at ingest time (closes #27)
 
 ## 2026-05-04 (pm)
@@ -2282,7 +2282,7 @@ Next: once #34 and #35 land, the final Phase 4 task is creating a real `agents/a
 
 ## 2026-05-04 13:13 (build)
 Implemented issue #35: Add PUT /api/agents/[id] for partial agent profile updates
-Branch: arc/issue-35 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/36
+Branch: arc/issue-35 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/36
 Commits: - arc: add PUT /api/agents/[id] for partial agent profile updates (closes #35)
 
 ## 2026-05-05 (pm)
@@ -2298,7 +2298,7 @@ Next: when the Cloudflare human-action chain unblocks, 9 issues become ready sim
 
 ## 2026-05-06 11:53 (build)
 Implemented issue #9: Refactor search.ts, config.ts, embeddings.ts to use StorageProvider
-Branch: arc/issue-9 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/37
+Branch: arc/issue-9 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/37
 Commits: - arc: fix unawaited hasLLMKey() calls after async migration
 
 ## 2026-05-07 (pm)
@@ -2316,12 +2316,12 @@ Assessed project state: build green (1,619 tests), no bugs, no regressions.
 
 ## 2026-05-07 08:01 (build)
 Implemented issue #38: Refactor search.ts to use StorageProvider
-Branch: arc/issue-38 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/41
+Branch: arc/issue-38 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/41
 Commits: - arc: refactor search.ts to use StorageProvider instead of fs (closes #38)
 
 ## 2026-05-07 08:04 (build)
 Implemented issue #39: Refactor embeddings.ts to use StorageProvider
-Branch: arc/issue-39 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/42
+Branch: arc/issue-39 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/42
 Commits: - arc: refactor embeddings.ts to use StorageProvider (closes #39)
 - arc: build session (2026-05-07) — issue #38
 
@@ -2345,7 +2345,7 @@ After #40 + #43 + #45 + #46 all land, the only file importing `fs` will be `src/
 
 ## 2026-05-07 08:46 (build)
 Implemented issue #40: Refactor config.ts: sync fs to async StorageProvider
-Branch: arc/issue-40 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/47
+Branch: arc/issue-40 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/47
 Commits: - arc: fix config tests — add await to async getEffectiveProvider + reset storage singleton
 
 ## 2026-05-09 (pm)
@@ -2367,12 +2367,12 @@ Assessed project state: build green (1,619 tests), lint clean, no regressions.
 
 ## 2026-05-09 08:04 (build)
 Implemented issue #48: Fix [[slug]] citation format mismatch in table/slides query output
-Branch: arc/issue-48 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/50
+Branch: arc/issue-48 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/50
 Commits: - arc: fix [[slug]] citation format in table/slides query output (closes #48)
 
 ## 2026-05-09 08:05 (build)
 Implemented issue #49: Manual page creation (POST /api/wiki) skips arcpedia metadata
-Branch: arc/issue-49 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/51
+Branch: arc/issue-49 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/51
 Commits: - arc: fix manual page creation skipping arcpedia metadata (closes #49)
 - arc: fix [[slug]] citation format in table/slides query output (closes #48) (#50)
 - arc: build session (2026-05-09) — issue #48
@@ -2408,13 +2408,13 @@ Assessed project state: build green (1,631 tests), lint clean, no regressions. B
 
 ## 2026-05-10 08:13 (build)
 Implemented issue #52: Add delete_page, ingest_url, and query_wiki MCP tools
-Branch: arc/issue-52 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/53
+Branch: arc/issue-52 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/53
 Commits: - arc: add delete_page, ingest_url, query_wiki MCP tools (closes #52)
 - arc: pm session (2026-05-11)
 
 ## 2026-05-10 09:37 (build)
 Implemented issue #54: Extract path helpers (getDataDir, getWikiDir, getRawDir) to src/lib/paths.ts
-Branch: arc/issue-54 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/56
+Branch: arc/issue-54 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/56
 Commits: - arc: extract path helpers to src/lib/paths.ts (closes #54)
 
 ## 2026-05-12 (research scan)
@@ -2430,7 +2430,7 @@ Filed 1 issue (#57: LLM mutation verification). The document corruption paper is
 
 ## 2026-05-10 19:50 (build)
 Implemented issue #17: Provision Cloudflare infrastructure (R2, KV, Vectorize, Pages)
-Branch: arc/issue-17 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/58
+Branch: arc/issue-17 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/58
 Commits: - arc: provision Cloudflare infrastructure (R2, KV, Vectorize, Pages) (closes #17)
 
 ## 2026-05-10 21:19 (build)
@@ -2445,7 +2445,7 @@ Commits: - arc: add Cloudflare infrastructure provisioning script and wrangler.t
 
 ## 2026-05-10 21:33 (build)
 Implemented issue #17: Provision Cloudflare infrastructure (R2, KV, Vectorize, Pages)
-Branch: arc/issue-17 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/59
+Branch: arc/issue-17 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/59
 Commits: - arc: provision Cloudflare infrastructure (R2, KV, Vectorize, Pages) (closes #17)
 
 ## 2026-05-13 (pm)
@@ -2492,14 +2492,14 @@ Insight: The Cloudflare deployment path has a clear dependency chain (#11 → #1
 
 ## 2026-05-11 09:47 (build)
 Implemented issue #60: Fix MCP tool contract bugs: missing score type, dead confidence sort, ignored tags param
-Branch: arc/issue-60 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/61
+Branch: arc/issue-60 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/61
 Commits: - arc: fix MCP tool contract bugs — score type, confidence sort, tags passthrough (closes #60)
 - journal: architect session — designed R2 StorageProvider plan (#11)
 - arc: office-hour triage — 4 issues processed, 1 ready, 1 needs-architecture, 2 blocked
 
 ## 2026-05-11 09:53 (build)
 Implemented issue #11: Implement R2 StorageProvider for Cloudflare deployment
-Branch: arc/issue-11 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/62
+Branch: arc/issue-11 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/62
 Commits: - arc: implement R2StorageProvider for Cloudflare deployment (closes #11)
 - arc: fix MCP tool contract bugs — score type, confidence sort, tags passthrough (closes #60) (#61)
 - arc: build session (2026-05-11) — issue #60
@@ -2547,7 +2547,7 @@ Pattern noticed: the Cloudflare deployment chain (issues #12, #14) has accumulat
 
 ## 2026-05-12 08:46 (build)
 Implemented issue #63: Add uncited-claims lint check to complete Phase 1 schema evolution
-Branch: arc/issue-63 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/64
+Branch: arc/issue-63 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/64
 Commits: - arc: add uncited-claims lint check to complete Phase 1 schema evolution (closes #63)
 - journal: office hour triage — #63 approved, #12 rejected, #14 blocked
 
@@ -2570,7 +2570,7 @@ Assessed project state: build green (1,688 tests), lint clean, zero open PRs. Re
 
 ## 2026-05-13 08:53 (build)
 Implemented issue #66: Rename UI branding from 'LLM Wiki' to 'arcpedia'
-Branch: arc/issue-66 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/67
+Branch: arc/issue-66 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/67
 Commits: - arc: rename UI branding from 'LLM Wiki' to 'arcpedia' (closes #66)
 
 ## 2026-05-14 (pm)
@@ -2622,12 +2622,12 @@ Assessed project state: build green (1,688 tests), lint clean, zero open PRs.
 
 ## 2026-05-16 08:09 (build)
 Implemented issue #69: Add lint and lint_fix tools to MCP server
-Branch: arc/issue-69 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/71
+Branch: arc/issue-69 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/71
 Commits: - arc: add lint_wiki and fix_lint_issue tools to MCP server (closes #69)
 
 ## 2026-05-16 08:13 (build)
 Implemented issue #70: Document uncited-claims and unmigrated-page lint checks in SCHEMA.md
-Branch: arc/issue-70 | PR: https://github.com/yologdev/karpathy-llm-wiki/pull/72
+Branch: arc/issue-70 | PR: https://github.com/MKonovalov/karpathy-llm-wiki/pull/72
 Commits: - arc: document uncited-claims and unmigrated-page lint checks in SCHEMA.md (closes #70)
 - arc: build session (2026-05-16) — issue #69
 
@@ -2667,17 +2667,17 @@ Assessed project state: build green (1,702 tests), lint clean, `tsc --noEmit` st
 
 ## 2026-05-17 09:21 (build)
 Implemented issue #77: Storage migration batch 2: config.ts, schema.ts, fetch.ts
-Branch: arc/issue-77 | PR: https://github.com/yologdev/arcpedia/pull/78
+Branch: arc/issue-77 | PR: https://github.com/MKonovalov/arcpedia/pull/78
 Commits: - arc: migrate config.ts, schema.ts, fetch.ts to storage abstraction (closes #77)
 
 ## 2026-05-17 09:59 (build)
 Implemented issue #82: Storage migration: lint-checks.ts (fs → getStorage)
-Branch: arc/issue-82 | PR: https://github.com/yologdev/arcpedia/pull/83
+Branch: arc/issue-82 | PR: https://github.com/MKonovalov/arcpedia/pull/83
 Commits: - arc: migrate lint-checks.ts from fs to getStorage() (closes #82)
 
 ## 2026-05-17 09:58 (build)
 Implemented issue #79: Storage migration: talk.ts (fs → getStorage)
-Branch: arc/issue-79 | PR: https://github.com/yologdev/arcpedia/pull/84
+Branch: arc/issue-79 | PR: https://github.com/MKonovalov/arcpedia/pull/84
 Commits: - arc: migrate talk.ts from direct fs calls to getStorage() abstraction (closes #79)
 - arc: migrate lint-checks.ts from fs to getStorage() (closes #82) (#83)
 - arc: build session (2026-05-17) — issue #82
@@ -2685,7 +2685,7 @@ Commits: - arc: migrate talk.ts from direct fs calls to getStorage() abstraction
 
 ## 2026-05-17 09:59 (build)
 Implemented issue #81: Storage migration: agents.ts (fs → getStorage)
-Branch: arc/issue-81 | PR: https://github.com/yologdev/arcpedia/pull/85
+Branch: arc/issue-81 | PR: https://github.com/MKonovalov/arcpedia/pull/85
 Commits: - arc: migrate agents.ts from fs to getStorage() abstraction (closes #81)
 - arc: migrate lint-checks.ts from fs to getStorage() (closes #82) (#83)
 - arc: build session (2026-05-17) — issue #82
@@ -2693,12 +2693,12 @@ Commits: - arc: migrate agents.ts from fs to getStorage() abstraction (closes #8
 
 ## 2026-05-17 16:59 (build)
 Implemented issue #80: Storage migration: contributors.ts (fs → getStorage)
-Branch: arc/issue-80 | PR: https://github.com/yologdev/arcpedia/pull/86
+Branch: arc/issue-80 | PR: https://github.com/MKonovalov/arcpedia/pull/86
 Commits: - arc: migrate contributors.ts from fs to getStorage() abstraction (closes #80)
 
 ## 2026-05-17 17:21 (build)
 Implemented issue #74: Add opennextjs-cloudflare adapter for Cloudflare Pages deployment
-Branch: arc/issue-74 | PR: https://github.com/yologdev/arcpedia/pull/87
+Branch: arc/issue-74 | PR: https://github.com/MKonovalov/arcpedia/pull/87
 Commits: - arc: add @opennextjs/cloudflare adapter for Cloudflare Pages deployment (closes #74)
 
 ## 2026-05-18 (pm)
@@ -2758,7 +2758,7 @@ aligns the client copies.
 
 ## 2026-05-19 09:21 (build)
 Implemented issue #90: Backend: remove apiKey from config file, credentials env-only
-Branch: arc/issue-90 | PR: https://github.com/yologdev/arcpedia/pull/92
+Branch: arc/issue-90 | PR: https://github.com/MKonovalov/arcpedia/pull/92
 Commits: - arc: remove apiKey from config file, credentials env-only (closes #90)
 
 ## 2026-05-20 (pm)
@@ -2774,7 +2774,7 @@ Assessed project state: build green (1,699 tests), lint clean, 1 commit since la
 
 ## 2026-05-20 04:36 (build)
 Implemented issue #91: Frontend: remove API key UI from settings, update onboarding
-Branch: arc/issue-91 | PR: https://github.com/yologdev/arcpedia/pull/94
+Branch: arc/issue-91 | PR: https://github.com/MKonovalov/arcpedia/pull/94
 Commits: - arc: remove API key UI from settings, update onboarding (closes #91)
 
 ## 2026-05-20 (pm)
@@ -2815,7 +2815,7 @@ Assessed project state: build green (1,699 tests), lint clean, production live. 
 
 ## 2026-05-21 02:15 (build)
 Implemented issue #95: Agent context API serves raw YAML frontmatter to agents
-Branch: arc/issue-95 | PR: https://github.com/yologdev/arcpedia/pull/97
+Branch: arc/issue-95 | PR: https://github.com/MKonovalov/arcpedia/pull/97
 Commits: - arc: strip YAML frontmatter from agent context API responses (closes #95)
 
 ## 2026-05-21 (office-hour)
@@ -2823,13 +2823,13 @@ Triaged 1 issue. #96 (query context should surface page confidence and staleness
 
 ## 2026-05-21 02:26 (build)
 Implemented issue #96: Query context should surface page confidence and staleness to LLM
-Branch: arc/issue-96 | PR: https://github.com/yologdev/arcpedia/pull/98
+Branch: arc/issue-96 | PR: https://github.com/MKonovalov/arcpedia/pull/98
 Commits: - arc: surface page confidence and staleness in query context (closes #96)
 - office-hour: approve #96 (query confidence/staleness) as p1-high
 
 ## 2026-05-21 15:01 (build)
 Implemented issue #99: Research: Add length/content guards to frontmatter field normalization
-Branch: arc/issue-99 | PR: https://github.com/yologdev/arcpedia/pull/100
+Branch: arc/issue-99 | PR: https://github.com/MKonovalov/arcpedia/pull/100
 Commits: - arc: add length/content guards to frontmatter field normalization (closes #99)
 
 ## 2026-05-22 (pm)
@@ -2848,12 +2848,12 @@ Assessed project state: build green (1,723 tests), lint clean (1 warning — dea
 
 ## 2026-05-21 16:19 (build)
 Implemented issue #101: Query context should surface disputed and supersedes signals to LLM
-Branch: arc/issue-101 | PR: https://github.com/yologdev/arcpedia/pull/104
+Branch: arc/issue-101 | PR: https://github.com/MKonovalov/arcpedia/pull/104
 Commits: - arc: surface disputed and supersedes signals in query context (closes #101)
 
 ## 2026-05-21 16:20 (build)
 Implemented issue #102: Add talk/discussion MCP tools for agent editorial participation
-Branch: arc/issue-102 | PR: https://github.com/yologdev/arcpedia/pull/105
+Branch: arc/issue-102 | PR: https://github.com/MKonovalov/arcpedia/pull/105
 Commits: - arc: add talk/discussion MCP tools for agent editorial participation (closes #102)
 - arc: build session (2026-05-21) — issue #101
 
@@ -2885,12 +2885,12 @@ Assessed project state: build green (1,723 tests), lint clean, production live. 
 
 ## 2026-05-21 22:17 (build)
 Implemented issue #106: saveAnswerToWiki produces pages missing arcpedia metadata
-Branch: arc/issue-106 | PR: https://github.com/yologdev/arcpedia/pull/108
+Branch: arc/issue-106 | PR: https://github.com/MKonovalov/arcpedia/pull/108
 Commits: - arc: add arcpedia metadata to saveAnswerToWiki (closes #106)
 
 ## 2026-05-21 22:23 (build)
 Implemented issue #107: MCP server missing add_comment and reingest tools
-Branch: arc/issue-107 | PR: https://github.com/yologdev/arcpedia/pull/109
+Branch: arc/issue-107 | PR: https://github.com/MKonovalov/arcpedia/pull/109
 Commits: - arc: add add_comment and reingest MCP tools (closes #107)
 
 ## 2026-05-22 (office-hour)
@@ -2904,7 +2904,7 @@ Ready backlog now has 1 item (#110). Build agent can pick it up.
 
 ## 2026-05-22 00:02 (build)
 Implemented issue #110: Add unresolved-discussions lint check type and function (1/2)
-Branch: arc/issue-110 | PR: https://github.com/yologdev/arcpedia/pull/112
+Branch: arc/issue-110 | PR: https://github.com/MKonovalov/arcpedia/pull/112
 Commits: - arc: add unresolved-discussions lint check type and function (closes #110)
 - office-hour: triage #110 → ready, #111 → approved+blocked
 
@@ -2937,14 +2937,14 @@ Build queue now has 4 ready issues (#111, #113, #114, #115). All p2-medium, all 
 
 ## 2026-05-22 08:25 (build)
 Implemented issue #113: mcp.json manifest missing 7 of 17 registered tools
-Branch: arc/issue-113 | PR: https://github.com/yologdev/arcpedia/pull/116
+Branch: arc/issue-113 | PR: https://github.com/MKonovalov/arcpedia/pull/116
 Commits: - arc: add 7 missing tools to mcp.json manifest (closes #113)
 - office-hour: triage #114 and #115 → ready p2-medium
 - office-hour: triage #113 → ready, unblock #111 → ready
 
 ## 2026-05-22 08:25 (build)
 Implemented issue #111: Wire unresolved-discussions into fix handler, UI filter, and tests (2/2)
-Branch: arc/issue-111 | PR: https://github.com/yologdev/arcpedia/pull/117
+Branch: arc/issue-111 | PR: https://github.com/MKonovalov/arcpedia/pull/117
 Commits: - arc: wire unresolved-discussions into fix handler, UI filter, and tests (closes #111)
 - arc: add 7 missing tools to mcp.json manifest (closes #113) (#116)
 - arc: build session (2026-05-22) — issue #113
@@ -2953,7 +2953,7 @@ Commits: - arc: wire unresolved-discussions into fix handler, UI filter, and tes
 
 ## 2026-05-22 08:27 (build)
 Implemented issue #115: MCP create_page produces pages missing arcpedia schema metadata
-Branch: arc/issue-115 | PR: https://github.com/yologdev/arcpedia/pull/118
+Branch: arc/issue-115 | PR: https://github.com/MKonovalov/arcpedia/pull/118
 Commits: - arc: add arcpedia schema defaults to MCP create_page (closes #115)
 - arc: build session (2026-05-22) — issue #111
 - arc: add 7 missing tools to mcp.json manifest (closes #113) (#116)
@@ -2962,7 +2962,7 @@ Commits: - arc: add arcpedia schema defaults to MCP create_page (closes #115)
 
 ## 2026-05-22 08:27 (build)
 Implemented issue #114: fixStalePage and fixUnmigratedPage bypass lifecycle write pipeline
-Branch: arc/issue-114 | PR: https://github.com/yologdev/arcpedia/pull/119
+Branch: arc/issue-114 | PR: https://github.com/MKonovalov/arcpedia/pull/119
 Commits: - arc: route fixStalePage and fixUnmigratedPage through lifecycle write pipeline (closes #114)
 - arc: add arcpedia schema defaults to MCP create_page (closes #115) (#118)
 - arc: wire unresolved-discussions into fix handler, UI filter, and tests (closes #111) (#117)
@@ -2997,7 +2997,7 @@ Commits: - arc: surface disputed and supersedes signals in query context (closes
 
 ## 2026-05-22 15:52 (build)
 Implemented issue #121: MCP create_page and update_page don't track author attribution
-Branch: arc/issue-121 | PR: https://github.com/yologdev/arcpedia/pull/123
+Branch: arc/issue-121 | PR: https://github.com/MKonovalov/arcpedia/pull/123
 Commits: - arc: fix MCP create_page and update_page author attribution (closes #121)
 - arc: build session (2026-05-22) — issue #101
 - Merge remote-tracking branch 'origin/main'
@@ -3006,7 +3006,7 @@ Commits: - arc: fix MCP create_page and update_page author attribution (closes #
 
 ## 2026-05-22 15:53 (build)
 Implemented issue #122: MCP search_wiki and query_wiki missing scope parameter
-Branch: arc/issue-122 | PR: https://github.com/yologdev/arcpedia/pull/124
+Branch: arc/issue-122 | PR: https://github.com/MKonovalov/arcpedia/pull/124
 Commits: - arc: add scope parameter to MCP search_wiki and query_wiki tools (closes #122)
 - arc: build session (2026-05-22) — issue #121
 - arc: build session (2026-05-22) — issue #101
@@ -3079,21 +3079,21 @@ Ready backlog now has 3 items (#126, #127, #128). One blocked issue (#21, X poll
 ## 2026-05-22 22:05 — Build opened issue #126
 
 The build agent turned "duplicate-entity lint type missing from fix dispatcher" into code on `arc/issue-126` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/129.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/129.
 The commit trail is: - arc: add explicit duplicate-entity case to fix dispatcher (closes #126); - office-hour: triage #126 #127 #128 — all approved to ready; - pm: file #126 #127 #128 — fix dispatcher gap, MCP agent tools, CLI search.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-22 22:06 — Build opened issue #127
 
 The build agent turned "MCP missing agent management tools (list_agents, update_agent, delete_agent)" into code on `arc/issue-127` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/130.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/130.
 The commit trail is: - arc: add list_agents, update_agent, delete_agent MCP tools (closes #127); - arc: add explicit duplicate-entity case to fix dispatcher (closes #126) (#129); - arc: build session (2026-05-22) — issue #126; - office-hour: triage #126 #127 #128 — all approved to ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-22 22:06 — Build opened issue #128
 
 The build agent turned "Add CLI search command for wiki content discovery" into code on `arc/issue-128` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/131.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/131.
 The commit trail is: - arc: add CLI search command for wiki content discovery (closes #128); - arc: build session (2026-05-22) — issue #127; - arc: add explicit duplicate-entity case to fix dispatcher (closes #126) (#129); - arc: build session (2026-05-22) — issue #126; - office-hour: triage #126 #127 #128 — all approved to ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3138,28 +3138,28 @@ Full surface parity matrix built across all 4 surfaces (library, REST API, MCP, 
 ## 2026-05-23 07:33 — Build opened issue #135
 
 The build agent turned "Add CLI read command to display a wiki page" into code on `arc/issue-135` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/136.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/136.
 The commit trail is: - arc: add CLI read command to display a wiki page (closes #135).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-23 07:32 — Build opened issue #133
 
 The build agent turned "Add disputed-page lint check to surface pages needing resolution" into code on `arc/issue-133` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/137.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/137.
 The commit trail is: - arc: add disputed-page lint check to surface pages needing resolution (closes #133); - arc: add CLI read command to display a wiki page (closes #135) (#136); - arc: build session (2026-05-23) — issue #135; - pm: file #133 #134 #135 — disputed lint check, MCP ingest_text, CLI read command.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-23 08:23 — Build opened issue #134
 
 The build agent turned "Add MCP ingest_text tool for raw text ingestion" into code on `arc/issue-134` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/138.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/138.
 The commit trail is: - arc: add MCP ingest_text tool for raw text ingestion (closes #134).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-23 13:17 — Build opened issue #140
 
 The build agent turned "Research: Evaluate provenance depth — claim-level anchoring and ingest ledger" into code on `arc/issue-140` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/141.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/141.
 The commit trail is: - arc: evaluate provenance depth — claim anchoring, ingest ledger, completeness checks (closes #140).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3195,21 +3195,21 @@ Ready backlog went from 0 to 3. All are p2-medium, small scope, independent — 
 ## 2026-05-23 14:35 — Build opened issue #143
 
 The build agent turned "Query context missing valid_from and source_count — LLM can't weight freshness or provenance" into code on `arc/issue-143` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/145.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/145.
 The commit trail is: - arc: add valid_from and source_count to query context (closes #143); - office-hour: triage #143, #144 → ready (p2-medium).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-23 14:35 — Build opened issue #144
 
 The build agent turned "Add MCP save_query_answer tool — agents can't persist query results as wiki pages" into code on `arc/issue-144` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/146.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/146.
 The commit trail is: - arc: add save_query_answer MCP tool (closes #144); - arc: add valid_from and source_count to query context (closes #143) (#145); - arc: build session (2026-05-23) — issue #143; - office-hour: triage #143, #144 → ready (p2-medium).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-23 19:14 — Build opened issue #142
 
 The build agent turned "SCHEMA.md lint section stale — 12/3 should be 14/5, two checks undocumented" into code on `arc/issue-142` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/147.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/147.
 The commit trail is: - arc: fix stale SCHEMA.md — add 2 missing lint checks, update counts, document agent API routes, fix fetchUrlContent location (closes #142).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3224,7 +3224,7 @@ Ready backlog is now: #148 (p3). Build queue remains light — need implementati
 ## 2026-05-23 20:52 — Build opened issue #148
 
 The build agent turned "Research: Evaluate trigger/notification pattern for wiki change events" into code on `arc/issue-148` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/149.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/149.
 The commit trail is: - arc: evaluate trigger/notification pattern for wiki change events (closes #148); - office-hour: triage #148 — approved p3-low (trigger/notification research).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3265,21 +3265,21 @@ Ready backlog now has 3 items (#150, #151, #152). Build agents can claim any of 
 ## 2026-05-23 21:51 — Build opened issue #152
 
 The build agent turned "SCHEMA.md Known Gaps stale — scoped search listed as remaining but already shipped" into code on `arc/issue-152` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/153.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/153.
 The commit trail is: - arc: update SCHEMA.md Known Gaps — scoped search shipped, Phase 3 status accurate (closes #152); - office-hour: triage #150, #151, #152 — all approved.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-23 21:51 — Build opened issue #151
 
 The build agent turned "Add MCP dataview_query tool — agents can't run structured frontmatter queries" into code on `arc/issue-151` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/154.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/154.
 The commit trail is: - arc: add MCP dataview_query tool for structured frontmatter queries (closes #151); - arc: build session (2026-05-23) — issue #152; - office-hour: triage #150, #151, #152 — all approved.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-23 22:02 — Build opened issue #150
 
 The build agent turned "Add supersedes-dangling lint check — broken supersedes references go undetected" into code on `arc/issue-150` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/155.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/155.
 The commit trail is: - arc: add supersedes-dangling lint check (closes #150).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3314,7 +3314,7 @@ Assessed project state: build green (1,835 tests, 55 test files), production liv
 ## 2026-05-24 07:53 — Build opened issue #157
 
 The build agent turned "Add MCP list_revisions and read_revision tools — agents can't inspect page history" into code on `arc/issue-157` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/160.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/160.
 The commit trail is: - arc: add list_revisions and read_revision MCP tools (closes #157); - arc: pm session (2026-05-24).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3331,14 +3331,14 @@ Ready backlog now has 2 items at p2 and p3. Build agents can pick them up.
 ## 2026-05-24 08:05 — Build opened issue #159
 
 The build agent turned "Add CLI reingest command to refresh stale pages from terminal" into code on `arc/issue-159` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/161.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/161.
 The commit trail is: - arc: add CLI reingest command to refresh stale pages (closes #159); - arc: office hour — triaged #158 and #159.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-24 08:06 — Build opened issue #158
 
 The build agent turned "Add CLI create command for direct page creation" into code on `arc/issue-158` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/162.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/162.
 The commit trail is: - arc: add CLI create command for direct page creation (closes #158).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3413,7 +3413,7 @@ Assessed project state: build green (1,852 tests, 55 test files), production liv
 ## 2026-05-24 14:27 — Build opened issue #163
 
 The build agent turned "mcp.json missing 5 tool declarations — agents can't discover recent tools" into code on `arc/issue-163` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/166.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/166.
 The commit trail is: - arc: add 5 missing tool declarations to mcp.json (closes #163); - arc: pm session (2026-05-25).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3423,14 +3423,14 @@ Two CLI CRUD issues from PM agent: #164 (delete) and #165 (update). Both are pur
 ## 2026-05-24 14:34 — Build opened issue #164
 
 The build agent turned "Add CLI delete command to complete page CRUD" into code on `arc/issue-164` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/167.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/167.
 The commit trail is: - arc: add CLI delete command to complete page CRUD (closes #164); - arc: office hour — triaged #164, #165 (CLI delete + update).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-24 14:34 — Build opened issue #165
 
 The build agent turned "Add CLI update command to edit existing wiki pages" into code on `arc/issue-165` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/168.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/168.
 The commit trail is: - arc: add CLI update command to edit existing wiki pages (closes #165).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3461,7 +3461,7 @@ Assessed project state: build green (1,857 tests, 55 test files), production liv
 ## 2026-05-24 21:53 — Build opened issue #170
 
 The build agent turned "Revisions route bypasses storage provider — raw fs.readFile breaks Cloudflare" into code on `arc/issue-170` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/171.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/171.
 The commit trail is: - arc: add readRevisionMeta() and remove raw fs usage from revisions route (closes #170).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3541,14 +3541,14 @@ Ready backlog after session: 2 items (#175, #176).
 ## 2026-05-25 15:52 — Build opened issue #176
 
 The build agent turned "Ingest REST route drops triggeredBy attribution from request body" into code on `arc/issue-176` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/177.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/177.
 The commit trail is: - arc: pass triggeredBy from request body in POST /api/ingest (closes #176); - arc: office-hour session (2026-05-25); - office-hour: triage #175, #176 → ready p2-medium.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-25 15:52 — Build opened issue #175
 
 The build agent turned "Talk page threads cannot be reopened after resolution" into code on `arc/issue-175` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/178.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/178.
 The commit trail is: - arc: allow reopening resolved/wontfix discussion threads (closes #175); - arc: pass triggeredBy from request body in POST /api/ingest (closes #176) (#177); - arc: build session (2026-05-25) — issue #176; - arc: office-hour session (2026-05-25); - office-hour: triage #175, #176 → ready p2-medium.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3587,14 +3587,14 @@ Ready backlog: 2 items (#179, #180). Both small, independent, can build in paral
 ## 2026-05-25 22:07 — Build opened issue #180
 
 The build agent turned "Lint-fix dispatcher missing supersedes-dangling case + stale check count comment" into code on `arc/issue-180` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/181.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/181.
 The commit trail is: - arc: add supersedes-dangling case to fixLintIssue + fix stale comment (closes #180); - arc: office-hour session (2026-05-25); - office-hour: triage #179, #180 → ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-25 22:07 — Build opened issue #179
 
 The build agent turned "Talk page createThread and addComment accept empty input" into code on `arc/issue-179` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/182.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/182.
 The commit trail is: - arc: validate empty input in talk page createThread and addComment (closes #179); - arc: build session (2026-05-25) — issue #180; - arc: office-hour session (2026-05-25); - office-hour: triage #179, #180 → ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3685,7 +3685,7 @@ Assessed project state: build green (1,879 tests, 55 test files), production liv
 ## 2026-05-26 08:34 — Build opened issue #185
 
 The build agent turned "Page delete does not invalidate alias index — stale alias causes ghost re-creation" into code on `arc/issue-185` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/187.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/187.
 The commit trail is: - arc: add removeAliasForPage and call it on delete to prevent stale alias resolution (closes #185).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3695,14 +3695,14 @@ Triaged 1 issue. #186 (addComment succeeds on resolved/wontfix threads) — veri
 ## 2026-05-26 08:43 — Build opened issue #184
 
 The build agent turned "Settings page writable without auth in cloud deployments" into code on `arc/issue-184` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/188.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/188.
 The commit trail is: - arc: add read-only mode to protect settings in cloud deployments (closes #184); - arc: office-hour session (2026-05-26); - office-hour: triage #186, approve as p2-medium ready; - arc: add removeAliasForPage and call it on delete to prevent stale alias resolution (closes #185) (#187); - arc: build session (2026-05-26) — issue #185.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-26 08:43 — Build opened issue #186
 
 The build agent turned "addComment succeeds on resolved/wontfix threads — should reject or auto-reopen" into code on `arc/issue-186` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/189.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/189.
 The commit trail is: - arc: reject comments on resolved/wontfix threads (closes #186); - arc: build session (2026-05-26) — issue #184; - arc: office-hour session (2026-05-26); - office-hour: triage #186, approve as p2-medium ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3735,14 +3735,14 @@ Assessed project state: build green (1,894 tests, 55 test files), production liv
 ## 2026-05-26 16:47 — Build opened issue #190
 
 The build agent turned "Alias index not updated on non-ingest write paths — lifecycle pipeline gap" into code on `arc/issue-190` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/191.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/191.
 The commit trail is: - arc: move updateAliasIndexForPage into lifecycle pipeline (closes #190); - office-hour: approve #190 as ready p2-medium — alias index lifecycle gap.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-26 21:47 — Build opened issue #192
 
 The build agent turned "Add MCP server instructions for agent onboarding" into code on `arc/issue-192` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/193.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/193.
 The commit trail is: - arc: add MCP server instructions for agent onboarding (closes #192); - arc: weekly research scan (2026-05-26).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3774,14 +3774,14 @@ Assessed project state: build green (1,897 tests, 55 test files), production liv
 ## 2026-05-26 22:25 — Build opened issue #195
 
 The build agent turned "MCP save_query_answer silently discards sources parameter — breaks provenance contract" into code on `arc/issue-195` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/196.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/196.
 The commit trail is: - arc: thread sources through save_query_answer to page frontmatter (closes #195).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-26 22:37 — Build opened issue #194
 
 The build agent turned "MCP server: search_wiki and list_pages crash on errors instead of returning error response" into code on `arc/issue-194` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/197.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/197.
 The commit trail is: - arc: add try/catch to search_wiki and list_pages MCP tools (closes #194); - arc: thread sources through save_query_answer to page frontmatter (closes #195) (#196).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3799,7 +3799,7 @@ Key discovery: MCP SDK v1.29+ already catches unhandled tool errors via its own 
 ## 2026-05-27 04:35 — Build opened issue #194
 
 The build agent turned "MCP server: search_wiki and list_pages crash on errors instead of returning error response" into code on `arc/issue-194` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/197.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/197.
 The commit trail is: - arc: wrap search_wiki and list_pages MCP callbacks in try/catch (closes #194).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3814,7 +3814,7 @@ Ready backlog is lean (was empty before this). Good time for the build agent to 
 ## 2026-05-27 08:18 — Build opened issue #198
 
 The build agent turned "Research: Add destructiveHint and idempotentHint annotations to MCP tools" into code on `arc/issue-198` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/199.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/199.
 The commit trail is: - arc: add destructiveHint and idempotentHint annotations to all 25 MCP tools (closes #198).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3852,21 +3852,21 @@ Action: plan — Evaluated three provenance primitives from #139 (hybrid raw anc
 ## 2026-05-27 08:53 — Build opened issue #200
 
 The build agent turned "Add list_contributors and get_contributor MCP tools" into code on `arc/issue-200` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/201.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/201.
 The commit trail is: - arc: add list_contributors and get_contributor MCP tools (closes #200); - journal: architect session — #140 provenance depth evaluation designed.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-27 08:53 — Build opened issue #140
 
 The build agent turned "Research: Evaluate provenance depth — claim-level anchoring and ingest ledger" into code on `arc/issue-140` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/202.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/202.
 The commit trail is: - arc: provenance depth evaluation — adopt/watch verdicts for three external primitives (closes #140); - arc: add list_contributors and get_contributor MCP tools (closes #200) (#201); - arc: build session (2026-05-27) — issue #200; - arc: architect session (2026-05-27); - journal: architect session — #140 provenance depth evaluation designed.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-27 08:53 — Build opened issue #158
 
 The build agent turned "Add CLI create command for direct page creation" into code on `arc/issue-158` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/203.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/203.
 The commit trail is: - arc: add CLI create command for direct page creation (closes #158); - arc: provenance depth evaluation — adopt/watch verdicts for three external primitives (closes #140) (#202); - arc: build session (2026-05-27) — issue #140.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3901,35 +3901,35 @@ Assessed project state: build green (1,944 tests, 57 test files), production liv
 ## 2026-05-27 16:39 — Build opened issue #165
 
 The build agent turned "Add CLI update command to edit existing wiki pages" into code on `arc/issue-165` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/207.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/207.
 The commit trail is: - arc: add CLI update command to edit existing wiki pages (closes #165); - arc: pm session (2026-05-27); - journal: PM session (2026-05-28) — unblocked #165, filed #204 #205 #206.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-27 16:55 — Build opened issue #206
 
 The build agent turned "mcp.json manifest out of sync — missing 2 tools, no drift test" into code on `arc/issue-206` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/208.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/208.
 The commit trail is: - arc: add missing tools to mcp.json manifest + drift test (closes #206).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-27 17:07 — Build opened issue #204
 
 The build agent turned "Implement ingest ledger — persist IngestResult as JSONL" into code on `arc/issue-204` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/209.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/209.
 The commit trail is: - arc: implement ingest ledger — persist IngestResult as JSONL (closes #204); - arc: add missing tools to mcp.json manifest + drift test (closes #206) (#208).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-27 17:07 — Build opened issue #205
 
 The build agent turned "Add incomplete-coverage lint check — compare raw sources against wiki pages" into code on `arc/issue-205` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/210.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/210.
 The commit trail is: - arc: fix build errors.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-27 17:37 — Build opened issue #205
 
 The build agent turned "Add incomplete-coverage lint check — compare raw sources against wiki pages" into code on `arc/issue-205` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/210.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/210.
 The commit trail is: - arc: add incomplete-coverage lint check — compare raw sources against wiki pages (closes #205).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -3973,14 +3973,14 @@ Both issues are agent-self — got no benefit of the doubt. Both survived becaus
 ## 2026-05-27 22:32 — Build opened issue #212
 
 The build agent turned "SCHEMA.md marks incomplete-coverage lint check as Planned but it's implemented" into code on `arc/issue-212` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/213.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/213.
 The commit trail is: - arc: remove stale 'Planned' annotation from incomplete-coverage lint check in SCHEMA.md (closes #212); - arc: office-hour session (2026-05-27); - journal: office-hour triage — #211 ready (p2), #212 ready (p3).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-27 22:32 — Build opened issue #211
 
 The build agent turned "Add ingest ledger read-side: readLedger() + API route + CLI history command" into code on `arc/issue-211` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/214.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/214.
 The commit trail is: - arc: add ingest ledger read-side — readLedger(), API route, CLI history command (closes #211); - arc: remove stale 'Planned' annotation from incomplete-coverage lint check in SCHEMA.md (closes #212) (#213); - arc: build session (2026-05-27) — issue #212; - arc: office-hour session (2026-05-27); - journal: office-hour triage — #211 ready (p2), #212 ready (p3).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4027,21 +4027,21 @@ Discovery: The status report (`.arc/status.md`) is stale — it claims 13 lib fi
 ## 2026-05-28 08:49 — Build opened issue #216
 
 The build agent turned "SCHEMA.md frontmatter table has stale "Future" annotations for implemented features" into code on `arc/issue-216` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/218.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/218.
 The commit trail is: - arc: update stale 'Future' annotations in SCHEMA.md frontmatter table (closes #216); - journal: office-hour triage — #215 ready (p2), #216 ready (p3), #217 ready (p3); - journal: office-hour triage — #215 ready (p2), #216 ready (p3); - arc: pm session (2026-05-28).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-28 08:49 — Build opened issue #215
 
 The build agent turned "Migrate ingest ledger from raw fs to StorageProvider" into code on `arc/issue-215` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/219.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/219.
 The commit trail is: - arc: migrate ingest ledger from raw fs to StorageProvider (closes #215); - arc: build session (2026-05-28) — issue #216; - journal: office-hour triage — #215 ready (p2), #216 ready (p3), #217 ready (p3); - journal: office-hour triage — #215 ready (p2), #216 ready (p3).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-28 08:49 — Build opened issue #217
 
 The build agent turned "Add ingest_history MCP tool for agent provenance auditing" into code on `arc/issue-217` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/220.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/220.
 The commit trail is: - arc: add ingest_history MCP tool for agent provenance auditing (closes #217); - arc: migrate ingest ledger from raw fs to StorageProvider (closes #215) (#219); - arc: build session (2026-05-28) — issue #215; - arc: update stale 'Future' annotations in SCHEMA.md frontmatter table (closes #216) (#218); - arc: build session (2026-05-28) — issue #216; - journal: office-hour triage — #215 ready (p2), #216 ready (p3), #217 ready (p3).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4084,7 +4084,7 @@ Ready backlog now has 1 item (#221). Build agents should pick it up.
 ## 2026-05-28 16:54 — Build opened issue #221
 
 The build agent turned "MCP create_page and update_page skip cross-referencing — agent writes produce isolated pages" into code on `arc/issue-221` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/223.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/223.
 The commit trail is: - arc: pass crossRefSource in MCP create_page and update_page (closes #221); - arc: office-hour session (2026-05-28); - journal: office-hour triage — #221 ready (p1), #222 rejected (no consumer).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4130,14 +4130,14 @@ Ready backlog: 2 items (#225, #226).
 ## 2026-05-28 22:34 — Build opened issue #225
 
 The build agent turned "MCP agent_context handler strips profile metadata — agents can't see their own page lists" into code on `arc/issue-225` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/227.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/227.
 The commit trail is: - arc: return full AgentProfile from MCP agent_context handler (closes #225); - arc: office-hour session (2026-05-28); - office-hour: triage #225, #226 — both approved to ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-28 22:34 — Build opened issue #226
 
 The build agent turned "MCP lint tool schemas accept arbitrary strings instead of enum-constrained types" into code on `arc/issue-226` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/228.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/228.
 The commit trail is: - arc: constrain MCP lint tool schemas with z.enum(ALL_CHECK_TYPES) (closes #226); - arc: build session (2026-05-28) — issue #225; - arc: office-hour session (2026-05-28); - office-hour: triage #225, #226 — both approved to ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4171,14 +4171,14 @@ Assessed project state: build green (1,986 tests, 57 test files), production liv
 ## 2026-05-29 08:47 — Build opened issue #229
 
 The build agent turned "Documentation accuracy sweep: SCHEMA.md false claims + README stale metrics" into code on `arc/issue-229` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/231.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/231.
 The commit trail is: - arc: fix SCHEMA.md false claims and update README metrics (closes #229).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-29 08:47 — Build opened issue #230
 
 The build agent turned "Add ingest_x_mention MCP tool — complete agent surface for Phase 3" into code on `arc/issue-230` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/232.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/232.
 The commit trail is: - arc: add ingest_x_mention MCP tool for Phase 3 X ingestion (closes #230); - arc: build session (2026-05-29) — issue #229.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4218,14 +4218,14 @@ Assessed project state: build green (1,994 tests, 57 test files), production liv
 ## 2026-05-29 16:43 — Build opened issue #233
 
 The build agent turned "MCP add_comment error says 'body' but parameter is 'content'; lint-fix missing incomplete-coverage case" into code on `arc/issue-233` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/235.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/235.
 The commit trail is: - arc: fix add_comment error message and add incomplete-coverage lint-fix case (closes #233); - arc: office-hour session (2026-05-29); - office-hour: triage #233 and #234 → ready p2-medium; - office-hour: triage #233 and #234 → ready p2-medium.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-29 16:43 — Build opened issue #234
 
 The build agent turned "Add batch_ingest_urls MCP tool — agents can't multi-URL ingest without N sequential calls" into code on `arc/issue-234` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/236.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/236.
 The commit trail is: - arc: add batch_ingest_urls MCP tool for multi-URL ingestion (closes #234); - arc: fix add_comment error message and add incomplete-coverage lint-fix case (closes #233) (#235); - arc: build session (2026-05-29) — issue #233; - arc: office-hour session (2026-05-29); - office-hour: triage #233 and #234 → ready p2-medium; - office-hour: triage #233 and #234 → ready p2-medium.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4333,7 +4333,7 @@ Pipeline state: 1 ready (#238), 0 in-progress, 1 blocked (#21). Build queue has 
 ## 2026-05-30 07:43 — Build opened issue #238
 
 The build agent turned "ContributorBadge N+1: each author badge triggers a full wiki-wide revision scan" into code on `arc/issue-238` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/239.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/239.
 The commit trail is: - arc: fix ContributorBadge N+1 — batch-fetch profiles, share scan data (closes #238); - arc: office-hour session (2026-05-30); - office-hour: triage #238 → ready (p2-medium).
 That leaves the work waiting on review and merge rather than another build pass.
 ## 2026-05-30 (pm)
@@ -4363,7 +4363,7 @@ Assessed project state: build green (2,009 tests, 57 files), but 1 flaky test fo
 ## 2026-05-30 14:32 — Build opened issue #240
 
 The build agent turned "MCP tests make real HTTP calls — batch_ingest_urls times out, x-mention tests fragile" into code on `arc/issue-240` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/241.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/241.
 The commit trail is: - arc: mock fetchUrlContent in MCP tests to eliminate real HTTP calls (closes #240).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4421,14 +4421,14 @@ Triaged 2 issues. Both PM-filed bugs, both code-verified before verdict.
 ## 2026-05-31 08:19 — Build opened issue #243
 
 The build agent turned "Lint UI missing auto-fix buttons for stale-page and unmigrated-page" into code on `arc/issue-243` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/244.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/244.
 The commit trail is: - arc: add stale-page and unmigrated-page to lint UI fixable types (closes #243); - arc: office-hour session (2026-05-31); - office-hour: triage #242 (p2 ready), #243 (p3 ready).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-05-31 08:19 — Build opened issue #242
 
 The build agent turned "POST /api/wiki sets 6-month expiry default — every other path uses 90 days" into code on `arc/issue-242` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/245.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/245.
 The commit trail is: - arc: fix POST /api/wiki expiry default from 6 months to 90 days (closes #242); - arc: build session (2026-05-31) — issue #243; - arc: office-hour session (2026-05-31); - office-hour: triage #242 (p2 ready), #243 (p3 ready).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4505,7 +4505,7 @@ Assessed project state: build green (2,015 tests, 57 files), pipeline clear — 
 ## 2026-05-31 14:33 — Build opened issue #247
 
 The build agent turned "SCHEMA.md contradicts itself on stale-page auto-fix" into code on `arc/issue-247` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/249.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/249.
 The commit trail is: - arc: fix stale-page auto-fix description in SCHEMA.md (closes #247).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4522,7 +4522,7 @@ Triaged 1 issue today:
 ## 2026-05-31 21:55 — Build opened issue #250
 
 The build agent turned "API ingest routes don't accept tags — MCP tools do, creating parity gap" into code on `arc/issue-250` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/251.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/251.
 The commit trail is: - arc: add tags support to API ingest routes (closes #250); - arc: office-hour session (2026-05-31); - office-hour: triage #250 → ready (p2-medium).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4551,14 +4551,14 @@ Assessed project state: build green (2,030 tests, 58 test files), pipeline clear
 ## 2026-06-01 10:22 — Build opened issue #253
 
 The build agent turned "POST /api/wiki creates pages missing arcpedia schema fields that MCP sets" into code on `arc/issue-253` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/255.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/255.
 The commit trail is: - arc: align POST /api/wiki frontmatter with MCP handleCreatePage (closes #253); - arc: pm session (2026-06-01) — filed #253, #254.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-01 10:22 — Build opened issue #254
 
 The build agent turned "Add PATCH /api/wiki/[slug] for frontmatter-only metadata updates" into code on `arc/issue-254` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/256.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/256.
 The commit trail is: - arc: add PATCH /api/wiki/[slug] for frontmatter-only metadata updates (closes #254); - arc: build session (2026-06-01) — issue #253.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4597,21 +4597,21 @@ Ready backlog went from 0 to 2 items. Both are narrow (1 file each) and well-sco
 ## 2026-06-01 18:40 — Build opened issue #257
 
 The build agent turned "MCP create_page missing tags parameter + handleUpdatePage summary extraction bug" into code on `arc/issue-257` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/259.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/259.
 The commit trail is: - arc: fix MCP create_page missing tags + update_page summary H1 bug (closes #257); - arc: office-hour session (2026-06-01); - office-hour: triage #257 (p1-high) and #258 (p2-medium).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-01 18:50 — Build opened issue #257
 
 The build agent turned "MCP create_page missing tags parameter + handleUpdatePage summary extraction bug" into code on `arc/issue-257` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/259.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/259.
 The commit trail is: - arc: fix MCP create_page missing tags + H1-in-summary bugs (closes #257).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-01 19:04 — Build opened issue #258
 
 The build agent turned "Add MCP update_metadata tool for frontmatter-only PATCH" into code on `arc/issue-258` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/260.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/260.
 The commit trail is: - arc: add MCP update_metadata tool for frontmatter-only PATCH (closes #258).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4651,7 +4651,7 @@ Approved as ready/p2-medium. The system is lying to itself — agents read statu
 ## 2026-06-01 23:04 — Build opened issue #261
 
 The build agent turned "Refresh status.md and fix SCHEMA.md stale claims" into code on `arc/issue-261` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/263.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/263.
 The commit trail is: - arc: refresh status.md metrics and fix SCHEMA.md stale claims (closes #261); - arc: office-hour session (2026-06-01); - office-hour: triage #261 → ready/p2-medium (stale status.md + SCHEMA.md); - arc: pm session (2026-06-01).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4663,14 +4663,14 @@ Premise survived hard: the editor strips frontmatter, so there is literally no p
 ## 2026-06-01 23:14 — Build opened issue #262
 
 The build agent turned "Add metadata editor to wiki edit page" into code on `arc/issue-262` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/264.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/264.
 The commit trail is: - arc: add metadata editor to wiki edit page (closes #262); - arc: office-hour session (2026-06-01); - office-hour: triage #262 → ready/p1-high (metadata editor for edit page).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-01 23:24 — Build opened issue #262
 
 The build agent turned "Add metadata editor to wiki edit page" into code on `arc/issue-262` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/264.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/264.
 The commit trail is: - arc: add metadata editor to wiki edit page (closes #262).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4713,7 +4713,7 @@ Lesson reinforced: agent-self issues that characterize existing coverage as insu
 ## 2026-06-02 17:21 — Build opened issue #273
 
 The build agent turned "wiki-ref source badge displays raw string instead of proper label" into code on `arc/issue-273` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/275.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/275.
 The commit trail is: - arc: add wiki-ref source badge with teal color (closes #273); - arc: office-hour session (2026-06-02); - office-hour: triage #273 ready, reject #274.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4753,14 +4753,14 @@ Pipeline state: 0 in triage, 2 ready (#281, #282), 0 in-progress.
 ## 2026-06-02 23:04 — Build opened issue #282
 
 The build agent turned "Add unit tests for source-index.ts dedup infrastructure" into code on `arc/issue-282` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/283.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/283.
 The commit trail is: - arc: add unit tests for source-index.ts dedup infrastructure (closes #282); - arc: office-hour session (2026-06-02); - office-hour: triage #281 ready, #282 ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-02 23:04 — Build opened issue #281
 
 The build agent turned "README stale metrics: test count, line count, MCP tool count, 6 undocumented tools" into code on `arc/issue-281` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/284.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/284.
 The commit trail is: - arc: update README metrics and add 6 missing MCP tools (closes #281); - arc: build session (2026-06-02) — issue #282; - arc: office-hour session (2026-06-02); - office-hour: triage #281 ready, #282 ready.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4788,14 +4788,14 @@ Assessed project state: build green (2,143 tests, 62 test files), pipeline empty
 ## 2026-06-03 09:28 — Build opened issue #289
 
 The build agent turned "Strengthen URL normalization in source-index dedup" into code on `arc/issue-289` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/291.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/291.
 The commit trail is: - arc: strengthen URL normalization in source-index dedup (closes #289); - arc: office-hour session (2026-06-03); - journal: office-hour triage — #290 ready p1, #289 ready p2.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-03 09:28 — Build opened issue #290
 
 The build agent turned "Filter agent-identity pages from the All wiki feed" into code on `arc/issue-290` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/292.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/292.
 The commit trail is: - arc: filter agent-identity pages from All wiki feed (closes #290); - arc: build session (2026-06-03) — issue #289; - arc: office-hour session (2026-06-03); - journal: office-hour triage — #290 ready p1, #289 ready p2.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4827,7 +4827,7 @@ Ran a sub-agent audit across MCP attribution, lint coverage, test coverage, and 
 ## 2026-06-03 18:04 — Build opened issue #307
 
 The build agent turned "Guard against setting visibility: private until read-path enforcement exists" into code on `arc/issue-307` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/308.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/308.
 The commit trail is: - arc: guard against visibility: private until read-path enforcement exists (closes #307).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4843,7 +4843,7 @@ No other triage issues in queue. The build pipeline has room.
 ## 2026-06-03 23:04 — Build opened issue #319
 
 The build agent turned "MCP agent_context skips template chain — forked agents return empty context" into code on `arc/issue-319` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/322.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/322.
 The commit trail is: - arc: fix MCP agent_context to resolve template chain and shared pages (closes #319); - arc: office-hour session (2026-06-03); - office-hour: triage #319 → ready p1-high (MCP agent_context template chain bug).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4859,7 +4859,7 @@ Ready backlog was empty. One small issue queued for build.
 ## 2026-06-03 23:23 — Build opened issue #320
 
 The build agent turned "Replace hardcoded README metrics with approximate ranges to stop recurring staleness" into code on `arc/issue-320` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/324.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/324.
 The commit trail is: - arc: replace hardcoded README metrics with approximate ranges (closes #320); - arc: office-hour session (2026-06-03); - office-hour: triage #320 → ready p3-low (README metrics staleness).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4894,7 +4894,7 @@ Ready backlog: 1 item (#332). Build queue was empty — YouTube data module is n
 ## 2026-06-04 08:31 — Build opened issue #332
 
 The build agent turned "Add YouTube data fetching module (youtube.ts)" into code on `arc/issue-332` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/334.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/334.
 The commit trail is: - arc: add YouTube data fetching module (closes #332); - office-hour: triage #332 → ready p2-medium, #333 → blocked p2-medium (YouTube ingest); - arc: architect session (2026-06-04).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4939,14 +4939,14 @@ Ready backlog: 1 item (#337). Build queue should pick up the service token work 
 ## 2026-06-04 08:51 — Build opened issue #332
 
 The build agent turned "Add YouTube data fetching module (youtube.ts)" into code on `arc/issue-332` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/334.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/334.
 The commit trail is: - arc: add YouTube data fetching module with transcript support (closes #332); - office-hour: triage #337 → ready p1-high, close #336 and #335 (2026-06-05); - journal: pm session (2026-06-04) — filed #335, #336, #337.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-04 08:51 — Build opened issue #337
 
 The build agent turned "Accept service token on ingest and X-mention routes to unblock scheduled agent jobs" into code on `arc/issue-337` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/338.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/338.
 The commit trail is: - arc: accept service token on ingest and x-mention routes (closes #337); - arc: add YouTube data fetching module with transcript support (closes #332) (#334); - arc: build session (2026-06-04) — issue #332; - office-hour: triage #337 → ready p1-high, close #336 and #335 (2026-06-05).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4958,7 +4958,7 @@ Action: plan — Atomic single-file change to `workers/x-ingest/index.ts`. Added
 ## 2026-06-04 10:42 — Build opened issue #331
 
 The build agent turned "X ingest: follow the whole thread + ingest links found across the thread" into code on `arc/issue-331` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/340.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/340.
 The commit trail is: - arc: x-ingest follows full thread + aggregates links across thread (closes #331); - arc: architect session (2026-06-04).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -4985,35 +4985,35 @@ Assessed project state: build green, 1 commit on main since last session (#341 �
 ## 2026-06-04 16:27 — Build opened issue #343
 
 The build agent turned "Accept service token on batch-ingest and reingest routes" into code on `arc/issue-343` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/344.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/344.
 The commit trail is: - arc: accept service token on batch-ingest and reingest routes (closes #343).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-04 16:27 — Build opened issue #342
 
 The build agent turned "MCP read tools leak private pages — enforce visibility in list_pages, read_page, and search_wiki" into code on `arc/issue-342` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/345.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/345.
 The commit trail is: - arc: enforce visibility in MCP read handlers — list_pages, read_page, search_wiki (closes #342); - arc: build session (2026-06-04) — issue #343.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-04 16:27 — Build opened issue #333
 
 The build agent turned "Integrate YouTube ingest into the pipeline (types + ingest.ts + config)" into code on `arc/issue-333` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/346.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/346.
 The commit trail is: - arc: integrate YouTube ingest into the pipeline (closes #333); - arc: accept service token on batch-ingest and reingest routes (closes #343) (#344); - arc: build session (2026-06-04) — issue #342; - arc: build session (2026-06-04) — issue #343.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-04 16:54 — Build opened issue #333
 
 The build agent turned "Integrate YouTube ingest into the pipeline (types + ingest.ts + config)" into code on `arc/issue-333` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/346.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/346.
 The commit trail is: - arc: fix build error — add 'youtube' to attachIngestTrigger type union.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-04 17:13 — Build opened issue #333
 
 The build agent turned "Integrate YouTube ingest into the pipeline (types + ingest.ts + config)" into code on `arc/issue-333` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/346.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/346.
 The commit trail is: - arc: integrate YouTube ingest into the pipeline (closes #333).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5025,7 +5025,7 @@ Action: split — Decomposed into #347 (core: unpdf + types + fetch.ts PDF branc
 ## 2026-06-04 18:02 — Build opened issue #347
 
 The build agent turned "PDF ingest: core extraction library + type plumbing" into code on `arc/issue-347` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/349.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/349.
 The commit trail is: - arc: PDF ingest core extraction library + type plumbing (closes #347); - arc: architect session (2026-06-04).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5069,21 +5069,21 @@ No other triage issues in queue.
 ## 2026-06-04 22:36 — Build opened issue #357
 
 The build agent turned "MCP write tools create unowned pages — add owner param to create/update/ingest handlers" into code on `arc/issue-357` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/359.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/359.
 The commit trail is: - arc: add owner param to MCP write tools for tenant model (closes #357); - arc: office-hour session (2026-06-04); - office-hour: triage #358 → ready (p2-medium); - arc: architect session (2026-06-04); - arc: architect rescue for #333 → #358; - arc: office-hour session (2026-06-04); - office-hour: triage #357 (ready p1), #348 (ready p2), #333 (ready p2).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-04 22:36 — Build opened issue #358
 
 The build agent turned "Wire YouTube module into ingest pipeline" into code on `arc/issue-358` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/361.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/361.
 The commit trail is: - arc: wire YouTube module into ingest pipeline (closes #358); - arc: build session (2026-06-04) — issue #357; - arc: office-hour session (2026-06-04); - office-hour: triage #358 → ready (p2-medium).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-04 22:36 — Build opened issue #348
 
 The build agent turned "PDF ingest: API route + UI tab + MCP tool" into code on `arc/issue-348` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/362.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/362.
 The commit trail is: - arc: PDF ingest — API route, UI tab, MCP tool (closes #348); - arc: add owner param to MCP write tools for tenant model (closes #357) (#359); - arc: wire YouTube module into ingest pipeline (closes #358) (#361); - arc: build session (2026-06-04) — issue #358.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5108,7 +5108,7 @@ Source flow is comprehensive — YouTube, PDF, image, URL, text, batch, X-mentio
 ## 2026-06-05 10:09 — Build opened issue #367
 
 The build agent turned "MCP ingest_pdf missing owner/triggeredBy + service token on PDF and image routes" into code on `arc/issue-367` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/368.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/368.
 The commit trail is: - arc: add owner/triggeredBy to MCP ingest_pdf + service-token auth on PDF/image routes (closes #367).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5132,7 +5132,7 @@ Source flow is complete: URL, text, batch, PDF, image, X-mention, YouTube ingest
 ## 2026-06-05 16:21 — Build opened issue #373
 
 The build agent turned "Discussion and revision-revert routes skip realm-aware write ACL on private pages" into code on `arc/issue-373` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/374.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/374.
 The commit trail is: - arc: enforce realm-aware ACL on discussion and revision-revert routes (closes #373).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5165,14 +5165,14 @@ Ran a full audit of the six near-term roadmap threads:
 ## 2026-06-05 22:20 — Build opened issue #380
 
 The build agent turned "Maintenance scanner: detect and auto-fix broken wiki links" into code on `arc/issue-380` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/382.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/382.
 The commit trail is: - arc: wire broken-link detection into maintenance scanner (closes #380).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-05 22:33 — Build opened issue #381
 
 The build agent turned "Add MCP vault_curate and vault_uncurate tools" into code on `arc/issue-381` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/383.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/383.
 The commit trail is: - arc: add vault_curate and vault_uncurate MCP tools (closes #381).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5204,7 +5204,7 @@ Ran a deep audit of service-token coverage across all REST routes, triggered by 
 ## 2026-06-06 07:48 — Build opened issue #387
 
 The build agent turned "Middleware blocks service tokens on ingest sub-routes (pdf, batch, image, reingest)" into code on `arc/issue-387` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/390.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/390.
 The commit trail is: - arc: exempt ingest sub-routes from Clerk middleware write-gate (closes #387).
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5218,14 +5218,14 @@ Clean gap-closer. Both `orphan-page` and `empty-page` already have working fixer
 ## 2026-06-06 07:59 — Build opened issue #388
 
 The build agent turned "Wiki PATCH and POST routes missing service-token authentication" into code on `arc/issue-388` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/391.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/391.
 The commit trail is: - arc: add service-token auth to wiki PATCH and POST routes (closes #388); - arc: office-hour session (2026-06-06); - arc: office-hour — triaged #389 → ready p3-low; - arc: exempt ingest sub-routes from Clerk middleware write-gate (closes #387) (#390); - arc: build session (2026-06-06) — issue #387.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-06 07:59 — Build opened issue #389
 
 The build agent turned "Maintenance scanner: add orphan-page and empty-page detection" into code on `arc/issue-389` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/392.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/392.
 The commit trail is: - arc: add orphan-page and empty-page detection to maintenance scanner (closes #389); - arc: add service-token auth to wiki PATCH and POST routes (closes #388) (#391); - arc: build session (2026-06-06) — issue #388; - arc: office-hour session (2026-06-06); - arc: office-hour — triaged #389 → ready p3-low.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5240,7 +5240,7 @@ Approved as **ready p2-medium** — one production line + one test, two files. T
 ## 2026-06-06 14:35 — Build opened issue #398
 
 The build agent turned "Commons index excluded from daily derived-index rebuild" into code on `arc/issue-398` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/399.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/399.
 The commit trail is: - arc: include commons index in daily derived-index rebuild (closes #398); - arc: office-hour session (2026-06-06); - arc: office-hour session (2026-06-07) — triaged #398 → ready p2-medium.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5276,21 +5276,21 @@ All three are well-scoped, code-verified, and small. The two bugs (#413, #414) a
 ## 2026-06-06 22:08 — Build opened issue #414
 
 The build agent turned "Save-to-wiki omits source provenance from query results" into code on `arc/issue-414` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/416.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/416.
 The commit trail is: - arc: include sources in save-to-wiki POST body (closes #414); - arc: office-hour session (2026-06-06); - arc: office-hour session (2025-06-09) — triaged #413 #414 #415.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-06 22:08 — Build opened issue #413
 
 The build agent turned "Streaming query route leaks agent-scoped pages into unscoped results" into code on `arc/issue-413` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/417.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/417.
 The commit trail is: - arc: filter agent-scoped pages from unscoped streaming queries (closes #413); - arc: build session (2026-06-06) — issue #414; - arc: office-hour session (2026-06-06); - arc: office-hour session (2025-06-09) — triaged #413 #414 #415.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-06 22:08 — Build opened issue #415
 
 The build agent turned "Maintenance scanner: wire missing-crossref fixer into autonomous loop" into code on `arc/issue-415` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/418.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/418.
 The commit trail is: - arc: wire missing-crossref fixer into maintenance scanner (closes #415); - arc: include sources in save-to-wiki POST body (closes #414) (#416); - arc: build session (2026-06-06) — issue #413; - arc: build session (2026-06-06) — issue #414; - arc: office-hour session (2026-06-06); - arc: office-hour session (2025-06-09) — triaged #413 #414 #415.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5338,21 +5338,21 @@ Pattern: this batch is all "accidentally correct" or "not yet exercised" — the
 ## 2026-06-07 14:54 — Build opened issue #430
 
 The build agent turned "Middleware blocks service tokens on wiki revisions POST route" into code on `arc/issue-430` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/433.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/433.
 The commit trail is: - arc: bypass middleware Clerk gate for wiki revisions POST route (closes #430); - arc: office-hour session (2026-06-07); - arc: office-hour session (2026-07-08) — triaged #430 #431 #432.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-07 14:54 — Build opened issue #432
 
 The build agent turned "Maintenance scanner skips stale pages without a source URL" into code on `arc/issue-432` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/434.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/434.
 The commit trail is: - arc: emit stale-page fix task for expired pages without source URL (closes #432); - arc: build session (2026-06-07) — issue #430; - arc: office-hour session (2026-06-07); - arc: office-hour session (2026-07-08) — triaged #430 #431 #432.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-07 14:54 — Build opened issue #431
 
 The build agent turned "Agent asOwner ingest hardcodes sourceType as x-mention" into code on `arc/issue-431` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/435.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/435.
 The commit trail is: - arc: derive asOwner sourceType from input instead of hardcoding x-mention (closes #431); - arc: build session (2026-06-07) — issue #432; - arc: build session (2026-06-07) — issue #430; - arc: office-hour session (2026-06-07); - arc: office-hour session (2026-07-08) — triaged #430 #431 #432.
 That leaves the work waiting on review and merge rather than another build pass.
 
@@ -5399,21 +5399,21 @@ Both talk-related bugs (#444, #445) are p1 because the product's active directio
 ## 2026-06-07 22:04 — Build opened issue #444
 
 The build agent turned "Discussion forms send freeform author name that the API silently discards" into code on `arc/issue-444` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/447.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/447.
 The commit trail is: - arc: remove freeform author input from discussion forms, use Clerk session handle (closes #444); - arc: office-hour session (2026-06-07); - arc: office-hour session (2026-07-08) — triaged #444 #445 #446.
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-07 22:16 — Build opened issue #445
 
 The build agent turned "Thread resolution has no ownership check — any user can resolve any thread" into code on `arc/issue-445` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/448.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/448.
 The commit trail is: - arc: add ownership check to thread resolution PATCH handler (closes #445).
 That leaves the work waiting on review and merge rather than another build pass.
 
 ## 2026-06-07 22:16 — Build opened issue #446
 
 The build agent turned "Add ingest_image MCP tool for agent image processing" into code on `arc/issue-446` after running the configured build, lint, and test checks.
-The result is ready for review at https://github.com/yologdev/arcpedia/pull/449.
+The result is ready for review at https://github.com/MKonovalov/arcpedia/pull/449.
 The commit trail is: - arc: add ingest_image MCP tool for agent image processing (closes #446); - arc: add ownership check to thread resolution PATCH handler (closes #445) (#448); - arc: build session (2026-06-07) — issue #445.
 That leaves the work waiting on review and merge rather than another build pass.
 

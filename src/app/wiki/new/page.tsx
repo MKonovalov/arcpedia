@@ -56,7 +56,7 @@ export default function NewWikiPage() {
       const tenant =
         typeof data.owner === "string" && data.owner.trim()
           ? data.owner.trim().toLowerCase()
-          : "yopedia";
+          : "arcpedia";
       router.push(`/u/${tenant}/${trimmedSlug}`);
     } catch (err) {
       setError(getErrorMessage(err, "Network error"));

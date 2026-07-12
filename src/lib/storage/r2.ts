@@ -51,9 +51,9 @@ export class R2StorageProvider implements StorageProvider {
   private readonly vectorize: VectorizeIndex | undefined;
 
   constructor(env: CloudflareEnv) {
-    this.bucket = env.YOPEDIA_BUCKET;
-    this.kv = env.YOPEDIA_CONFIG;
-    this.vectorize = env.YOPEDIA_VECTORIZE;
+    this.bucket = env.arcpedia_BUCKET;
+    this.kv = env.arcpedia_CONFIG;
+    this.vectorize = env.arcpedia_VECTORIZE;
   }
 
   // -------------------------------------------------------------------------
@@ -322,7 +322,7 @@ export class R2StorageProvider implements StorageProvider {
       logger.warn(
         "storage",
         "clearEmbeddings: Vectorize has no bulk-clear; vectors left in place " +
-          "(filtered at query time). Recreate the index to fully purge.",
+        "(filtered at query time). Recreate the index to fully purge.",
       );
       return;
     }

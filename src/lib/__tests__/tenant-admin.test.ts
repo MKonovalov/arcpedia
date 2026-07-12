@@ -14,8 +14,8 @@ const ENV_KEYS = [
   "WIKI_DIR",
   "RAW_DIR",
   "DATA_DIR",
-  "YOPEDIA_SERVICE_TOKEN",
-  "YOPEDIA_SERVICE_PRINCIPAL",
+  "arcpedia_SERVICE_TOKEN",
+  "arcpedia_SERVICE_PRINCIPAL",
 ];
 
 beforeEach(async () => {
@@ -24,8 +24,8 @@ beforeEach(async () => {
   process.env.WIKI_DIR = path.join(tmpDir, "wiki");
   process.env.RAW_DIR = path.join(tmpDir, "raw");
   process.env.DATA_DIR = tmpDir;
-  delete process.env.YOPEDIA_SERVICE_TOKEN;
-  delete process.env.YOPEDIA_SERVICE_PRINCIPAL;
+  delete process.env.arcpedia_SERVICE_TOKEN;
+  delete process.env.arcpedia_SERVICE_PRINCIPAL;
   _resetStorage();
   await ensureDirectories();
 });
@@ -59,7 +59,7 @@ describe("deleteTenant", () => {
     await write("alice-1", { owner: "alice" });
     await write("alice-2", { owner: "alice" });
     await write("bob-1", { owner: "bob" });
-    await write("seed", {}); // ownerless → yopedia
+    await write("seed", {}); // ownerless → arcpedia
 
     // Silo was mirrored on write (P5a).
     expect(await getStorage().fileExists("tenants/alice/wiki/alice-1.md")).toBe(
@@ -107,12 +107,12 @@ describe("deleteTenant", () => {
     expect(await readWikiPage("bobs-page")).not.toBeNull();
   });
 
-  it("ownerless/seed pages belong to the yopedia tenant", async () => {
+  it("ownerless/seed pages belong to the arcpedia tenant", async () => {
     await write("seed-a", {});
-    await write("seed-b", { owner: "yopedia" });
+    await write("seed-b", { owner: "arcpedia" });
     await write("alice-x", { owner: "alice" });
 
-    const result = await deleteTenant("yopedia");
+    const result = await deleteTenant("arcpedia");
     expect(result.deletedPages).toBe(2); // both seed pages
     expect(await readWikiPage("alice-x")).not.toBeNull();
   });
@@ -140,8 +140,8 @@ describe("DELETE /api/admin/tenant/[handle] — gating", () => {
   });
 
   it("400 when authed but confirmation is missing/wrong", async () => {
-    process.env.YOPEDIA_SERVICE_TOKEN = "tok";
-    process.env.YOPEDIA_SERVICE_PRINCIPAL = "yopedia";
+    process.env.arcpedia_SERVICE_TOKEN = "tok";
+    process.env.arcpedia_SERVICE_PRINCIPAL = "arcpedia";
     expect((await del("alice", { token: "tok" })).status).toBe(400);
     expect((await del("alice", { token: "tok", confirm: "nope" })).status).toBe(
       400,
@@ -149,8 +149,8 @@ describe("DELETE /api/admin/tenant/[handle] — gating", () => {
   });
 
   it("deletes with the service token + matching confirm", async () => {
-    process.env.YOPEDIA_SERVICE_TOKEN = "tok";
-    process.env.YOPEDIA_SERVICE_PRINCIPAL = "yopedia";
+    process.env.arcpedia_SERVICE_TOKEN = "tok";
+    process.env.arcpedia_SERVICE_PRINCIPAL = "arcpedia";
     await write("alice-1", { owner: "alice" });
 
     const res = await del("alice", { token: "tok", confirm: "alice" });
@@ -159,12 +159,12 @@ describe("DELETE /api/admin/tenant/[handle] — gating", () => {
     expect(await readWikiPage("alice-1")).toBeNull();
   });
 
-  it("admins (service token) CAN delete the platform yopedia tenant", async () => {
-    process.env.YOPEDIA_SERVICE_TOKEN = "tok";
-    process.env.YOPEDIA_SERVICE_PRINCIPAL = "yopedia";
-    await write("seed", {}); // ownerless → yopedia
+  it("admins (service token) CAN delete the platform arcpedia tenant", async () => {
+    process.env.arcpedia_SERVICE_TOKEN = "tok";
+    process.env.arcpedia_SERVICE_PRINCIPAL = "arcpedia";
+    await write("seed", {}); // ownerless → arcpedia
 
-    const res = await del("yopedia", { token: "tok", confirm: "yopedia" });
+    const res = await del("arcpedia", { token: "tok", confirm: "arcpedia" });
     expect(res.status).toBe(200);
     expect((await res.json()).deletedPages).toBe(1);
     expect(await readWikiPage("seed")).toBeNull();

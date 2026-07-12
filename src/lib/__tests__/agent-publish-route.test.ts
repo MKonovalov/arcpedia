@@ -78,8 +78,8 @@ describe("POST /api/agents/[id]/publish", () => {
   it("publishes with a system token → 200", async () => {
     mockedVerify.mockResolvedValue(null);
     mockedServicePrincipal.mockReturnValue({
-      id: "service:yopedia",
-      handle: "yopedia",
+      id: "service:arcpedia",
+      handle: "arcpedia",
     });
     mockedGetAgent.mockResolvedValue({
       id: "alice--yoyo",
@@ -163,8 +163,8 @@ describe("POST /api/agents/[id]/publish", () => {
   it("returns 404 when system token targets a non-existent agent", async () => {
     mockedVerify.mockResolvedValue(null);
     mockedServicePrincipal.mockReturnValue({
-      id: "service:yopedia",
-      handle: "yopedia",
+      id: "service:arcpedia",
+      handle: "arcpedia",
     });
     mockedGetAgent.mockResolvedValue(null);
 

@@ -1,5 +1,5 @@
 /**
- * yopedia logomark — a small node-constellation glyph that ties the brand to
+ * arcpedia logomark — a small node-constellation glyph that ties the brand to
  * the knowledge graph / substrate. Monoline edges in `currentColor`, nodes
  * filled, with the hub node in the indigo accent. Crisp at 16px.
  */
@@ -42,18 +42,18 @@ interface LogoProps {
   className?: string;
   /** Pixel size of the glyph (wordmark scales with text). */
   size?: number;
-  /** Hide the "yopedia" wordmark, showing only the glyph. */
+  /** Hide the "arcpedia" wordmark, showing only the glyph. */
   markOnly?: boolean;
 }
 
-/** Logomark + "yopedia" wordmark, for the nav and footer. */
+/** Logomark + "arcpedia" wordmark, for the nav and footer. */
 export function Logo({ className, size = 22, markOnly = false }: LogoProps) {
   return (
     <span className={`inline-flex items-center gap-2 ${className ?? ""}`}>
       <LogoMark size={size} className="text-foreground" />
       {!markOnly && (
         <span className="text-lg font-bold tracking-tight text-foreground">
-          yopedia
+          arcpedia
         </span>
       )}
     </span>

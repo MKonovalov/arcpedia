@@ -49,7 +49,7 @@ vi.mock("@/lib/youtube", () => ({
 
 vi.mock("@/lib/vault", () => ({
   vaultOwnedBy: vi.fn(() => true),
-  addToVault: vi.fn(async () => {}),
+  addToVault: vi.fn(async () => { }),
 }));
 
 import { ingest, ingestUrl, reingest } from "@/lib/ingest";
@@ -469,7 +469,7 @@ describe("POST /api/ingest — service token auth", () => {
 
   it("accepts a valid service token when Clerk session is absent", async () => {
     mockedGetPrincipal.mockResolvedValue(null);
-    mockedGetServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedGetServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     mockedIngestUrl.mockResolvedValue(fakeResult);
 
     const res = await POST(
@@ -480,7 +480,7 @@ describe("POST /api/ingest — service token auth", () => {
     expect(res.status).toBe(200);
     expect(mockedIngestUrl).toHaveBeenCalledWith(
       "https://example.com/page",
-      expect.objectContaining({ author: "yopedia", owner: "yopedia" }),
+      expect.objectContaining({ author: "arcpedia", owner: "arcpedia" }),
     );
   });
 
@@ -512,7 +512,7 @@ describe("POST /api/ingest — service token auth", () => {
 
   it("prefers Clerk session when both are available", async () => {
     mockedGetPrincipal.mockResolvedValue({ id: "clerk-user", handle: "alice" });
-    mockedGetServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedGetServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     mockedIngestUrl.mockResolvedValue(fakeResult);
 
     const res = await POST(
@@ -521,7 +521,7 @@ describe("POST /api/ingest — service token auth", () => {
       }, "valid-service-token"),
     );
     expect(res.status).toBe(200);
-    // Clerk principal wins — author/owner should be "alice", not "yopedia"
+    // Clerk principal wins — author/owner should be "alice", not "arcpedia"
     expect(mockedIngestUrl).toHaveBeenCalledWith(
       "https://example.com/page",
       expect.objectContaining({ author: "alice", owner: "alice" }),
@@ -615,7 +615,7 @@ describe("POST /api/ingest/batch — async (queue) mode", () => {
 describe("POST /api/ingest/batch — service token auth", () => {
   it("accepts a valid service token when Clerk session is absent", async () => {
     mockedGetPrincipal.mockResolvedValue(null);
-    mockedGetServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedGetServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     // Off-Workers (queue absent) → inline path runs ingestUrl with attribution.
     mockedEnqueue.mockResolvedValue(false);
     mockedIngestUrl.mockResolvedValue(fakeResult);
@@ -629,7 +629,7 @@ describe("POST /api/ingest/batch — service token auth", () => {
 
     expect(mockedIngestUrl).toHaveBeenCalledWith(
       "https://example.com/page",
-      expect.objectContaining({ author: "yopedia", owner: "yopedia" }),
+      expect.objectContaining({ author: "arcpedia", owner: "arcpedia" }),
     );
   });
 
@@ -661,7 +661,7 @@ describe("POST /api/ingest/batch — service token auth", () => {
 
   it("prefers Clerk session when both are available", async () => {
     mockedGetPrincipal.mockResolvedValue({ id: "clerk-user", handle: "alice" });
-    mockedGetServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedGetServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     mockedEnqueue.mockResolvedValue(false);
     mockedIngestUrl.mockResolvedValue(fakeResult);
 
@@ -752,7 +752,7 @@ describe("POST /api/ingest/reingest — service token auth", () => {
 
   it("accepts a valid service token when Clerk session is absent", async () => {
     mockedGetPrincipal.mockResolvedValue(null);
-    mockedGetServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedGetServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     mockedReadWikiPage.mockResolvedValue(fakePageWithFrontmatter);
     mockedReingest.mockResolvedValue(fakeReingestResult);
 
@@ -764,7 +764,7 @@ describe("POST /api/ingest/reingest — service token auth", () => {
     expect(res.status).toBe(200);
     expect(mockedReingest).toHaveBeenCalledWith(
       "test-page",
-      expect.objectContaining({ author: "yopedia", triggeredBy: "yopedia" }),
+      expect.objectContaining({ author: "arcpedia", triggeredBy: "arcpedia" }),
     );
   });
 
@@ -796,7 +796,7 @@ describe("POST /api/ingest/reingest — service token auth", () => {
 
   it("prefers Clerk session when both are available", async () => {
     mockedGetPrincipal.mockResolvedValue({ id: "clerk-user", handle: "alice" });
-    mockedGetServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedGetServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     mockedReadWikiPage.mockResolvedValue(fakePageWithFrontmatter);
     mockedReingest.mockResolvedValue(fakeReingestResult);
 

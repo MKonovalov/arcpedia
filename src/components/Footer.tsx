@@ -23,9 +23,9 @@ const COLUMNS: { title: string; links: FLink[] }[] = [
   {
     title: "About",
     links: [
-      { href: "/about", label: "What is yopedia" },
-      { href: "https://github.com/yologdev/yoyo", label: "Grown by yoyo", external: true },
-      { href: "https://github.com/yologdev/yopedia", label: "Source", external: true },
+      { href: "/about", label: "What is arcpedia" },
+      { href: "https://github.com/MKonovalov/arc", label: "Taken by MK", external: true },
+      { href: "https://github.com/MKonovalov/arcpedia", label: "Source", external: true },
     ],
   },
 ];
@@ -78,7 +78,7 @@ export function Footer() {
                 className="display"
                 style={{ fontSize: 20, letterSpacing: "-0.03em", fontWeight: 600 }}
               >
-                yopedia
+                arcpedia
               </span>
             </span>
             <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted)" }}>
@@ -116,12 +116,12 @@ export function Footer() {
           }}
         >
           <a
-            href="https://github.com/yologdev/yoyo"
+            href="https://github.com/MKonovalov/arcpedia"
             target="_blank"
             rel="noreferrer"
             className="hover:text-muted transition-colors"
           >
-            grown by yoyo
+            taken by MK
           </a>
           <span>© 2026 · the commons is public</span>
         </div>

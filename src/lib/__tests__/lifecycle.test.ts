@@ -755,7 +755,7 @@ describe("per-tenant silo mirror", () => {
     expect(mirrored).toContain("owner: Alice");
   });
 
-  it("ownerless pages mirror into the yopedia silo", async () => {
+  it("ownerless pages mirror into the arcpedia silo", async () => {
     await writeWikiPageWithSideEffects({
       slug: "seed",
       title: "Seed",
@@ -765,7 +765,7 @@ describe("per-tenant silo mirror", () => {
       crossRefSource: null,
     });
     expect(
-      await getStorage().fileExists("tenants/yopedia/wiki/seed.md"),
+      await getStorage().fileExists("tenants/arcpedia/wiki/seed.md"),
     ).toBe(true);
   });
 

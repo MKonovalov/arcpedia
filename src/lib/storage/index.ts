@@ -70,8 +70,8 @@ function getOpenNextCloudflareEnv(): CloudflareEnv | null {
     if (
       env &&
       typeof env === "object" &&
-      "YOPEDIA_BUCKET" in env &&
-      "YOPEDIA_CONFIG" in env
+      "arcpedia_BUCKET" in env &&
+      "arcpedia_CONFIG" in env
     ) {
       return env as unknown as CloudflareEnv;
     }

@@ -241,7 +241,7 @@ describe("POST /api/ingest/x-mention — service token auth", () => {
 
   it("accepts a valid service token when Clerk session is absent", async () => {
     mockedGetPrincipal.mockResolvedValue(null);
-    mockedGetServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedGetServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     mockedIngestXMention.mockResolvedValue(fakeResult);
 
     const res = await POST(
@@ -254,7 +254,7 @@ describe("POST /api/ingest/x-mention — service token auth", () => {
     expect(mockedIngestXMention).toHaveBeenCalledWith(
       "https://x.com/user/status/123",
       "@someone",
-      { author: "yopedia", owner: "yopedia" },
+      { author: "arcpedia", owner: "arcpedia" },
     );
   });
 
@@ -288,7 +288,7 @@ describe("POST /api/ingest/x-mention — service token auth", () => {
 
   it("prefers Clerk session when both are available", async () => {
     mockedGetPrincipal.mockResolvedValue({ id: "clerk-user", handle: "alice" });
-    mockedGetServicePrincipal.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+    mockedGetServicePrincipal.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
     mockedIngestXMention.mockResolvedValue(fakeResult);
 
     const res = await POST(
@@ -298,7 +298,7 @@ describe("POST /api/ingest/x-mention — service token auth", () => {
       }, "valid-service-token"),
     );
     expect(res.status).toBe(200);
-    // Clerk principal wins — author/owner should be "alice", not "yopedia"
+    // Clerk principal wins — author/owner should be "alice", not "arcpedia"
     expect(mockedIngestXMention).toHaveBeenCalledWith(
       "https://x.com/user/status/123",
       "@someone",

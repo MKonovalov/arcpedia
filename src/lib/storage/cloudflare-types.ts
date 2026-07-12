@@ -159,11 +159,11 @@ export interface Ai {
 
 export interface CloudflareEnv {
   /** R2 bucket for file storage (wiki pages, raw sources, assets) */
-  YOPEDIA_BUCKET: R2Bucket;
+  arcpedia_BUCKET: R2Bucket;
   /** KV namespace for derived indexes (config, query history, etc.) */
-  YOPEDIA_CONFIG: KVNamespace;
+  arcpedia_CONFIG: KVNamespace;
   /** Vectorize index for embedding search (optional — not all deployments need it) */
-  YOPEDIA_VECTORIZE?: VectorizeIndex;
+  arcpedia_VECTORIZE?: VectorizeIndex;
   /** Workers AI binding for embeddings (e.g. @cf/baai/bge-m3, optional) */
   AI?: Ai;
 }

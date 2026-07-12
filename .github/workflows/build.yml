@@ -74,7 +74,7 @@ jobs:
           fi
 
       - name: Run arc Build
-        uses: yologdev/arc-action@v1
+        uses: MKonovalov/arc-action@v1
         with:
           agent: build
           args: ${{ steps.issue.outputs.number }}

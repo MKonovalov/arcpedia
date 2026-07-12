@@ -995,7 +995,7 @@ describe("/api/wiki/routes route", () => {
         "# Pub\n\nbody",
       ),
     );
-    await writeWikiPage("seed", "# Seed\n\nbody"); // ownerless → yopedia
+    await writeWikiPage("seed", "# Seed\n\nbody"); // ownerless → arcpedia
     await writeWikiPage(
       "bob-priv",
       serializeFrontmatter(
@@ -1012,9 +1012,9 @@ describe("/api/wiki/routes route", () => {
     const { GET } = await import("../../app/api/wiki/routes/route");
     const map = (await (await GET()).json()) as Record<string, string>;
 
-    // Owner→tenant (lowercased), ownerless→yopedia; another user's private page
+    // Owner→tenant (lowercased), ownerless→arcpedia; another user's private page
     // is absent (readability-gated) so its slug can't leak.
-    expect(map).toEqual({ pub: "alice", seed: "yopedia" });
+    expect(map).toEqual({ pub: "alice", seed: "arcpedia" });
   });
 });
 

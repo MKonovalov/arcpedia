@@ -41,22 +41,22 @@ describe("resolveSharedUrl", () => {
 
 describe("buildBookmarklet", () => {
   it("opens the given origin's /save with the encoded current url + title", () => {
-    const bm = buildBookmarklet("https://yopedia.yolog.dev");
+    const bm = buildBookmarklet("https://arcpedia.arclumen.de");
     expect(bm.startsWith("javascript:")).toBe(true);
-    expect(bm).toContain("https://yopedia.yolog.dev/save?url=");
+    expect(bm).toContain("https://arcpedia.arclumen.de/save?url=");
     expect(bm).toContain("encodeURIComponent(location.href)");
     expect(bm).toContain("encodeURIComponent(document.title)");
     expect(bm).toContain("window.open(");
   });
 
   it("strips a trailing slash from the origin (no double slash before /save)", () => {
-    expect(buildBookmarklet("https://yopedia.yolog.dev/")).toContain(
-      "https://yopedia.yolog.dev/save?url=",
+    expect(buildBookmarklet("https://arcpedia.arclumen.de/")).toContain(
+      "https://arcpedia.arclumen.de/save?url=",
     );
   });
 
   it("produces a syntactically valid javascript: body (catches quote/paren slips)", () => {
-    const body = buildBookmarklet("https://yopedia.yolog.dev").replace(/^javascript:/, "");
+    const body = buildBookmarklet("https://arcpedia.arclumen.de").replace(/^javascript:/, "");
     // If a future edit unbalances a quote/paren, this throws at parse time —
     // something substring matching can't catch.
     expect(() => new Function(body)).not.toThrow();

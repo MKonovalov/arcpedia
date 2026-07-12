@@ -121,7 +121,7 @@ export function useGraphSimulation(
           const nodes: GraphNode[] = raw.nodes.map((n) => ({
             id: n.id,
             label: n.label,
-            tenant: n.tenant ?? "yopedia",
+            tenant: n.tenant ?? "arcpedia",
             linkCount: n.linkCount ?? 0,
             tags: n.tags ?? [],
             cluster: 0,

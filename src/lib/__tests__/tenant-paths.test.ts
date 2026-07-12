@@ -47,8 +47,8 @@ describe("legacy path helpers are unchanged (behavior-preserving)", () => {
 });
 
 describe("tenant path helpers", () => {
-  it("DEFAULT_TENANT is 'yopedia' (ownerless/seed content is the platform's)", () => {
-    expect(DEFAULT_TENANT).toBe("yopedia");
+  it("DEFAULT_TENANT is 'arcpedia' (ownerless/seed content is the platform's)", () => {
+    expect(DEFAULT_TENANT).toBe("arcpedia");
   });
 
   it("build storage-relative keys under tenants/<tenant>/…", () => {
@@ -72,7 +72,7 @@ describe("tenant path helpers", () => {
 
 describe("validateTenant — traversal guard", () => {
   it("accepts plausible handles", () => {
-    for (const t of ["yuanhao", "system", "yopedia", "a-b", "user123"]) {
+    for (const t of ["yuanhao", "system", "arcpedia", "a-b", "user123"]) {
       expect(() => validateTenant(t)).not.toThrow();
     }
   });

@@ -170,8 +170,8 @@ describe("reconcileSilos", () => {
     expect(result.total).toBe(1);
     expect(result.synced).toBe(1);
 
-    // DEFAULT_TENANT is "yopedia" — the fallback for ownerless pages.
-    expect(await getStorage().fileExists("tenants/yopedia/wiki/orphan.md")).toBe(
+    // DEFAULT_TENANT is "arcpedia" — the fallback for ownerless pages.
+    expect(await getStorage().fileExists("tenants/arcpedia/wiki/orphan.md")).toBe(
       true,
     );
   });

@@ -10,7 +10,7 @@ import { logger } from "@/lib/logger";
 // it can't be force-static) — verified to run on the Worker runtime.
 export const dynamic = "force-dynamic";
 
-export const alt = "A yopedia page";
+export const alt = "A arcpedia page";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -19,7 +19,7 @@ export const contentType = "image/png";
 // header for this: it's client-controlled, so a spoofed Host would aim the font
 // subrequest at an arbitrary origin and feed those bytes to Satori. localhost is
 // allowed only so local `wrangler dev` can serve the font.
-const SITE_ORIGIN = "https://yopedia.yolog.dev";
+const SITE_ORIGIN = "https://arcpedia.arclumen.de";
 
 // The node-constellation mark, inline so the image is self-contained (mirrors
 // the root opengraph-image).
@@ -91,11 +91,11 @@ export default async function ShareOgImage({
   // owner tenant — never leak a private/misattributed page's title to a crawler.
   const showRealTitle = Boolean(
     page &&
-      canReadFrontmatter(page.frontmatter, null) &&
-      handle.toLowerCase() === tenantForOwner(str(page.frontmatter.owner)),
+    canReadFrontmatter(page.frontmatter, null) &&
+    handle.toLowerCase() === tenantForOwner(str(page.frontmatter.owner)),
   );
 
-  const title = showRealTitle ? page!.title || slug : "yopedia";
+  const title = showRealTitle ? page!.title || slug : "arcpedia";
   const kicker = showRealTitle
     ? `${typeLabel(str(page!.frontmatter.type))} · @${handle}`
     : "a shared second brain for humans and agents";
@@ -134,7 +134,7 @@ export default async function ShareOgImage({
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <img src={MARK_URI} width={72} height={72} alt="" />
-          <div style={{ fontSize: 40, fontWeight: 700, letterSpacing: -1 }}>yopedia</div>
+          <div style={{ fontSize: 40, fontWeight: 700, letterSpacing: -1 }}>arcpedia</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
@@ -155,7 +155,7 @@ export default async function ShareOgImage({
 
         <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 24 }}>
           <div style={{ width: 13, height: 13, borderRadius: 7, background: "#4d6bfe" }} />
-          <span style={{ color: "#756f62" }}>yopedia.yolog.dev</span>
+          <span style={{ color: "#756f62" }}>arcpedia.arclumen.de</span>
           <span style={{ marginLeft: "auto", color: "#a59e8d" }}>growing in public</span>
         </div>
       </div>

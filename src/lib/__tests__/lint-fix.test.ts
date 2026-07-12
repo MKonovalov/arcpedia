@@ -684,7 +684,7 @@ describe("fixUnmigratedPage", () => {
     );
   });
 
-  it("adds all missing yopedia defaults to a bare page", async () => {
+  it("adds all missing arcpedia defaults to a bare page", async () => {
     mockedReadWikiPageWithFrontmatter.mockResolvedValue({
       slug: "bare-page",
       title: "Bare Page",
@@ -949,7 +949,7 @@ describe("fixLintIssue", () => {
     mockedReadWikiPageWithFrontmatter.mockImplementation(async (slug: string) =>
       slug === "some-slug"
         ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ({ title: "Some", body: "# Some\n\nBody.", frontmatter: { supersedes: "ghost" } } as any)
+        ({ title: "Some", body: "# Some\n\nBody.", frontmatter: { supersedes: "ghost" } } as any)
         : null,
     );
 
@@ -984,7 +984,7 @@ describe("fixLintIssue", () => {
 
     expect(result.success).toBe(true);
     expect(result.slug).toBe("old-page");
-    expect(result.message).toContain("yopedia defaults");
+    expect(result.message).toContain("arcpedia defaults");
     expect(mockedWriteWikiPageWithSideEffects).toHaveBeenCalledOnce();
   });
 });

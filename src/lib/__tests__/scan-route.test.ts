@@ -38,7 +38,7 @@ beforeEach(() => {
   vi.clearAllMocks();
   savedFlag = process.env.AUTONOMOUS_MAINTENANCE;
   delete process.env.AUTONOMOUS_MAINTENANCE;
-  mockedGetService.mockReturnValue({ id: "service:yopedia", handle: "yopedia" });
+  mockedGetService.mockReturnValue({ id: "service:arcpedia", handle: "arcpedia" });
   mockedScan.mockResolvedValue(SAMPLE);
   mockedRebuild.mockResolvedValue({});
   mockedPurge.mockResolvedValue(0);

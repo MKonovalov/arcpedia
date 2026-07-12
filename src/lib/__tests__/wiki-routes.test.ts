@@ -55,7 +55,7 @@ afterEach(async () => {
 // POST /api/wiki — manual page creation metadata
 // ---------------------------------------------------------------------------
 
-describe("POST /api/wiki — yopedia metadata", () => {
+describe("POST /api/wiki — arcpedia metadata", () => {
   // We import the route handler lazily so env vars are set first
   async function callPost(body: Record<string, unknown>) {
     const { POST } = await import("@/app/api/wiki/route");
@@ -67,7 +67,7 @@ describe("POST /api/wiki — yopedia metadata", () => {
     return POST(req);
   }
 
-  it("sets default yopedia frontmatter on new page", async () => {
+  it("sets default arcpedia frontmatter on new page", async () => {
     const res = await callPost({
       slug: "test-meta",
       content: "# Test Meta\n\nSome content.",
@@ -80,7 +80,7 @@ describe("POST /api/wiki — yopedia metadata", () => {
 
     const today = new Date().toISOString().slice(0, 10);
 
-    // Core yopedia fields
+    // Core arcpedia fields
     expect(fm.title).toBe("Test Meta");
     expect(fm.confidence).toBe(0.5);
     // Author/owner come from the authenticated session (mocked test-user).
@@ -217,7 +217,7 @@ describe("PUT /api/wiki/[slug] — contributors and updated", () => {
     return mod.PUT(req, { params: Promise.resolve({ slug }) });
   }
 
-  /** Create a page with full yopedia metadata so PUT has something to edit.
+  /** Create a page with full arcpedia metadata so PUT has something to edit.
    *  Defaults to a private page owned by "test-user" so the mocked principal
    *  (test-user) can body-write it — commons pages block human body writes. */
   async function seedPage(slug: string, fm: Frontmatter = {}) {
@@ -363,7 +363,7 @@ describe("PATCH /api/wiki/[slug] — metadata updates", () => {
     return mod.PATCH(req, { params: Promise.resolve({ slug }) });
   }
 
-  /** Create a page with full yopedia metadata so PATCH has something to edit. */
+  /** Create a page with full arcpedia metadata so PATCH has something to edit. */
   async function seedPage(slug: string, fm: Frontmatter = {}) {
     const today = new Date().toISOString().slice(0, 10);
     const defaults: Frontmatter = {
