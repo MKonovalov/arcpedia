@@ -30,11 +30,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out arc-evolve identity (public repo)
+      - name: Check out arc-evolve identity (private repo — needs a PAT)
         uses: actions/checkout@v6
         with:
           repository: mkonovalov/arc-evolve
           path: arc-evolve
+          token: ${{ secrets.ARC_EVOLVE_PAT }}
 
       - name: Build seed payload
         run: |
