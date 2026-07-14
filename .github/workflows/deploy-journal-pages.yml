@@ -14,15 +14,13 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: github-pages
+  group: deploy-journal
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -40,31 +38,19 @@ jobs:
         with:
           version: 9
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build journal site
         run: pnpm journal:build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to public journal repo (GitHub Pages)
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: journal-site/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          # PAT must have `repo` scope on the PUBLIC target repo.
+          # Stored as a GitHub secret in THIS (private) repo.
+          personal_token: ${{ secrets.PAGES_PAT }}
+          publish_dir: ./journal-site/dist
+          external_repository: MKonovalov/arcpedia-journal
+          publish_branch: gh-pages
+          commit_message: "deploy journal: ${{ github.sha }}"
