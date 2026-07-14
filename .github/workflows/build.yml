@@ -35,6 +35,7 @@ jobs:
           secrets: |
             ${{ vars.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
             ${{ vars.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
+            ${{ vars.SM_ARCPEDIA_GITHUB_TOKEN }} > ARCPEDIA_GITHUB_TOKEN
 
       - name: Generate bot token
         id: bot-token
@@ -89,4 +90,4 @@ jobs:
           agent: build
           args: ${{ steps.issue.outputs.number }}
           anthropic_api_key: ${{ env.ANTHROPIC_API_KEY }}
-          gh_token: ${{ steps.bot-token.outputs.token }}
+          gh_token: ${{ env.ARCPEDIA_GITHUB_TOKEN }}
