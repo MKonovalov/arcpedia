@@ -16,10 +16,10 @@ jobs:
           access_token: ${{ secrets.BWS_ACCESS_TOKEN }}
           cloud_region: eu
           secrets: |
-            ${{ secrets.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
-            ${{ secrets.SM_APP_ID }} > APP_ID
-            ${{ secrets.SM_APP_PRIVATE_KEY }} > APP_PRIVATE_KEY
-            ${{ secrets.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
+            ${{ vars.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
+            ${{ vars.SM_APP_ID }} > APP_ID
+            ${{ vars.SM_APP_PRIVATE_KEY }} > APP_PRIVATE_KEY
+            ${{ vars.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
 
       - name: Generate bot token
         id: bot-token
