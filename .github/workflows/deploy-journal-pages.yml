@@ -28,21 +28,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 9
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
+      # journal-site/build.mjs is pure Node stdlib — no install needed.
       - name: Build journal site
-        run: pnpm journal:build
+        run: node journal-site/build.mjs
 
       - name: Deploy to public journal repo (GitHub Pages)
         uses: peaceiris/actions-gh-pages@v4
