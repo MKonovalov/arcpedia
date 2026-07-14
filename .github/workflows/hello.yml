@@ -18,6 +18,7 @@ jobs:
           secrets: |
             ${{ vars.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
             ${{ vars.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
+            ${{ vars.SM_ARCPEDIA_GITHUB_TOKEN }} > ARCPEDIA_GITHUB_TOKEN
 
       - name: Generate bot token
         id: bot-token
@@ -32,16 +33,41 @@ jobs:
           token: ${{ steps.bot-token.outputs.token }}
 
       - name: Install arc
+        env:
+          GH_TOKEN: ${{ env.ARCPEDIA_GITHUB_TOKEN }}
         run: |
-          REPO="MKonovalov/arc-evolve"
-          LATEST=$(curl -fsSL "https://api.github.com/repos/$REPO/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+          REPO="mkonovalov/arc-evolve"
+          # arc-evolve is PRIVATE: the release API + asset download MUST be authenticated.
+          # The public /releases/download/... web CDN URL 404s for private repos even
+          # with a token, so resolve the asset id and pull it through the API instead.
+          LATEST=$(curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$REPO/releases/latest" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['tag_name'])")
           echo "Installing arc $LATEST..."
-          curl -fsSL "https://github.com/$REPO/releases/download/$LATEST/arc-$LATEST-x86_64-unknown-linux-gnu.tar.gz" -o /tmp/arc.tar.gz
+          ARCH=$(uname -m)
+          case "$ARCH" in
+            x86_64) TARGET="x86_64-unknown-linux-gnu" ;;
+            aarch64|arm64) TARGET="aarch64-unknown-linux-gnu" ;;
+            *) echo "Unsupported architecture: $ARCH"; exit 1 ;;
+          esac
+          ASSET="arc-$LATEST-$TARGET.tar.gz"
+          ASSET_ID=$(curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$REPO/releases/tags/$LATEST" \
+            | python3 -c "import sys,json; d=json.load(sys.stdin); print([a['id'] for a in d['assets'] if a['name']=='$ASSET'][0])")
+          curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/octet-stream" \
+            "https://api.github.com/repos/$REPO/releases/assets/$ASSET_ID" \
+            -o /tmp/arc.tar.gz
           tar xzf /tmp/arc.tar.gz -C /tmp
           mkdir -p "$HOME/.local/bin"
           cp /tmp/arc "$HOME/.local/bin/arc" || cp /tmp/arc-*/arc "$HOME/.local/bin/arc"
           chmod +x "$HOME/.local/bin/arc"
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Verify arc
         run: arc --version
