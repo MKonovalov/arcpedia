@@ -17,16 +17,14 @@ jobs:
           cloud_region: eu
           secrets: |
             ${{ vars.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
-            ${{ vars.SM_APP_ID }} > APP_ID
-            ${{ vars.SM_APP_PRIVATE_KEY }} > APP_PRIVATE_KEY
             ${{ vars.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
 
       - name: Generate bot token
         id: bot-token
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ env.APP_ID }}
-          private-key: ${{ env.APP_PRIVATE_KEY }}
+          app-id: ${{ vars.SM_APP_ID }}
+          private-key: ${{ vars.SM_APP_PRIVATE_KEY }}
 
       - name: Checkout
         uses: actions/checkout@v6
