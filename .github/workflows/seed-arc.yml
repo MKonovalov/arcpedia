@@ -9,9 +9,15 @@ name: Seed arc
 # weekly re-seed refreshes the content without changing the owner.
 #
 # Required config:
-#   - secret arcpedia_SERVICE_TOKEN  — must equal the Worker secret of the same name
+#   - secret arcpedia_SERVICE_TOKEN  — the arcpedia Worker service-principal token
+#       (set via GitHub repo secret on THIS repo; must equal the Worker secret of
+#       the same name). NOT a GitHub PAT — do not reuse ARCPEDIA_GITHUB_TOKEN.
 #   - (Worker secrets, set via wrangler) arcpedia_SERVICE_TOKEN + arcpedia_SERVICE_PRINCIPAL
-#   - optional repo variable arcpedia_URL (defaults to the production Worker URL)
+#   - repo variable arcpedia_URL — your production Worker URL. The default below is
+#       a placeholder; override it or the seed POST will hit the wrong deployment.
+#   - arc-evolve checkout uses ARCPEDIA_GITHUB_TOKEN (pulled from Bitwarden SM),
+#       which already has access to the private arc-evolve repo — no separate
+#       ARC_EVOLVE_PAT needed.
 
 on:
   schedule:
@@ -30,12 +36,21 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out arc-evolve identity (private repo — needs a PAT)
+      - name: Pull ARCPEDIA_GITHUB_TOKEN from Bitwarden
+        id: bws-secrets
+        uses: bitwarden/sm-action@v3.0.1
+        with:
+          access_token: ${{ secrets.BWS_ACCESS_TOKEN }}
+          cloud_region: eu
+          secrets: |
+            ${{ secrets.SM_ARCPEDIA_GITHUB_TOKEN }} > ARCPEDIA_GITHUB_TOKEN
+
+      - name: Check out arc-evolve identity (private repo — PAT from BWS)
         uses: actions/checkout@v6
         with:
           repository: mkonovalov/arc-evolve
           path: arc-evolve
-          token: ${{ secrets.ARC_EVOLVE_PAT }}
+          token: ${{ env.ARCPEDIA_GITHUB_TOKEN }}
 
       - name: Build seed payload
         run: |
@@ -86,11 +101,15 @@ jobs:
       - name: Seed arcpedia
         env:
           arcpedia_SERVICE_TOKEN: ${{ secrets.arcpedia_SERVICE_TOKEN }}
-          arcpedia_URL: ${{ vars.arcpedia_URL || 'https://arcpedia.yuanhao-li.workers.dev' }}
+          arcpedia_URL: ${{ vars.arcpedia_URL }}
         run: |
           set -euo pipefail
           if [ -z "${arcpedia_SERVICE_TOKEN:-}" ]; then
             echo "::error::arcpedia_SERVICE_TOKEN secret is not set"
+            exit 1
+          fi
+          if [ -z "${arcpedia_URL:-}" ]; then
+            echo "::error::arcpedia_URL repo variable is not set (point it at your production Worker URL)"
             exit 1
           fi
           code=$(curl -sS -o resp.json -w '%{http_code}' \
