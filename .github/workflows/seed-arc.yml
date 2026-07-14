@@ -104,17 +104,17 @@ jobs:
           arcpedia_URL: ${{ vars.arcpedia_URL }}
         run: |
           set -euo pipefail
-          if [ -z "${ARCPEDIA_SERVICE_TOKEN:-}" ]; then
-            echo "::error::ARCPEDIA_SERVICE_TOKEN secret is not set"
+          if [ -z "${arcpedia_SERVICE_TOKEN:-}" ]; then
+            echo "::error::arcpedia_SERVICE_TOKEN secret is not set"
             exit 1
           fi
-          if [ -z "${ARCPEDIA_URL:-}" ]; then
-            echo "::error::ARCPEDIA_URL repo variable is not set (point it at your production Worker URL)"
+          if [ -z "${arcpedia_URL:-}" ]; then
+            echo "::error::arcpedia_URL repo variable is not set (point it at your production Worker URL)"
             exit 1
           fi
           code=$(curl -sS -o resp.json -w '%{http_code}' \
-            -X POST "$ARCPEDIA_URL/api/agents/seed" \
-            -H "Authorization: Bearer $ARCPEDIA_SERVICE_TOKEN" \
+            -X POST "$arcpedia_URL/api/agents/seed" \
+            -H "Authorization: Bearer $arcpedia_SERVICE_TOKEN" \
             -H "Content-Type: application/json" \
             --data @payload.json)
           echo "HTTP $code"
