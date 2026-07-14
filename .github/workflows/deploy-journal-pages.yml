@@ -39,6 +39,10 @@ jobs:
           # Stored as a GitHub secret in THIS (private) repo.
           personal_token: ${{ secrets.PAGES_PAT }}
           publish_dir: ./journal-site/dist
+          # Coexist with arc-evolve's site on the SAME public repo: arcpedia's
+          # journal publishes under /journal and keeps arc-evolve's /arc-evolve.
+          destination_dir: journal
           external_repository: MKonovalov/arcpedia-journal
           publish_branch: gh-pages
+          keep_files: true
           commit_message: "deploy journal: ${{ github.sha }}"
