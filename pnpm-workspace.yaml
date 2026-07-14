@@ -1,3 +1,6 @@
+packages:
+  - '.'
+
 overrides:
   vite: ^7.3.2
   postcss: ^8.5.10
