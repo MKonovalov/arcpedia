@@ -24,12 +24,24 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
+      - name: Pull secrets from Bitwarden
+        id: bws-secrets
+        uses: bitwarden/sm-action@v3
+        with:
+          access_token: ${{ secrets.BWS_ACCESS_TOKEN }}
+          cloud_region: eu
+          secrets: |
+            ${{ vars.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
+            ${{ vars.SM_APP_ID }} > APP_ID
+            ${{ vars.SM_APP_PRIVATE_KEY }} > APP_PRIVATE_KEY
+            ${{ vars.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
+
       - name: Generate bot token
         id: bot-token
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          app-id: ${{ env.APP_ID }}
+          private-key: ${{ env.APP_PRIVATE_KEY }}
 
       - name: Checkout
         uses: actions/checkout@v6
@@ -61,5 +73,5 @@ jobs:
         with:
           agent: review
           args: ${{ github.event.pull_request.number }}
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ env.ANTHROPIC_API_KEY }}
           gh_token: ${{ steps.bot-token.outputs.token }}

@@ -27,12 +27,24 @@ jobs:
     if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'issue_comment' && github.event.issue.pull_request == null && contains(github.event.comment.body, 'Ask-Research:') }}
 
     steps:
+      - name: Pull secrets from Bitwarden
+        id: bws-secrets
+        uses: bitwarden/sm-action@v3
+        with:
+          access_token: ${{ secrets.BWS_ACCESS_TOKEN }}
+          cloud_region: eu
+          secrets: |
+            ${{ vars.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
+            ${{ vars.SM_APP_ID }} > APP_ID
+            ${{ vars.SM_APP_PRIVATE_KEY }} > APP_PRIVATE_KEY
+            ${{ vars.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
+
       - name: Generate bot token
         id: bot-token
         uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          app-id: ${{ env.APP_ID }}
+          private-key: ${{ env.APP_PRIVATE_KEY }}
 
       - name: Checkout
         uses: actions/checkout@v6
@@ -61,9 +73,9 @@ jobs:
       - name: Run arc Research
         uses: mkonovalov/arc-action@v1
         env:
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+          X_BEARER_TOKEN: ${{ env.X_BEARER_TOKEN }}
         with:
           agent: research
           args: ${{ github.event_name == 'issue_comment' && format('decision-discussion issue {0}', github.event.issue.number) || github.event_name == 'workflow_dispatch' && github.event.inputs.focus || '' }}
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ env.ANTHROPIC_API_KEY }}
           gh_token: ${{ steps.bot-token.outputs.token }}
