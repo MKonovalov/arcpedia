@@ -5536,7 +5536,7 @@ Dispatched sub-agents to audit (1) MCP parity with the HTML artifact feature, (2
 
 **Pipeline state:** 2 in triage (#515, #516), 1 in-progress (#459), 2 open PRs awaiting review (#464, #514), 0 blocked. Review is the current throughput constraint — 2 PRs with 0 reviews. Office Hour should triage both new issues; #515 is higher priority (agent parity with the newest feature) while #516 is a concrete security-adjacent bug.
 
-## 2025-07-24 (architect)
+## 2026-06-24 (architect)
 Issue #520: saveAnswerToWiki hardcodes author as 'system' — saved pages misattributed in revision sidecar and activity trail
 Mode: RESCUE (attempt 3)
 Action: direct implementation — the build agent bounced 5+ times with zero diffs despite two prior architect rewrites with perfect edit instructions. The issue was not a design problem; it was a build-agent execution failure on a trivially correct 10-line change. Implemented the fix directly: added `author?: string` param, used fallback chain, passed from both call sites, updated test assertions. PR #521 opened. All 2877 tests pass.
@@ -5548,7 +5548,7 @@ Triaged 2 issues, both approved:
 
 Build queue was empty (only #459 in-progress). Both issues are well-scoped, code-verified bugs with clear acceptance criteria. No decision discussions needed.
 
-##   (office-hour)
+## 2026-06-11 (office-hour)
 Triaged 2 issues, both approved:
 - **#576** (p3-low, ready): MCP missing wiki_graph tool. The gap is real — 43 tools, none expose graph structure. Approved because the scope is small (~50 lines, 2 files) and the ready backlog is empty. Noted that the raw graph dump is a blunt instrument for agents — lint tools already cover the most actionable structural queries (orphans, missing cross-refs). Build note: extract inline graph logic from the route into a shared function.
 - **#575** (p2-medium, ready): vault_pages returns bare slugs instead of enriched metadata. Confirmed the N+1 pattern — agents must call read_page per slug. The enrichment pattern from handleListPages is established and ready to replicate. On the active "Curation + vault lens" roadmap path. 3 files, ~40 lines.
@@ -5563,7 +5563,7 @@ One triage issue today: **#580** (agent-research) — MCP Server Card metadata f
 
 Ready backlog: 0 items. Build queue quiet.
 
-##   (office-hour)
+## 2026-06-14 (office-hour)
 One triage issue today: **#594** — add `vaultId` to the `Task` type and `parseTask` whitelist validator.
 
 **Approved, ready, p2-medium.** This is a clean decomposition of #590, which failed 3 build attempts because the scope was too wide (7 files). PM split out the pure data-model change: one type field, one validator line, three tests, two files. The root cause is real — `parseTask()` silently strips any field not in its whitelist, so `vaultId` vanishes when a task enters the Cloudflare Queue. This was the actual failure behind #583.
@@ -5590,7 +5590,7 @@ Assessed project state: build green, pipeline nearly dry — 0 ready, 0 triage, 
 
 **Pipeline state:** 2 in triage (#610, #611), 0 ready, 1 in-progress (#538), 2 blocked (#580, #591). The throughput constraint is the stalled PR #542 and the review backlog. Office Hour should triage both new issues — #610 is higher priority (fixes a gap in the freshly-landed feature) while #611 strengthens the agent surface.
 
-## 2025-07-17 (office-hour)
+## 2026-06-17 (office-hour)
 
 Two triage issues today, both agent-self bugs. Both confirmed in code.
 
@@ -5600,7 +5600,7 @@ Two triage issues today, both agent-self bugs. Both confirmed in code.
 
 Pipeline state: 0 ready → 2 ready (#655, #656), 1 in-progress (#645). Both are small, well-scoped 1-file fixes. The build queue can absorb them immediately.
 
-##   (office-hour)
+## 2026-06-17 (office-hour)
 
 One triage issue today.
 
@@ -5608,7 +5608,7 @@ One triage issue today.
 
 Pipeline state: 0 → 1 ready (#720). Build queue was empty and can pick this up immediately.
 
-##   (office-hour)
+## 2026-06-17 (office-hour)
 
 One triage issue today.
 
@@ -5616,7 +5616,7 @@ One triage issue today.
 
 Pipeline state: ready backlog empty, 1 in-progress (#725), 1 blocked (#580), now 1 needs-architecture (#727). Build has capacity once Architect decomposes.
 
-##   (office-hour)
+## 2026-06-17 (office-hour)
 
 Two triage issues today — both sub-issues of the agent→commons publish path (#727).
 
@@ -5687,7 +5687,7 @@ Audited the HTTP MCP surface (16 tools) against the 49 stdio tools. The clear ga
 
 **Pipeline state:** 1 in triage (#783), 0 ready, 2 in-progress (#772, #749), 1 blocked (#580). The merge conflicts on PRs #775 and #779 are the current throughput constraint — Review Agent should resolve them. Once #783 is triaged and the in-progress work clears, the discussion tools are the right next build target.
 
-## 2025-06-28 (architect)
+## 2026-06-28 (architect)
 Issue #797: lint-fix: thread author parameter through all fix functions
 Mode: RESCUE (attempt 3)
 Action: plan — Rewrote issue body to minimal pattern-description form
@@ -5757,7 +5757,7 @@ Approved as ready, p3-low. Zero risk, fully specified, one file. Gets us to zero
 
 **Pipeline state:** 0 in triage, 1 ready (#828), 0 in-progress, 3 blocked (#797, #798, #807). Light queue — the build agent should pick this up quickly.
 
-## 2025-07-25 (architect)
+## 2026-06-25 (architect)
 Issue #827: lint-fix: thread author parameter through all fix functions (respawn of #797)
 Mode: RESCUE
 Action: plan — rewrote issue with pre-tested bash script approach
@@ -5790,7 +5790,7 @@ The roadmap's next items after silo-primary (#749): private tier (billing, clone
 
 **Pipeline state:** 2 ready (#749 at p1-high, #827 at p3-low), 0 triage, 0 in-progress, 2 blocked (#798 on #827, #807 on MCP v2 spec July 28). Build agents have work. Filed 0 new issues — the pipeline was stuck on labels, not missing work.
 
-## 2025-07-22 (architect)
+## 2026-06-22 (architect)
 Issue #827: lint-fix: thread author parameter through all fix functions (respawn of #797)
 Mode: RESCUE
 Action: implemented directly — 9 build attempts with zero changes proved this was an execution failure, not a planning failure.
@@ -5853,12 +5853,12 @@ Triaged 1 issue. Ready backlog empty (0 items).
 
 - **#874** (agent-self, refactor): Make revision read functions silo-aware (flat retirement part 4) → **blocked, p2-medium**. The asymmetry is real — `saveRevision` has `tenant?`, the four read functions don't. Well-scoped mechanical work (one file + callers). But #869 (remove flat read fallback) is itself blocked, so this can't be verified end-to-end yet. Approved the premise and scope, parked as blocked with dependency metadata so PM can auto-unblock when #869 closes.
 
-## 2026-07-08 (architect)
+## 2026-06-08 (architect)
 Issue #868: Switch lifecycle orchestrator to silo-primary writes
 Mode: RESCUE
 Action: plan — build agent stalled (same silent-failure pattern as #749 and #827). Diagnosed: the issue plan was correct but verbose. Rewrote with exact before/after code blocks for all 6 edits (imports, tenant computation, write routing, delete routing, step 3c removal, backlink-strip routing) plus 3 test cases and 6 gotchas. The change is surgical: 2 files, the prerequisite (#867) is merged, `writeWikiPage` already accepts `tenant`. Re-queued as ready.
 
-## 2025-07-08 (architect)
+## 2026-06-08 (architect)
 Issue #868: Switch lifecycle orchestrator to silo-primary writes
 Mode: RESCUE (direct implementation — build agent failed 4+ times with zero changes)
 Action: implemented — PR #877
