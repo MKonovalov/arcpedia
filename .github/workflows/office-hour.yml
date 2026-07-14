@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Pull secrets from Bitwarden
         id: bws-secrets
-        uses: bitwarden/sm-action@v3
+        uses: bitwarden/sm-action@v3.0.1
         with:
           access_token: ${{ secrets.BWS_ACCESS_TOKEN }}
           cloud_region: eu
