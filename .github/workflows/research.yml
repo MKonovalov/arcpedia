@@ -36,7 +36,7 @@ jobs:
           secrets: |
             ${{ vars.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
             ${{ vars.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
-            ${{ vars.SM_ARCPEDIA_GITHUB_TOKEN }} > ARCPEDIA_GITHUB_TOKEN
+            ${{ secrets.SM_ARCPEDIA_GITHUB_TOKEN }} > ARCPEDIA_GITHUB_TOKEN
 
       - name: Generate bot token
         id: bot-token
