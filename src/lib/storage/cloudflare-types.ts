@@ -162,6 +162,10 @@ export interface CloudflareEnv {
   arcpedia_BUCKET: R2Bucket;
   /** KV namespace for derived indexes (config, query history, etc.) */
   arcpedia_CONFIG: KVNamespace;
+  /** KV namespace for the BM25 search-token cache (full-body tokenizations,
+   * keyed by page slug). Separate from arcpedia_CONFIG so bulk search-cache
+   * churn doesn't perturb the small config blobs. */
+  arcpedia_SEARCH?: KVNamespace;
   /** Vectorize index for embedding search (optional — not all deployments need it) */
   arcpedia_VECTORIZE?: VectorizeIndex;
   /** Workers AI binding for embeddings (e.g. @cf/baai/bge-m3, optional) */

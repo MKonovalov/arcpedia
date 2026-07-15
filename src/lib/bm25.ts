@@ -1,5 +1,7 @@
 import { readWikiPage } from "./wiki";
+import { getStorage } from "./storage";
 import type { IndexEntry } from "./types";
+import type { SearchTokenCacheEntry } from "./storage/types";
 import { BM25_K1, BM25_B, TITLE_BOOST } from "./constants";
 import { logger } from "./logger";
 
@@ -141,20 +143,56 @@ export async function buildCorpusStats(
 
   for (const entry of entries) {
     let text = `${entry.title} ${entry.summary}`;
+    let tokens: string[] | undefined;
 
     if (useFullBody) {
+      // Cache-or-read: re-tokenizing every page body on each query is the
+      // dominant cost at scale. We cache the tokenized `title + body` in the
+      // SEARCH KV (Cloudflare) / `.indexes/search/` (fs), keyed by slug and
+      // invalidated by the page's etag. A cache hit skips both the page read
+      // and the tokenization; a miss falls back to exactly the prior behavior
+      // (read page → tokenize → populate cache for next time).
       try {
-        const page = await readWikiPage(entry.slug);
-        if (page) {
-          text = `${entry.title} ${page.content}`;
+        const storage = getStorage();
+        const etag = await storage.headEtag(entry.slug);
+        if (etag !== null) {
+          const cached = await storage.getSearchTokenCache(entry.slug);
+          if (cached && cached.etag === etag) {
+            tokens = cached.tokens;
+          } else {
+            const page = await readWikiPage(entry.slug);
+            if (page) {
+              text = `${entry.title} ${page.content}`;
+              tokens = tokenize(text);
+              const cacheEntry: SearchTokenCacheEntry = { etag, tokens };
+              await storage
+                .putSearchTokenCache(entry.slug, cacheEntry)
+                .catch((err) => {
+                  // Caching is a pure optimization — never fail the query on it.
+                  logger.warn(
+                    "query",
+                    `putSearchTokenCache failed for "${entry.slug}":`,
+                    err,
+                  );
+                });
+            }
+          }
+        } else {
+          // Page missing — fall back to title + summary, no cache write.
+          logger.warn("query", `headEtag returned null for "${entry.slug}"`);
         }
       } catch (err) {
-        logger.warn("query", `buildCorpusStats failed to read page "${entry.slug}":`, err);
-        // Fall back to title + summary if page can't be read
+        logger.warn("query", `search cache read failed for "${entry.slug}":`, err);
+        // Fall through to the title+summary path below.
       }
     }
 
-    const tokens = tokenize(text);
+    // When we didn't resolve tokens from cache or page (missing page, cache
+    // disabled, or any error), tokenize the title + summary fallback text.
+    if (tokens === undefined) {
+      tokens = tokenize(text);
+    }
+
     docTokens.set(entry.slug, tokens);
     titleTokens.set(entry.slug, tokenize(entry.title));
     totalLen += tokens.length;

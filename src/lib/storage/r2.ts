@@ -26,7 +26,9 @@ import type {
   KVNamespace,
   VectorizeIndex,
 } from "./cloudflare-types";
+import type { SearchTokenCacheEntry } from "./types";
 import { logger } from "../logger";
+import { wikiRelPath } from "../wiki";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -48,11 +50,13 @@ const EMBEDDINGS_KV_KEY = "_idx:embeddings";
 export class R2StorageProvider implements StorageProvider {
   private readonly bucket: R2Bucket;
   private readonly kv: KVNamespace;
+  private readonly searchKv: KVNamespace | undefined;
   private readonly vectorize: VectorizeIndex | undefined;
 
   constructor(env: CloudflareEnv) {
     this.bucket = env.arcpedia_BUCKET;
     this.kv = env.arcpedia_CONFIG;
+    this.searchKv = env.arcpedia_SEARCH;
     this.vectorize = env.arcpedia_VECTORIZE;
   }
 
@@ -234,6 +238,38 @@ export class R2StorageProvider implements StorageProvider {
     } while (cursor);
 
     return keys;
+  }
+
+  // -------------------------------------------------------------------------
+  // Search token cache (BM25 full-body scaling)
+  // -------------------------------------------------------------------------
+
+  private searchKey(slug: string): string {
+    return `search:${slug}`;
+  }
+
+  async headEtag(slug: string): Promise<string | null> {
+    const head = await this.bucket.head(wikiRelPath(`${slug}.md`));
+    return head !== null ? head.httpEtag : null;
+  }
+
+  async getSearchTokenCache(
+    slug: string,
+  ): Promise<SearchTokenCacheEntry | null> {
+    // The dedicated SEARCH KV is the cache; without it we can't serve a
+    // cached entry, so the BM25 path re-tokenizes from the page (still
+    // correct — just slower). Never throw on a missing binding.
+    if (!this.searchKv) return null;
+    const value = await this.searchKv.get(this.searchKey(slug), "json");
+    return (value as SearchTokenCacheEntry) ?? null;
+  }
+
+  async putSearchTokenCache(
+    slug: string,
+    entry: SearchTokenCacheEntry,
+  ): Promise<void> {
+    if (!this.searchKv) return;
+    await this.searchKv.put(this.searchKey(slug), JSON.stringify(entry));
   }
 
   // -------------------------------------------------------------------------

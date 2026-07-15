@@ -96,6 +96,29 @@ export interface EmbeddingMatch {
 }
 
 // ---------------------------------------------------------------------------
+// Search token cache (BM25 full-body scaling)
+// ---------------------------------------------------------------------------
+
+/**
+ * Cached BM25 tokenization for a single wiki page.
+ *
+ * `buildCorpusStats` with `fullBody: true` tokenizes every page's full body.
+ * At wiki scale (thousands of docs) re-reading and re-tokenizing on every
+ * query is the dominant cost, so we cache the tokenized form. The cache is
+ * invalidated by the page's opaque etag (from {@link headEtag}); when the page
+ * changes, the etag changes and we re-tokenize and rewrite the cache entry.
+ *
+ * Stored in the dedicated `arcpedia_SEARCH` KV namespace (Cloudflare) or the
+ * `.indexes/search/` directory (filesystem), never in the page's own bucket.
+ */
+export interface SearchTokenCacheEntry {
+  /** Opaque version tag from `headEtag` at tokenization time. */
+  etag: string;
+  /** Tokenized `title + " " + body` (the same text BM25 scores). */
+  tokens: string[];
+}
+
+// ---------------------------------------------------------------------------
 // StorageProvider interface
 // ---------------------------------------------------------------------------
 
@@ -278,4 +301,36 @@ export interface StorageProvider {
    * but it must never throw.
    */
   clearEmbeddings(): Promise<void>;
+
+  // -------------------------------------------------------------------------
+  // Search token cache (BM25 full-body scaling)
+  // -------------------------------------------------------------------------
+
+  /**
+   * Cheap opaque version tag for a wiki page, used to invalidate the search
+   * token cache. Must change whenever the page content changes so a stale
+   * cache entry is detected. Implementations use R2 `head` etag / file
+   * mtime+size. Returns `null` when the page does not exist.
+   *
+   * @param slug — the wiki page slug
+   */
+  headEtag(slug: string): Promise<string | null>;
+
+  /**
+   * Read the cached BM25 tokenization for a wiki page, or `null` when absent.
+   * Used by `buildCorpusStats(fullBody: true)` to skip re-reading and
+   * re-tokenizing every page on each query.
+   *
+   * @param slug — the wiki page slug
+   * @returns the cached entry (with the etag it was tokenized under), or null
+   */
+  getSearchTokenCache(slug: string): Promise<SearchTokenCacheEntry | null>;
+
+  /**
+   * Write the tokenized body for a wiki page into the search cache.
+   *
+   * @param slug — the wiki page slug
+   * @param entry — tokenization + the etag it was computed under
+   */
+  putSearchTokenCache(slug: string, entry: SearchTokenCacheEntry): Promise<void>;
 }

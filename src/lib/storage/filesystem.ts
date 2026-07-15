@@ -9,7 +9,6 @@
 
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-
 import type {
   StorageProvider,
   FileInfo,
@@ -17,7 +16,9 @@ import type {
   FileEntry,
   EmbeddingEntry,
   EmbeddingMatch,
+  SearchTokenCacheEntry,
 } from "./types";
+import { wikiRelPath } from "../wiki";
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -232,6 +233,56 @@ export class FilesystemStorageProvider implements StorageProvider {
       }
       throw err;
     }
+  }
+
+  // -------------------------------------------------------------------------
+  // Search token cache (BM25 full-body scaling)
+  // -------------------------------------------------------------------------
+
+  /** Path for a page's cached tokenization: `.indexes/search/<slug>.json`. */
+  private searchCachePath(slug: string): string {
+    return this.resolve(path.join(".indexes", "search", `${slug}.json`));
+  }
+
+  async headEtag(slug: string): Promise<string | null> {
+    try {
+      const st = await fs.stat(this.resolve(wikiRelPath(`${slug}.md`)));
+      return `${st.mtime.getTime()}-${st.size}`;
+    } catch (err: unknown) {
+      if (
+        err instanceof Error &&
+        "code" in err &&
+        (err as NodeJS.ErrnoException).code === "ENOENT"
+      ) {
+        return null;
+      }
+      throw err;
+    }
+  }
+
+  async getSearchTokenCache(slug: string): Promise<SearchTokenCacheEntry | null> {
+    try {
+      const raw = await fs.readFile(this.searchCachePath(slug), "utf-8");
+      return JSON.parse(raw) as SearchTokenCacheEntry;
+    } catch (err: unknown) {
+      if (
+        err instanceof Error &&
+        "code" in err &&
+        (err as NodeJS.ErrnoException).code === "ENOENT"
+      ) {
+        return null;
+      }
+      throw err;
+    }
+  }
+
+  async putSearchTokenCache(
+    slug: string,
+    entry: SearchTokenCacheEntry,
+  ): Promise<void> {
+    const abs = this.searchCachePath(slug);
+    await this.ensureParent(abs);
+    await fs.writeFile(abs, JSON.stringify(entry), "utf-8");
   }
 
   // -------------------------------------------------------------------------

@@ -17,6 +17,12 @@
 interface Env {
   arcpedia_URL?: string;
   arcpedia_SERVICE_TOKEN?: string;
+  // Cloudflare Access service-token (Client ID + Secret) used to satisfy the
+  // Access login on the protected custom domain. Only needed when arcpedia_URL
+  // sits behind an Access app — lets this worker hit /api/tasks/run without a
+  // browser login. Get these from Zero Trust → Access → Service Tokens.
+  arcpedia_ACCESS_ID?: string;
+  arcpedia_ACCESS_SECRET?: string;
 }
 
 // Minimal Cloudflare Queues consumer types (avoid pulling @cloudflare/workers-types).
@@ -39,6 +45,7 @@ async function runTask(
   base: string,
   token: string,
   message: QueueMessage,
+  access?: { id: string; secret: string },
 ): Promise<void> {
   let res: Response;
   try {
@@ -47,6 +54,15 @@ async function runTask(
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        // Satisfy Cloudflare Access on a protected custom domain so this
+        // worker-to-worker call skips the browser login. Present only when the
+        // service token is configured.
+        ...(access
+          ? {
+              "CF-Access-Client-Id": access.id,
+              "CF-Access-Client-Secret": access.secret,
+            }
+          : {}),
       },
       body: JSON.stringify(message.body),
     });
@@ -87,8 +103,12 @@ export default {
 
     // Sequential (not Promise.all): each task triggers an LLM call in the main
     // app; serial processing keeps us within provider rate limits.
+    const access =
+      env.arcpedia_ACCESS_ID && env.arcpedia_ACCESS_SECRET
+        ? { id: env.arcpedia_ACCESS_ID, secret: env.arcpedia_ACCESS_SECRET }
+        : undefined;
     for (const message of batch.messages) {
-      await runTask(base, token, message);
+      await runTask(base, token, message, access);
     }
   },
 

@@ -40,6 +40,14 @@
 		{
 			"binding": "arcpedia_CONFIG",
 			"id": "08c7a60ddc7541c5b4df88030a5d3b42"
+		},
+		{
+			// BM25 search-token cache (full-body tokenizations, keyed by slug).
+			// Repurposed from the orphaned ARCPEDIA_SEARCH namespace so the LLM
+			// query path stops re-reading + re-tokenizing every page on each
+			// query — a scaling liability at thousands of docs.
+			"binding": "arcpedia_SEARCH",
+			"id": "4495ffb8b3174d5097058c6362f79f70"
 		}
 	],
 	// --- Vectorize: Semantic search embeddings (optional) ---
@@ -80,7 +88,7 @@
 	// deterministic janitorial fixes). Anything other than "on" = dry-run.
 	// See workers/task-consumer/README.md.
 	"vars": {
-		"NEXT_PUBLIC_OWNER_HANDLE": "yuanhao",
+		"NEXT_PUBLIC_OWNER_HANDLE": "arcpedia",
 		"AUTONOMOUS_MAINTENANCE": "on"
 	}
 }
