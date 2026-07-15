@@ -4,7 +4,7 @@
 # Prerequisites:
 #   - CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID set as env vars
 #     (or run `npx wrangler login` for interactive auth)
-#   - Node.js + pnpm installed (wrangler runs via npx)
+#   - Node.js v22+ + pnpm installed (pinned wrangler@^4 requires Node 22+)
 #
 # Usage:
 #   ./scripts/setup-cloudflare.sh
@@ -100,7 +100,7 @@ create_kv_namespace() {
 # ---------- Pre-flight checks ----------
 
 if ! command -v npx &>/dev/null; then
-  fail "npx not found. Install Node.js (v18+) first."
+  fail "npx not found. Install Node.js (v22+) first."
 fi
 
 # Verify wrangler auth — either token-based or interactive login

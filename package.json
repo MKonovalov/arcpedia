@@ -53,5 +53,6 @@
     "typescript": "^5",
     "vitest": "^3",
     "wrangler": "^4.92.0"
-  }
+  },
+  "packageManager": "pnpm@9.15.9+sha512.aARhQYk8ZvrQHAeSMRKOmvuJ74fiaR1p5NQO7iKJiClf1GghgbrlW1hBjDolO95lpQXsfF+UA+zlzDzTfc8lMQ=="
 }
