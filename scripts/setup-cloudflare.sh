@@ -36,6 +36,18 @@ ok()    { echo -e "${GREEN}✓${NC}  $*"; }
 warn()  { echo -e "${YELLOW}⚠${NC}  $*"; }
 fail()  { echo -e "${RED}✗${NC}  $*"; exit 1; }
 
+# Fail with an actionable message when a Cloudflare API call returns an
+# authentication/permission error — tells the operator exactly what to fix
+# instead of dumping the raw (and often misleading) wrangler stack.
+perm_fail() {
+  local op="$1"
+  echo -e "${RED}✗${NC}  $op failed: Cloudflare API token is missing the required permission."
+  info "Go to https://dash.cloudflare.com/profile/api-tokens, edit the token behind"
+  info "CLOUDFLARE_API_TOKEN, and add the permission for '$op' (Account scope, Edit)."
+  info "Then re-run this script — it is idempotent and will skip resources already created."
+  exit 1
+}
+
 extract_kv_id_from_create_output() {
   sed -n 's/.*id = "\([^"]*\)".*/\1/p' | head -n 1
 }
@@ -121,12 +133,17 @@ echo ""
 # ---------- 1. R2 Bucket ----------
 
 info "Creating R2 bucket: arcpedia-raw ..."
-if $WRANGLER r2 bucket create arcpedia-raw 2>&1 | tee /tmp/arcpedia-r2.log; then
+# wrangler prints a red [ERROR] on the expected "already exists" case; we
+# capture stderr to grep for it but suppress the scary noise from the live log.
+if $WRANGLER r2 bucket create arcpedia-raw 2>/tmp/arcpedia-r2.log; then
   ok "R2 bucket 'arcpedia-raw' created."
 else
   if grep -qi "already exists\|already been taken" /tmp/arcpedia-r2.log; then
     ok "R2 bucket 'arcpedia-raw' already exists — skipping."
+  elif grep -qi "Authentication error\|code: 10000\|code: 10004\|not have permission" /tmp/arcpedia-r2.log; then
+    perm_fail "R2 Buckets"
   else
+    cat /tmp/arcpedia-r2.log
     fail "Failed to create R2 bucket. See output above."
   fi
 fi
@@ -159,12 +176,17 @@ KV_SEARCH_ID="$KV_RESULT_ID"
 # ---------- 3. Vectorize Index ----------
 
 info "Creating Vectorize index: arcpedia-embeddings ..."
-if $WRANGLER vectorize create arcpedia-embeddings --dimensions 1536 --metric cosine 2>&1 | tee /tmp/arcpedia-vec.log; then
+if $WRANGLER vectorize create arcpedia-embeddings --dimensions 1536 --metric cosine 2>/tmp/arcpedia-vec.log; then
   ok "Vectorize index 'arcpedia-embeddings' created."
 else
   if grep -qi "already exists" /tmp/arcpedia-vec.log; then
     ok "Vectorize index 'arcpedia-embeddings' already exists — skipping."
+  elif grep -qi "Authentication error\|code: 10000\|not have permission" /tmp/arcpedia-vec.log; then
+    # 10000 = token valid but missing the Vectorize permission. This is the
+    # usual blocker when the token only has R2 + KV scopes.
+    perm_fail "Vectorize"
   else
+    cat /tmp/arcpedia-vec.log
     fail "Failed to create Vectorize index. See output above."
   fi
 fi
@@ -173,12 +195,15 @@ echo ""
 # ---------- 4. Pages Project ----------
 
 info "Creating Pages project: arcpedia ..."
-if $WRANGLER pages project create arcpedia --production-branch main 2>&1 | tee /tmp/arcpedia-pages.log; then
+if $WRANGLER pages project create arcpedia --production-branch main 2>/tmp/arcpedia-pages.log; then
   ok "Pages project 'arcpedia' created."
 else
   if grep -qi "already exists\|A project with this name already exists" /tmp/arcpedia-pages.log; then
     ok "Pages project 'arcpedia' already exists — skipping."
+  elif grep -qi "Authentication error\|code: 10000\|not have permission" /tmp/arcpedia-pages.log; then
+    perm_fail "Pages"
   else
+    cat /tmp/arcpedia-pages.log
     fail "Failed to create Pages project. See output above."
   fi
 fi
