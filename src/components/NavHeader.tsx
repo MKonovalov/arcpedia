@@ -15,6 +15,7 @@ import { isOwnerHandle } from "@/lib/owner";
 const primaryLinks = [
   { href: "/wiki", label: "Browse" },
   { href: "/query", label: "Ask" },
+  { href: "/docs", label: "Docs" },
   { href: "/ingest", label: "Ingest" },
   { href: "/save", label: "Save" },
 ];
@@ -31,6 +32,7 @@ function getActiveHref(pathname: string): string | null {
     pathname.startsWith("/u/")
   )
     return "/wiki";
+  if (pathname === "/docs" || pathname.startsWith("/docs/")) return "/docs";
   return null;
 }
 
