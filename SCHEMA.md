@@ -29,7 +29,9 @@ arc updates this document so future sessions inherit the convention. See
 ## Page conventions
 
 - Filenames are kebab-case slugs ending in `.md`. Slugs must match
-  `/^[a-z0-9][a-z0-9-]*$/` (enforced by `validateSlug()` in `src/lib/wiki.ts`).
+  `SAFE_SLUG_RE` (enforced by `validateSlug()` in `src/lib/wiki.ts`): letters
+  `a-z0-9` plus CJK, Hangul, and Kana unicode ranges, joined by single hyphens,
+  with no leading or trailing hyphen.
 - Every page starts with an H1 title (`# Title`).
 - Every page has a one-paragraph summary immediately after the H1. The index
   builder uses this paragraph as the page's catalog blurb.
@@ -39,8 +41,8 @@ arc updates this document so future sessions inherit the convention. See
   reproducing the source verbatim.
 - Cross-references between wiki pages use markdown links of the form
   `[Title](other-slug.md)` — relative, no leading slash, `.md` suffix
-  required. The `.md` suffix is what lets the graph builder
-  (`src/app/api/wiki/graph/route.ts`) detect inter-page edges.
+  required. The `.md` suffix is what lets `buildWikiGraph()`
+  (`src/lib/graph-build.ts`) detect inter-page edges.
 - Pages SHOULD link to at least one other page.
 - Pages SHOULD NOT self-link. Self-links are forbidden by the cross-reference
   policy and filtered out by `findRelatedPages()`.
@@ -60,7 +62,7 @@ These were added in Phase 1 of the arcpedia pivot.
 
 | Field | Type | Default | Set when | Consumed by |
 |-------|------|---------|----------|-------------|
-| `confidence` | number (0–1) | `0.7` (ingest) / `0.5` (create) | Initial ingest (deterministic default); preserved on re-ingest if existing value is higher | `low-confidence` lint check (flags pages below 0.3); wiki page view color-coded confidence badge |
+| `confidence` | number (0–1) | `0.7` (ingest) / `0.5` (create) | Initial ingest (deterministic default); preserved on re-ingest if existing value is higher | `low-confidence` lint check (flags pages below 0.55); wiki page view color-coded confidence badge |
 | `expiry` | ISO date string (YYYY-MM-DD) | 90 days from ingest | Initial ingest and re-ingest (always resets to 90 days from now) | `stale-page` lint check (flags pages past expiry); page view temporal range |
 | `valid_from` | ISO date string (YYYY-MM-DD) | Today (ingest date) | Initial ingest and re-ingest (always resets to today — the content is re-verified) | `stale-page` lint check (flags pages verified over 180 days ago); page view temporal range ("Verified May 2026 · Review by Oct 2026") |
 | `owner` | string (principal handle) | the acting user (`"system"` for legacy/MCP) | Set from the authenticated session on write (never client-supplied); preserved on re-ingest | Accountability; basis (with `contributors`) for the "Mine" personal lens |
@@ -98,7 +100,7 @@ temporal knowledge management.
 **Note:** The `authors` default is `"system"` (not `"arc"`) because the
 ingest operation is performed by the system on behalf of the user. Phase 4
 (agent identity) introduced proper agent attribution via the agent registry,
-`seedAgent()`, and MCP tools (`seed-agent`, `update-agent`, etc.).
+`seedAgent()`, and MCP tools (`seed_agent`, `update_agent`, etc.).
 
 **Sources format:** The `sources` field is a JSON-encoded string (since the
 frontmatter parser rejects nested YAML objects) containing an array of
@@ -196,7 +198,7 @@ by a different author reduces content size by more than 50%.
 - `GET /api/contributors/:handle` — single contributor profile
 
 **UI:** Contributor index page at `/wiki/contributors` lists all contributors
-with trust badges. Detail pages at `/wiki/contributors/:handle` show full stats
+with trust badges. Detail pages at `/u/:handle` show full stats
 (edit count, pages edited, comments, threads created, reverts if non-zero,
 first/last seen dates). `ContributorBadge` components on wiki pages link through
 to contributor detail pages.
@@ -578,7 +580,7 @@ Current checks performed by `lint()` in `src/lib/lint.ts`:
   re-ingested. Auto-fix: extends expiry by 90 days and refreshes
   `valid_from` to today.
 - **`low-confidence`** (info) — page's `confidence` frontmatter value is
-  below 0.3 (`LOW_CONFIDENCE_THRESHOLD` in `src/lib/lint-checks.ts`),
+  below 0.55 (`LOW_CONFIDENCE_THRESHOLD` in `src/lib/lint-checks.ts`),
   indicating the page needs more supporting sources. No auto-fix — requires
   ingesting additional sources to improve confidence.
 - **`duplicate-entity`** (warning) — two pages have overlapping titles or
@@ -603,8 +605,8 @@ Current checks performed by `lint()` in `src/lib/lint.ts`:
   talk page to resolve the dispute through discussion.
 - **`supersedes-dangling`** (warning) — page declares a `supersedes` field
   pointing to a slug that doesn't exist on disk. The supersession chain is
-  broken. No auto-fix — create the target page or remove the `supersedes`
-  field.
+  broken. Auto-fix: clears the dangling `supersedes` field via
+  `fixSupersededDangling()`.
 - **`incomplete-coverage`** (info) — LLM comparison of raw source content
   (`raw/<slug>.md`) against the corresponding wiki page (`wiki/<slug>.md`)
   flags cases where significant information from the source is absent from
@@ -623,7 +625,9 @@ Current checks performed by `lint()` in `src/lib/lint.ts`:
   2. **OpenAI** — `OPENAI_API_KEY` (default model: `gpt-4o`)
   3. **Google Generative AI** — `GOOGLE_GENERATIVE_AI_API_KEY` (default model:
      `gemini-2.0-flash`)
-  4. **Ollama** — `OLLAMA_BASE_URL` and/or `OLLAMA_MODEL`. Ollama is typically
+  4. **DeepSeek** — `DEEPSEEK_API_KEY`
+  5. **OpenRouter** — `OPENROUTER_API_KEY`
+  6. **Ollama** — `OLLAMA_BASE_URL` and/or `OLLAMA_MODEL`. Ollama is typically
      keyless; presence of either env var signals intent to use a local Ollama
      server (default model: `llama3.2`)
 - Override the default model for whichever provider wins with `LLM_MODEL`
@@ -644,10 +648,10 @@ sessions should pick from this list:
   via RRF. Batch rebuild of the full vector index is available via the Settings
   page (`/api/settings/rebuild-embeddings`).
   Anthropic-only users see no regression (pure BM25 fallback).
-- Lint auto-fix handles nine of sixteen checks (`orphan-page`, `stale-index`,
+- Lint auto-fix handles ten of sixteen checks (`orphan-page`, `stale-index`,
   `empty-page`, `broken-link`, `missing-crossref`, `contradiction`,
-  `missing-concept-page`, `stale-page`, `unmigrated-page`) via
-  `POST /api/lint/fix`.
+  `missing-concept-page`, `stale-page`, `unmigrated-page`,
+  `supersedes-dangling`) via `POST /api/lint/fix`.
   The `contradiction` fix uses the LLM to rewrite the affected page.
   The `missing-concept-page` fix generates a stub page via the LLM.
   The `broken-link` fix removes broken links from the source page.
@@ -655,15 +659,13 @@ sessions should pick from this list:
   refreshes `valid_from` to today.
   The `unmigrated-page` fix adds sensible arcpedia defaults (confidence 0.5,
   expiry 90 days out, authors `["system"]`).
-  The seven exceptions without auto-fix are: `low-confidence` (requires
+  The six exceptions without auto-fix are: `low-confidence` (requires
   ingesting additional sources), `duplicate-entity` (requires human judgment
   to merge), `uncited-claims` (requires adding citations or ingesting
   sources), `unresolved-discussions` (requires reviewing and resolving
   open threads on the talk page), `disputed-page` (requires resolving
-  the dispute through discussion), `supersedes-dangling` (requires
-  creating the target page or removing the supersedes field), and
-  `incomplete-coverage` (requires ingesting additional sources to
-  improve topic coverage).
+  the dispute through discussion), and `incomplete-coverage` (requires
+  ingesting additional sources to improve topic coverage).
 - Long documents are chunked at ingest time (12K chars per chunk ≈ 3K
   tokens) so they fit within provider context windows. Token counting is
   character-based (not tokenizer-exact), which is conservative but not
@@ -693,8 +695,8 @@ and `POST /api/ingest/x-mention` are implemented, along with the MCP tool
 which is blocked on deployment architecture.
 Phase 4 (agent identity as arcpedia pages) is **substantially complete** — the agent
 registry, context API, `seedAgent()` utility, `agent-identity` page type, scoped
-search, MCP tools (`seed-agent`, `list-agents`, `update-agent`, `delete-agent`,
-`agent-context`), and contributor profiles are implemented. Remaining Phase 4 work:
+search, MCP tools (`seed_agent`, `list_agents`, `update_agent`, `delete_agent`,
+`agent_context`), and contributor profiles are implemented. Remaining Phase 4 work:
 migrating arc's actual identity content into arcpedia pages and `grow.sh` integration.
 The schema will continue to evolve toward the full arcpedia model defined in
 [`arcpedia-concept.md`](arcpedia-concept.md). See arc.md for the phased roadmap.
@@ -832,7 +834,7 @@ above for the full description.
 
 **Trigger/notification system:** A research evaluation of trigger patterns for
 wiki change events is documented in [`DESIGN-triggers.md`](DESIGN-triggers.md).
-The recommendation is "watch" — arcpedia's 15 lint check types already detect
+The recommendation is "watch" — arcpedia's 16 lint check types already detect
 the most valuable change conditions deterministically; a structured trigger
 schema is proposed for when demand or the MCP Triggers & Events WG spec
 materializes. The preparatory step (exposing wiki pages as MCP resources with

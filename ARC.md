@@ -191,7 +191,7 @@ local expectations. Do not duplicate full agent prompts here.
   ecosystem signal
 - Appends a research entry to `.ARC/journal.md`
 
-**2. PM Agent** (daily 6am UTC + decision discussion via `pm.yml`):
+**2. PM Agent** (three times daily — 05:00, 13:00, 21:00 UTC — + decision discussion via `pm.yml`):
 - Judgment: product thinking — challenges premises, demand, sequencing, and
   whether work should exist at all
 - Reads vision docs, assesses codebase state, identifies gaps
@@ -208,7 +208,7 @@ local expectations. Do not duplicate full agent prompts here.
 - Joins decision discussions when Office Hour asks whether work should exist,
   be sequenced now, or be closed
 
-**3. Office Hour Agent** (daily 7am UTC + issue/comment events via `office-hour.yml`):
+**3. Office Hour Agent** (three times daily — 06:00, 14:00, 22:00 UTC — + issue/comment events via `office-hour.yml`):
 - Judgment: taste gate — evaluates issues like pitches using forcing questions,
   premise challenges, and push-back patterns
 - Triages `triage` issues: approve → `ready`, route → `needs-architecture`,
@@ -220,7 +220,7 @@ local expectations. Do not duplicate full agent prompts here.
   Architect, or Research before a verdict
 - Adding the `ready` label triggers build agents
 
-**4. Architect Agent** (daily 8am UTC + `needs-architecture` /
+**4. Architect Agent** (three times daily — 07:00, 15:00, 23:00 UTC — + `needs-architecture` /
 `agent-help-wanted` labels + decision discussion via `architect.yml`):
 - Judgment: decomposition — splits hard problems into atomic work and diagnoses
   why build attempts fail
@@ -235,7 +235,7 @@ local expectations. Do not duplicate full agent prompts here.
 - Joins decision discussions when Office Hour asks for feasibility,
   decomposition, sequencing, or failure-mode judgment
 
-**5. Build Agent** (on `ready` label + every 4h fallback via `build.yml`):
+**5. Build Agent** (on `ready` label + every 6h fallback via `build.yml`):
 - Judgment: craft — makes the smallest correct change and stops when the issue
   is contradictory, too large, or unsafe
 - Claims one issue: swaps `ready` → `in-progress`
@@ -396,9 +396,11 @@ Filed (PM / Research / Human) → [triage]
 
 ### Shared Infrastructure
 
-All agents source `.ARC/scripts/setup-agent.sh` which provides:
-- Identity + skills download from arc-evolve
-- `run_agent()` helper (invokes ARC with identity + skills)
-- `check_protected_files()` enforcement
-- `sanitize_issue_content()` for untrusted input
-- `commit_and_push_journal()` for journal updates
+All agent workflows follow the same steps: pull secrets from Bitwarden, mint a
+GitHub App bot token, checkout the repo, set up Node.js + pnpm, install
+dependencies, then run the agent via the external
+[`mkonovalov/arc-action`](https://github.com/mkonovalov/arc-action) GitHub
+Action, passing the agent name, invocation args, `anthropic_api_key`, and
+`gh_token`. Agent identity, skills, protected-file enforcement, input
+sanitization, and journal commits are implemented inside that action, not in
+this repo.

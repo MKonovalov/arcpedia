@@ -50,8 +50,7 @@ You only need **one** provider. The app auto-detects which key is set.
 
 | Variable | Description | Default |
 |---|---|---|
-| `LLM_WIKI_PROVIDER` | Force a specific provider (`anthropic`, `openai`, `google`, `ollama`) | Auto-detected |
-| `LLM_WIKI_MODEL` | Override the default model name | Provider default |
+| `LLM_MODEL` | Override the default model name | Provider default |
 | `EMBEDDING_MODEL` | Override the embedding model name | Provider default |
 | `PORT` | Server port inside the container | `3000` |
 

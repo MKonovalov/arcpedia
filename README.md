@@ -109,12 +109,12 @@ arcpedia/
 ├── SCHEMA.md                      # Wiki conventions and operations (LLM-readable)
 ├── arc.md                        # arc's operating manual + roadmap pointer
 ├── .github/workflows/
-│   ├── pm.yml                     # Daily 6am — file issues
-│   ├── office-hour.yml            # Daily 7am + on issue open — triage
-│   ├── build.yml                  # On 'ready' label + every 4h — implement
+│   ├── pm.yml                     # 3x daily (05:00/13:00/21:00 UTC) — file issues
+│   ├── office-hour.yml            # 3x daily (06:00/14:00/22:00 UTC) + on issue open — triage
+│   ├── build.yml                  # On 'ready' label + every 6h — implement
 │   ├── review.yml                 # On PR opened — code review
 │   ├── research.yml               # Sundays 9am — competitive scan
-│   └── architect.yml              # On 'help-wanted' + daily 8am — decompose hard issues
+│   └── architect.yml              # On 'needs-architecture'/'agent-help-wanted' label + 3x daily (07:00/15:00/23:00 UTC) — decompose hard issues
 ├── src/                           # Everything here was written by agents
 └── .arc/
     ├── arc.toml                  # Agent config (enabled/disabled, build commands)
@@ -177,6 +177,48 @@ gh workflow run pm.yml -f focus="search performance"
 ## Built With
 
 [arc](https://github.com/MKonovalov/arc-evolve) — A self-evolving coding agent. The engine is a Rust binary; identity, skills, and judgment are loaded at runtime from [arc-harness](https://github.com/MKonovalov/arc-harness). Agents run via [arc-action](https://github.com/MKonovalov/arc-action) on GitHub Actions.
+
+## Prerequisites
+
+- **Node.js 20+** (the Cloudflare deploy workflow builds on Node 22; the agent workflows run on Node 20 — either works for local dev).
+- **pnpm 9**, via [corepack](https://nodejs.org/api/corepack.html): `corepack enable` picks up the version pinned in `package.json` (`packageManager: pnpm@9.15.9`).
+- **At least one LLM provider key** — see the [Supported LLM providers](#supported-llm-providers) table above, or run a local [Ollama](https://ollama.com) server instead of an API key.
+- **Clerk auth keys** — `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` (see `.env.example`). Both are required even for read-only local use; the app returns a 500 without them. <!-- VERIFY: Clerk test-mode keys / how to obtain them for local dev are not documented in-repo -->
+
+## Testing
+
+Tests run on [Vitest](https://vitest.dev/):
+
+```bash
+pnpm test        # vitest run — executes every *.test.ts under src/**/__tests__/
+```
+
+Lint with ESLint:
+
+```bash
+pnpm lint
+```
+
+## Common Setup Issues
+
+- **App returns a 500 on every page** — Clerk auth is misconfigured. Both `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` must be set in `.env.local`, even for anonymous/read-only browsing.
+- **"No LLM provider configured" errors on ingest or query** — set at least one of `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY`, `DEEPSEEK_API_KEY`, `OPENROUTER_API_KEY`, or point `OLLAMA_BASE_URL` at a running local Ollama server.
+- **`pnpm install` fails or uses the wrong package manager** — run `corepack enable` first so the pinned `pnpm@9.15.9` is used instead of a system-wide npm/yarn.
+- **Wrong Node version errors during build** — use Node 20 or newer; the Cloudflare production build specifically targets Node 22 (see `.github/workflows/deploy-cloudflare.yml`).
+
+## Documentation
+
+- [`llm-wiki.md`](llm-wiki.md) — the founding prompt (immutable)
+- [`arcpedia-concept.md`](arcpedia-concept.md) — the living concept doc, marking what exists now vs. what's planned
+- [`PRODUCT.md`](PRODUCT.md) — product purpose, audience, and brand position
+- [`SCHEMA.md`](SCHEMA.md) — wiki conventions and operations (LLM-readable)
+- [`DESIGN.md`](DESIGN.md) / [`DESIGN-triggers.md`](DESIGN-triggers.md) — visual design context and trigger rules
+- [`ARC.md`](ARC.md) — arc's operating manual and roadmap pointer
+- [`DEPLOY.md`](DEPLOY.md) — self-hosting guide (Docker Compose or building from source)
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).
 
 ---
 

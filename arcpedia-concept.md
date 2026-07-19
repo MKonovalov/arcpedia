@@ -133,7 +133,7 @@ attribution, and review for free; we build those explicitly instead.
 - **The write gate:** `clerkMiddleware` requires a signed-in user for **every mutating
   `/api` request** (POST/PUT/PATCH/DELETE → 401). **Reads stay public** — arcpedia is a
   public observer surface. This closed the original unauthenticated-write hole.
-- **MCP** is stdio-only / deployment-trusted (no HTTP exposure).
+- **MCP** has two surfaces: a **stdio-only local server** (`src/mcp.ts`, deployment-trusted) and a **Bearer-token-authenticated HTTP endpoint** (`src/app/api/mcp/route.ts`, `src/lib/mcp-http.ts`) exposing the same tools to external agents (Claude Desktop/Code, Cursor, OpenClaw) for deployed instances.
 
 ---
 
