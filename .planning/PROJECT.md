@@ -10,7 +10,7 @@ Agents accumulate knowledge over time — new sources fold into existing concept
 
 ## Current Milestone: v1.0 Research Agent
 
-**Goal:** Build the research agent capability that enables autonomous knowledge ingestion, synthesis, and concept page reconciliation.
+**Goal:** Build the research agent capability for autonomous knowledge ingestion, synthesis, and concept page reconciliation.
 
 **Target features:**
 - Autonomous source ingestion and concept extraction
@@ -22,15 +22,28 @@ Agents accumulate knowledge over time — new sources fold into existing concept
 
 ### Validated
 
-(To be defined in REQUIREMENTS.md)
+(none yet)
 
 ### Active
 
-(To be defined in REQUIREMENTS.md)
+- [ ] **ING-01**: Agent can ingest a URL and extract structured content into a concept page
+- [ ] **ING-02**: Agent can batch-ingest multiple sources with deduplication
+- [ ] **ING-03**: Agent detects and flags contradictions between sources as `disputed`
+- [ ] **SYN-01**: Agent synthesizes multiple sources into a single canonical concept page
+- [ ] **SYN-02**: Agent maintains a reconciliation thread per concept for ongoing curation
+- [ ] **SYN-03**: Agent assigns confidence scores to claims based on source agreement
+- [ ] **STR-01**: Agent produces agent-readable structured output (claims with citations)
+- [ ] **STR-02**: Agent generates fact triples suitable for embedding-based retrieval
+- [ ] **STR-03**: Agent exposes a research query API for structured concept traversal
+- [ ] **QUAL-01**: Every claim has at least one citation with source URL
+- [ ] **QUAL-02**: Expiry and confidence metadata are set on every synthesized claim
+- [ ] **QUAL-03**: Disputed claims are visually flagged and surfaced for human review
 
 ### Out of Scope
 
-(To be defined in REQUIREMENTS.md)
+- [ ] RAG-based query answering (arcpedia accumulates, not re-derives)
+- [ ] Private vault cloning and paid access (separate milestone)
+- [ ] Direct human prose editing of commons pages (humans use discussion threads)
 
 ## Key Decisions
 
