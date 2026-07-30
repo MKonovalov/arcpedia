@@ -22,13 +22,12 @@ Agents accumulate knowledge over time — new sources fold into existing concept
 
 ### Validated
 
-(none yet)
+- [x] **ING-01**: Agent can ingest a URL and extract structured content into a concept page
+- [x] **ING-02**: Agent can batch-ingest multiple sources with deduplication
+- [x] **ING-03**: Agent detects and flags contradictions between sources as `disputed`
 
 ### Active
 
-- [ ] **ING-01**: Agent can ingest a URL and extract structured content into a concept page
-- [ ] **ING-02**: Agent can batch-ingest multiple sources with deduplication
-- [ ] **ING-03**: Agent detects and flags contradictions between sources as `disputed`
 - [ ] **SYN-01**: Agent synthesizes multiple sources into a single canonical concept page
 - [ ] **SYN-02**: Agent maintains a reconciliation thread per concept for ongoing curation
 - [ ] **SYN-03**: Agent assigns confidence scores to claims based on source agreement
