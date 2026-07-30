@@ -7,10 +7,10 @@ last_activity: 2026-07-30
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-07-30 — Milestone v1.0 Research Agent started
+Phase: 1 (Ingestion Pipeline) — Planned
+Plan: .planning/phases/01-ingestion/PLAN.md
+Status: Phase 1 planned, ready for execution
+Last activity: 2026-07-30 — Milestone v1.0 Research Agent initialized; Phase 1 planned
 
 ## Context
 
