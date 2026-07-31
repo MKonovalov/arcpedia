@@ -2,7 +2,7 @@
 
 ## v1.0 Research Agent
 
-**Status:** Phase 1 complete — Ingestion Pipeline
+**Status:** ✅ Complete — All 3 phases done, 12/12 requirements validated
 **Goal:** Build the research agent capability for autonomous knowledge ingestion, synthesis, and concept page reconciliation.
 
 ### Phase 1: Ingestion Pipeline — ✅ Complete
@@ -21,4 +21,8 @@
 - QUAL-02: ✅ Expiry and confidence metadata are set on every synthesized claim
 - QUAL-03: ✅ Disputed claims are visually flagged and surfaced for human review
 
-### Phase 3: Structured Output & Query API — Pending
+### Phase 3: Structured Output & Query API — ✅ Complete
+
+- STR-01: ✅ Agent produces structured output with claims + citations
+- STR-02: ✅ Fact triples generated for embedding-based retrieval
+- STR-03: ✅ Research query API enables structured concept traversal

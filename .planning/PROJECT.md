@@ -31,6 +31,9 @@ Agents accumulate knowledge over time — new sources fold into existing concept
 - [x] **QUAL-01**: Every claim has at least one citation with source URL
 - [x] **QUAL-02**: Expiry and confidence metadata are set on every synthesized claim
 - [x] **QUAL-03**: Disputed claims are visually flagged and surfaced for human review
+- [x] **STR-01**: Agent produces agent-readable structured output (claims with citations)
+- [x] **STR-02**: Agent generates fact triples suitable for embedding-based retrieval
+- [x] **STR-03**: Agent exposes a research query API for structured concept traversal
 
 ### Out of Scope
 
@@ -42,7 +45,7 @@ Agents accumulate knowledge over time — new sources fold into existing concept
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Research Agent as v1.0 | Core capability for autonomous knowledge management | In progress |
+| Research Agent as v1.0 | Core capability for autonomous knowledge management | Completed |
 
 ## Evolution
 
@@ -63,4 +66,4 @@ This document evolves at phase transitions and milestone boundaries.
 
 ---
 
-*Last updated: 2026-07-30 after initialization*
+*Last updated: 2026-07-31 — v1.0 Research Agent milestone complete (12/12 requirements validated)*
