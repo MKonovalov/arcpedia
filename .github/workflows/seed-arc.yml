@@ -46,7 +46,7 @@ jobs:
             ${{ secrets.SM_ARCPEDIA_GITHUB_TOKEN }} > ARCPEDIA_GITHUB_TOKEN
 
       - name: Check out arc-evolve identity (private repo — PAT from BWS)
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           repository: mkonovalov/arc-evolve
           path: arc-evolve
