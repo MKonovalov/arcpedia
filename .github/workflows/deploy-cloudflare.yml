@@ -40,9 +40,9 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        # Version is sourced from the "packageManager" field in package.json.
-        # Do NOT also set "version:" here — pnpm/action-setup@v4 aborts with
-        # ERR_PNPM_BAD_PM_VERSION when both are present.
+        with:
+          standalone: true
+          version: 9.15.9
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
