@@ -35,6 +35,9 @@ jobs:
             ${{ vars.SM_ANTHROPIC_API_KEY }} > ANTHROPIC_API_KEY
             ${{ vars.SM_X_BEARER_TOKEN }} > X_BEARER_TOKEN
             ${{ secrets.SM_ARCPEDIA_GITHUB_TOKEN }} > ARCPEDIA_GITHUB_TOKEN
+            ${{ vars.SM_OPENCODE_API_KEY }} > OPENCODE_API_KEY
+            ${{ vars.SM_NOUS_API_KEY }} > NOUS_API_KEY
+            ${{ vars.SM_ZAI_API_KEY }} > ZAI_API_KEY
 
       - name: Generate bot token
         id: bot-token
@@ -63,9 +66,9 @@ jobs:
       - name: Run arc Office Hour
         uses: mkonovalov/arc-action@v2.5
         env:
-          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          NOUS_API_KEY: ${{ secrets.NOUS_API_KEY }}
-          ZAI_API_KEY: ${{ secrets.ZAI_API_KEY }}
+          OPENCODE_API_KEY: ${{ env.OPENCODE_API_KEY }}
+          NOUS_API_KEY: ${{ env.NOUS_API_KEY }}
+          ZAI_API_KEY: ${{ env.ZAI_API_KEY }}
         with:
           agent: office-hour
           args: ${{ github.event_name == 'issue_comment' && format('decision-discussion issue {0}', github.event.issue.number) || '' }}
