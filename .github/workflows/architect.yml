@@ -70,7 +70,7 @@ jobs:
           git config user.email "arc[bot]@users.noreply.github.com"
 
       - name: Run arc Architect
-        uses: MKonovalov/arc-action@v2.2
+        uses: MKonovalov/arc-action@v2.3
         with:
           agent: architect
           args: ${{ github.event_name == 'issue_comment' && format('decision-discussion issue {0}', github.event.issue.number) || github.event_name == 'workflow_dispatch' && github.event.inputs.issue || github.event.issue.number || '' }}
