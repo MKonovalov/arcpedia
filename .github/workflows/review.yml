@@ -68,6 +68,10 @@ jobs:
 
       - name: Run arc Review
         uses: mkonovalov/arc-action@v2.5
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          NOUS_API_KEY: ${{ secrets.NOUS_API_KEY }}
+          ZAI_API_KEY: ${{ secrets.ZAI_API_KEY }}
         with:
           agent: review
           args: ${{ github.event.pull_request.number }}

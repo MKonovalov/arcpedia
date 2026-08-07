@@ -61,7 +61,11 @@ jobs:
         run: pnpm install --frozen-lockfile 2>/dev/null || pnpm install || true
 
       - name: Run arc Office Hour
-        uses: MKonovalov/arc-action@v2.5
+        uses: mkonovalov/arc-action@v2.5
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          NOUS_API_KEY: ${{ secrets.NOUS_API_KEY }}
+          ZAI_API_KEY: ${{ secrets.ZAI_API_KEY }}
         with:
           agent: office-hour
           args: ${{ github.event_name == 'issue_comment' && format('decision-discussion issue {0}', github.event.issue.number) || '' }}
