@@ -67,7 +67,7 @@ jobs:
           git config user.email "${SLUG}[bot]@users.noreply.github.com"
 
       - name: Run arc Review
-        uses: mkonovalov/arc-action@v1
+        uses: mkonovalov/arc-action@v2
         with:
           agent: review
           args: ${{ github.event.pull_request.number }}
