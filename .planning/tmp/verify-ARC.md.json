@@ -1,0 +1,14 @@
+{
+  "doc_path": "ARC.md",
+  "claims_checked": 19,
+  "claims_passed": 18,
+  "claims_failed": 1,
+  "failures": [
+    {
+      "line": 155,
+      "claim": "arc.md",
+      "expected": "file exists with matching case (git-tracked filename)",
+      "actual": "repository tracks this file as ARC.md (uppercase); git ls-files shows no 'arc.md' entry — the lowercase self-reference in the Directory Structure block only resolves locally due to the case-insensitive macOS filesystem, and would not match on a case-sensitive filesystem (e.g. Linux CI)"
+    }
+  ]
+}

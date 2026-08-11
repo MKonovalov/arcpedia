@@ -1,0 +1,14 @@
+{
+  "doc_path": "SCHEMA.md",
+  "claims_checked": 80,
+  "claims_passed": 79,
+  "claims_failed": 1,
+  "failures": [
+    {
+      "line": 700,
+      "claim": "grow.sh",
+      "expected": "file exists",
+      "actual": "no file named grow.sh found anywhere in the repository (only a skill directory .arc/skills/grow/SKILL.md exists, with no grow.sh script)"
+    }
+  ]
+}
