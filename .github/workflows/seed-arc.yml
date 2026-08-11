@@ -102,6 +102,13 @@ jobs:
         env:
           arcpedia_SERVICE_TOKEN: ${{ secrets.arcpedia_SERVICE_TOKEN }}
           arcpedia_URL: ${{ vars.arcpedia_URL }}
+          # Cloudflare Access Service Token — satisfies the Access "Bypass"
+          # policy (Step 2 in the CF dashboard) so the request reaches the
+          # Worker, where arcpedia_SERVICE_TOKEN is validated in-route
+          # (src/lib/auth.ts getServicePrincipal). Without these, Access 302s
+          # the request to its login page before the app ever sees it.
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
         run: |
           set -euo pipefail
           if [ -z "${arcpedia_SERVICE_TOKEN:-}" ]; then
@@ -112,12 +119,23 @@ jobs:
             echo "::error::arcpedia_URL repo variable is not set (point it at your production Worker URL)"
             exit 1
           fi
-          code=$(curl -sS -o resp.json -w '%{http_code}' \
+          if [ -z "${CF_ACCESS_CLIENT_ID:-}" ] || [ -z "${CF_ACCESS_CLIENT_SECRET:-}" ]; then
+            echo "::error::CF_ACCESS_CLIENT_ID / CF_ACCESS_CLIENT_SECRET secrets are not set (create a CF Access Service Token and add them as GitHub repo secrets)"
+            exit 1
+          fi
+          # -D resp.headers captures the response headers so a stray 3xx
+          # surfaces its 'location:' (proves Access is still blocking) instead
+          # of a silent failure.
+          code=$(curl -sS -o resp.json -D resp.headers -w '%{http_code}' \
             -X POST "$arcpedia_URL/api/agents/seed" \
-            -H "Authorization: Bearer $arcpedia_SERVICE_TOKEN" \
+            -H "Authorization: Bearer $arcpe...OKEN" \
             -H "Content-Type: application/json" \
+            -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
+            -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
             --data @payload.json)
           echo "HTTP $code"
+          cat resp.headers || true
+          echo
           cat resp.json || true
           echo
           if [ "$code" != "201" ]; then
