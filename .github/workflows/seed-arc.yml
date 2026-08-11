@@ -128,7 +128,7 @@ jobs:
           # of a silent failure.
           code=$(curl -sS -o resp.json -D resp.headers -w '%{http_code}' \
             -X POST "$arcpedia_URL/api/agents/seed" \
-            -H "Authorization: Bearer $arcpe...OKEN" \
+            -H "Authorization: Bearer ${arcp...KEN}" \
             -H "Content-Type: application/json" \
             -H "CF-Access-Client-Id: $CF_ACCESS_CLIENT_ID" \
             -H "CF-Access-Client-Secret: $CF_ACCESS_CLIENT_SECRET" \
